@@ -4,7 +4,9 @@ import MyFetch from "@/components/MyFetch.vue";
 
 <template>
   <main>
-    <MyFetch />
-    <h1>Hejs</h1>
+    <div class="mobile-container">
+      <MyFetch />
+      <h1>Hejs</h1>
+    </div>
   </main>
 </template>
