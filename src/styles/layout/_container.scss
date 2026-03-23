@@ -1,11 +1,26 @@
-.mobile-container {
-    margin: auto;
-    min-height: 700px;
-    max-width: 390px;
-    overflow-y: auto;
-    background-color: deeppink;
+.phone-wrapper {
+    position: relative;
+    width: 296px;
+    margin: 2rem auto;
 }
 
-.page-container {
-    padding: 0.75rem;
+.mobile-container {
+    position: relative;
+    z-index: 1;
+    height: 640px;
+    overflow-y: auto;
+    background-color: deeppink;
+    border-radius: 25px;
+}
+
+.mobile-frame {
+    margin: auto;
+    position: absolute;
+    top: -30px;
+    left: 0;
+    right: 0;
+    height: 104%;
+    object-fit: fill;
+    z-index: 10;
+    pointer-events: none;
 }
