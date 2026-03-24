@@ -13,4 +13,11 @@
     border: #000000 solid 8px;
 }
 
-.page-container {}
+.page-container {
+    margin: 1rem;
+
+    &__phone-status {
+        margin: 1rem auto;
+        width: 75%;
+    }
+}
