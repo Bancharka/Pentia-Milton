@@ -3,3 +3,27 @@ $font-primary: "Work Sans", sans-serif;
 body {
     font-family: $font-primary;
 }
+
+h1 {
+    font-size: 40px;
+    line-height: 47;
+    font-weight: 700;
+}
+
+h2 {
+    font-size: 24px;
+    line-height: 28;
+    font-weight: 600;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 21;
+    font-weight: 400;
+}
+
+h4 {
+    font-size: 16px;
+    line-height: 19;
+    font-weight: 300;
+}
