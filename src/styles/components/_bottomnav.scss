@@ -1,0 +1,46 @@
+@use "../abstracts/colors" as *;
+
+.bottom-nav {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 90%;
+  max-width: 400px;
+  height: 80px;
+
+  background: $secondary;
+  border-radius: 999px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
+  padding: 0 10px;
+
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.nav-item {
+  width: 60px;
+  height: 60px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: $white;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+
+  svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  &.active {
+    background: $white;
+    color: $secondary;
+  }
+}
