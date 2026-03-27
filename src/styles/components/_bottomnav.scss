@@ -1,16 +1,16 @@
 @use "../abstracts/colors" as *;
 
 .bottom-nav {
-  position: fixed;
+  position: absolute;
   bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
 
-  width: 90%;
-  max-width: 400px;
+  width: 95%;
+  max-width: 360px;
   height: 80px;
 
-  background: $secondary;
+  background: $primary;
   border-radius: 999px;
 
   display: flex;
@@ -41,6 +41,6 @@
 
   &.active {
     background: $white;
-    color: $secondary;
+    color: $primary;
   }
 }

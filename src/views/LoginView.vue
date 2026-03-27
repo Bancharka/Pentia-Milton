@@ -11,5 +11,22 @@ import BottomNav from "@/components/BottomNav.vue";
   <BaseButton text="Mig" variant="outline" link="/contact" />
 
   <LoginInput />
+
+  <BaseButton text="Klik" variant="primary" link="/home" />
+
+  <BaseButton text="På" variant="secondary" link="/about" />
+
+  <BaseButton text="Mig" variant="outline" link="/contact" />
+
+  <LoginInput />
+
+  <BaseButton text="Klik" variant="primary" link="/home" />
+
+  <BaseButton text="På" variant="secondary" link="/about" />
+
+  <BaseButton text="Mig" variant="outline" link="/contact" />
+
+  <LoginInput />
+  
   <BottomNav />
 </template>
