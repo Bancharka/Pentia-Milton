@@ -1,3 +1,5 @@
+@use "./colors" as *;
+
 $font-primary: "Work Sans", sans-serif;
 
 body {
@@ -21,5 +23,15 @@ h3 {
 
 h4 {
     font-size: 16px;
-    font-weight: 300;
+    font-weight: 500;
+}
+
+@mixin subheading {
+    font-size: 16px;
+    font-weight: 400;
+    color: $subheading;
+}
+
+.subheading {
+    @include subheading;
 }

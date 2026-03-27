@@ -1,0 +1,21 @@
+@use "../abstracts" as *;
+@use "../layout" as *;
+
+.housecard {
+    position: relative;
+    margin-bottom: $spacing-md;
+
+    &__img {
+        border-radius: 12px;
+    }
+
+    &__title {
+        position: absolute;
+        padding: 6px;
+        left: 6px;
+        right: 6px;
+        bottom: 6px;
+        background-color: $white;
+        border-radius: 12px;
+    }
+}
