@@ -1,0 +1,29 @@
+@use "../abstracts" as *;
+
+.welcome {
+    position: relative;
+
+    &__background {
+        z-index: -1;
+        height: 60vh;
+        object-fit: cover;
+        display: block;
+    }
+
+    &__container {
+        background-color: $white;
+        width: 110%;
+        margin-left: -5%;
+        border-radius: 50% 50% 0 0 / 20% 20% 0 0;
+        position: relative;
+        z-index: 1;
+        margin-top: -15vh;
+        height: 80vh;
+        box-shadow: 0 4px 10px 0 rgba(152, 152, 152, 0.76) inset;
+    }
+
+    &__title {
+        margin: auto;
+        text-shadow: 0 3px 4px rgba(0, 0, 0, 0.25);
+    }
+}
