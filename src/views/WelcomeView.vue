@@ -1,10 +1,9 @@
-<script setup>
-import MyFetch from "@/components/MyFetch.vue";
-</script>
+<script setup></script>
 
 <template>
-  <main>
-    <MyFetch />
+  <div class="welcome">
+    <img src="@/assets/img/house3.png" alt="hus" />
+    <div class="page-container"></div>
     <h1>Hejs</h1>
-  </main>
+  </div>
 </template>
