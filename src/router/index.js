@@ -16,7 +16,7 @@ const router = createRouter({
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import("../views/developers/HomeView.vue"),
-      meta: { title: 'Hjem' }
+      meta: { title: "Hjem" },
     },
     {
       path: "/login",
@@ -25,7 +25,7 @@ const router = createRouter({
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import("../views/LoginView.vue"),
-    }, //TODO add paths 
+    }, //TODO add paths
     {
       path: "/overview",
       name: "overview",
@@ -33,6 +33,14 @@ const router = createRouter({
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import("../views/OverviewView.vue"),
+    },
+    {
+      path: "/home-customer",
+      name: "home-customer",
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import("../views/customers/HomeViewCustomer.vue"),
     },
   ],
 });
