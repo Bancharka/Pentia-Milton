@@ -12,14 +12,25 @@
   max-width: 360px;
   border-radius: 25px;
   border: #000000 solid 8px;
-  overflow: hidden;
+
+  overflow: clip;
+  /* clips visually for border-radius but doesn't trap scroll events */
+
+  /* needed for border-radius */
+  /* Firefox needs this to allow child scrolling */
+  -moz-overflow: auto;
 }
 
 .page-container {
   margin: 1rem;
   height: 100%;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
+  overflow-y: scroll;
+  /* use scroll not auto */
+  padding-bottom: 120px;
+  box-sizing: border-box;
+  /* add this for Firefox */
+  scrollbar-width: none;
+  /* hides scrollbar in Firefox */
 }
 
 .phone-status {
