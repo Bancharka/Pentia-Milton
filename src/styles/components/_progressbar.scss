@@ -1,0 +1,27 @@
+@use "../abstracts/colors" as *;
+.progress_color {
+  position: absolute;
+  display: flex;
+  justify-self: left;
+
+  height: 60px;
+  border-radius: 50px;
+  background-color: $secondary;
+  z-index: -1;
+}
+
+.progress_overlay {
+  position: absolute;
+  justify-self: center;
+  width: 100%;
+}
+
+.progress-bar {
+  position: absolute;
+  bottom: 22%;
+  margin: auto;
+  border-radius: 30px;
+  width: 90%;
+  height: 60px;
+  overflow: hidden;
+}
