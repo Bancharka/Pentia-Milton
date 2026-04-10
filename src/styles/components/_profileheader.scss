@@ -1,0 +1,26 @@
+@use "../abstracts" as *;
+@use "../layout" as *;
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: $spacing-md;
+
+    &__img {
+        height: 150px;
+        width: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        flex-shrink: 0;
+    }
+
+    &__text {
+        color: $primary-font;
+    }
+
+    &__text p {
+        font-size: 12px;
+        font-weight: 300;
+    }
+}

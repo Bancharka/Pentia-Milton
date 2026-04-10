@@ -15,5 +15,6 @@ const title = computed(() => route.meta.title);
       <img src="@/assets/icons/back-arrow.svg" alt="back-arrow" />
     </button>
     <h2 class="header__title">{{ title }}</h2>
+    <div class="header__spacer"></div>
   </div>
 </template>
