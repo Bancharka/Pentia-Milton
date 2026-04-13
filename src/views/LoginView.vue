@@ -1,30 +1,15 @@
 <script setup>
 import BaseButton from "@/components/BaseButton.vue";
 import LoginInput from "@/components/LoginInput.vue";
-import BottomNav from "@/components/BottomNav.vue";
-import TodoCard from "@/components/TodoCard.vue";
 </script>
 <template>
-  <div class="todo-list">
-    <TodoCard task="Gør noget" />
-    <TodoCard task="Pap væg" />
-    <TodoCard task="Hammer noget" />
+  <img src="@/assets/img/house4.png" alt="hus" class="welcome__background" />
+  <div class="login">
+    <h1 class="login__title">Kom i gang</h1>
+    <div class="login__container">
+      <div class="login__input">
+        <LoginInput />
+      </div>
+    </div>
   </div>
-
-  <BaseButton text="Klik" variant="primary" link="/home" />
-
-  <BaseButton text="På" variant="secondary" link="/about" />
-
-  <BaseButton text="Mig" variant="outline" link="/contact" />
-
-  <LoginInput />
-
-  <BottomNav />
 </template>
-<script>
-export default {
-  components: {
-    TodoCard,
-  },
-};
-</script>

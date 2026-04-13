@@ -1,3 +1,24 @@
 @use "../abstracts" as *;
 
-.login {}
+.login {
+    position: relative;
+
+    &__title {
+        margin: 50% auto 0 auto;
+    }
+
+    &__container {
+        width: 100%;
+        background-color: $white;
+        border-radius: 50% 50% 0 0 / 20% 20% 0 0;
+        position: relative;
+        z-index: 1;
+        margin-top: 1.5rem;
+        height: 80vh;
+        box-shadow: 0 4px 10px 0 rgba(152, 152, 152, 0.76) inset;
+    }
+
+    &__input {
+        margin-top: 50%;
+    }
+}
