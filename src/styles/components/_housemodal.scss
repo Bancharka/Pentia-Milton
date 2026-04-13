@@ -1,0 +1,97 @@
+.house-modal {
+  position: absolute;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(170, 205, 212, 0.7);
+  backdrop-filter: blur(1px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+
+  &__content {
+    width: 100%;
+    max-width: 320px;
+    max-height: 85%;
+    overflow-y: auto;
+    background-color: #ffffff;
+    border-radius: 24px;
+    padding: 2rem 1.5rem;
+    position: relative;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  }
+
+  &__close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 48px;
+    height: 48px;
+    border: none;
+    border-radius: 50%;
+    background: #2f6f79;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+
+  &__title {
+    text-align: center;
+    color: #004e5a;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  &__section {
+    margin-bottom: 2rem;
+  }
+
+  &__heading {
+    color: #004e5a;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  &__person {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #dceff3;
+    border-radius: 18px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  &__person-info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__name {
+    font-size: 1.2rem;
+    color: #004e5a;
+    font-weight: 600;
+  }
+
+  &__email {
+    color: #004e5a;
+    opacity: 0.8;
+  }
+
+  &__avatar {
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+}
+
+.modal-fade-enter-active,
+.modal-fade-leave-active {
+  transition: opacity 0.25s ease;
+}
+
+.modal-fade-enter-from,
+.modal-fade-leave-to {
+  opacity: 0;
+}

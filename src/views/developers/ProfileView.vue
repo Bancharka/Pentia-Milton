@@ -1,12 +1,35 @@
 <script setup>
+import { ref } from "vue";
 import Header from "@/components/Header.vue";
 import BottomNav from "@/components/BottomNav.vue";
+import HouseModal from "@/components/modals/HouseModal.vue";
+
+const isHouseModalOpen = ref(false);
+
+const owners = ref([
+  {
+    name: "Sofie Madsen",
+    email: "Sofie_Madsen@gmail.dk",
+    image: "/images/profile1.jpg",
+  },
+  {
+    name: "Karsten Madsen",
+    email: "Karsten_Madsen@gmail.dk",
+    image: "/images/profile2.jpg",
+  },
+]);
+
+const manager = ref({
+  name: "Thomas Jensen",
+  email: "Thomas_Jensen@milton.dk",
+  image: "/images/manager.jpg",
+});
 
 const menuItems = [
   {
     label: "Mit hus",
-    route: "/house",
     icon: "house",
+    action: "modal",
   },
   {
     label: "Notifikationer",
@@ -29,17 +52,25 @@ const menuItems = [
     icon: "help",
   },
 ];
+
+const handleItemClick = (item) => {
+  if (item.action === "modal") {
+    isHouseModalOpen.value = true;
+  }
+};
 </script>
 
 <template>
   <Header />
   <div class="site_container">
     <div class="profile-menu">
-      <router-link
+      <component
         v-for="item in menuItems"
         :key="item.label"
-        :to="item.route"
+        :is="item.action === 'modal' ? 'button' : 'router-link'"
+        :to="item.action !== 'modal' ? item.route : undefined"
         class="profile-menu__item"
+        @click="handleItemClick(item)"
       >
         <div class="profile-menu__icon">
           <svg
@@ -115,8 +146,14 @@ const menuItems = [
         </div>
 
         <span class="profile-menu__label">{{ item.label }}</span>
-      </router-link>
+      </component>
     </div>
   </div>
+  <HouseModal
+    :is-open="isHouseModalOpen"
+    :owners="owners"
+    :manager="manager"
+    @close="isHouseModalOpen = false"
+  />
   <BottomNav />
 </template>
