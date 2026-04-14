@@ -23,8 +23,12 @@
   }
 
   &--outline {
-    background-color: $white;
     border: 2px solid $primary;
     color: $primary;
+  }
+
+  &--outlinewhite {
+    border: 2px solid $white;
+    color: $white;
   }
 }

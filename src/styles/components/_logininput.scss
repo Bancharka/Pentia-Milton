@@ -1,6 +1,7 @@
 @use "../abstracts/colors" as *;
 
 .login {
+  width: 100%;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -30,6 +31,7 @@
       font-size: 16px;
       color: $primary;
     }
+
     input::placeholder {
       color: $primary;
     }
