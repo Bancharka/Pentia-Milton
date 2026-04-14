@@ -28,7 +28,7 @@ const emit = defineEmits(["close"]);
         <h2 class="house-modal__title">Mit hus</h2>
 
         <div class="house-modal__section">
-          <h3 class="house-modal__heading">Ejere</h3>
+          <p class="house-modal__heading">Ejere</p>
 
           <div
             v-for="owner in owners"
@@ -49,7 +49,7 @@ const emit = defineEmits(["close"]);
         </div>
 
         <div class="house-modal__section">
-          <h3 class="house-modal__heading">Byggeleder</h3>
+          <p class="house-modal__heading">Byggeleder</p>
 
           <div class="house-modal__person">
             <div class="house-modal__person-info">

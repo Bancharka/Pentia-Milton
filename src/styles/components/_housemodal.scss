@@ -12,11 +12,11 @@
   &__content {
     width: 100%;
     max-width: 320px;
-    max-height: 85%;
+    max-height: 75%;
     overflow-y: auto;
     background-color: #ffffff;
-    border-radius: 24px;
-    padding: 2rem 1.5rem;
+    border-radius: 12px;
+    padding: 0.5rem 1.5rem;
     position: relative;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
   }
@@ -25,21 +25,22 @@
     position: absolute;
     top: 1rem;
     right: 1rem;
-    width: 48px;
-    height: 48px;
+    width: 38px;
+    height: 38px;
     border: none;
     border-radius: 50%;
     background: #2f6f79;
     color: white;
-    font-size: 1.5rem;
+    font-size: 16px;
     cursor: pointer;
   }
 
   &__title {
     text-align: center;
     color: #004e5a;
-    font-size: 2rem;
-    margin-bottom: 2rem;
+    font-size: 18px;
+    font-weight: 500;
+    margin: 1rem;
   }
 
   &__section {
@@ -48,7 +49,7 @@
 
   &__heading {
     color: #004e5a;
-    font-size: 1.5rem;
+    font-size: 16px;
     margin-bottom: 1rem;
   }
 
@@ -57,8 +58,8 @@
     justify-content: space-between;
     align-items: center;
     background: #dceff3;
-    border-radius: 18px;
-    padding: 1rem;
+    border-radius: 12px;
+    padding: 8px;
     margin-bottom: 1rem;
   }
 
@@ -68,19 +69,20 @@
   }
 
   &__name {
-    font-size: 1.2rem;
+    font-size: 16px;
     color: #004e5a;
-    font-weight: 600;
+    font-weight: 400;
   }
 
   &__email {
     color: #004e5a;
     opacity: 0.8;
+    font-size: 12px;
   }
 
   &__avatar {
-    width: 58px;
-    height: 58px;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
     object-fit: cover;
   }
