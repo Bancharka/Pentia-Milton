@@ -25,6 +25,12 @@ const router = createRouter({
       meta: { title: "Profil" },
     },
     {
+      path: "/dev-todo",
+      name: "checklist",
+      component: () => import("../views/developers/TodolistView.vue"),
+      meta: { title: "Tjekliste" },
+    },
+    {
       path: "/login",
       name: "login",
       // route level code-splitting
