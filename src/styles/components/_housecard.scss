@@ -3,7 +3,7 @@
 
 .housecard {
     position: relative;
-    margin-bottom: $spacing-md;
+    margin: $spacing-sm auto $spacing-md auto;
 
     &__img {
         border-radius: 12px;
