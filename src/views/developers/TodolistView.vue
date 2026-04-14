@@ -6,7 +6,7 @@ import BottomNav from "@/components/BottomNav.vue";
 <template>
   <div class="page-container">
     <Header />
-
+    <div class="site-container site-container--secondary"></div>
     <BottomNav />
   </div>
 </template>
