@@ -1,3 +1,6 @@
+@use "../abstracts" as *;
+
+
 .phone-wrapper {
   position: relative;
   width: 390px;
@@ -31,4 +34,19 @@
   transform: translateX(-50%);
   width: 75%;
   z-index: 1;
+}
+
+
+.site-container {
+  height: 95%;
+  width: 100%;
+  border-radius: 12px;
+
+  &--primary {
+    background-color: #f7f9fa;
+  }
+
+  &--secondary {
+    background-color: #E6EDEE;
+  }
 }

@@ -64,7 +64,7 @@ const handleItemClick = (item) => {
 <template>
   <div class="page-container">
     <Header />
-    <div class="site_container">
+    <div class="site-container site-container--primary">
       <ProfileHeader />
       <div class="profile-menu">
         <component
