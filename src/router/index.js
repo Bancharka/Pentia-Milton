@@ -19,6 +19,12 @@ const router = createRouter({
       meta: { title: "Hjem" },
     },
     {
+      path: "/dev-profile",
+      name: "profile",
+      component: () => import("../views/developers/ProfileView.vue"),
+      meta: { title: "Profil" },
+    },
+    {
       path: "/login",
       name: "login",
       // route level code-splitting
