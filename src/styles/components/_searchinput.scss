@@ -1,0 +1,20 @@
+@use "../abstracts" as *;
+@use "../layout" as *;
+
+.searchinput {
+    display: flex;
+    align-items: center;
+    background-color: $white;
+    border-radius: 12px;
+    height: 40px;
+    padding: $spacing-sm;
+
+    &__icon {
+        margin-right: $spacing-xs;
+    }
+
+    input::placeholder {
+        @include subheading;
+
+    }
+}
