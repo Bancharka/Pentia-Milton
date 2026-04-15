@@ -57,6 +57,8 @@ const dynamicHouse = computed(() => {
       <h3> {{ todo.title }}</h3>
       <p v-for="sub in todo.subTodos" :key="sub.id">
         {{ sub.title }}
+        <p v-if="sub.done == false"> Mangler </p>
+        <p v-else> Færdig</p>
       </p>
     </div>
     
