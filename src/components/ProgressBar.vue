@@ -54,21 +54,22 @@ const dynamicHouse = computed(() => {
         <p v-else> Færdig</p>
       </p>
     </div> -->
+  <div class="page-container"> 
+    <div class="house-card">
+      <h3>Her kan du følge med i byggeprocessen af dit hus</h3>
 
-  <div class="house-card">
-    <h3>Her kan du følge med i byggeprocessen af dit hus</h3>
+      <div>
+        <img :src="dynamicHouse" />
+      </div>
 
-    <div>
-      <img :src="dynamicHouse" />
-    </div>
-
-    <div class="house-card__progress-bar">
-      <img
-        class="house-card__progress-bar__overlay"
-        src="../img/progressbar_overlay_100_icons_lightergreen.svg"
-        alt=""
-      />
-      <div class="house-card__progress-bar__fill" :style="{ width: fillPercent + '%' }"></div>
+      <div class="house-card__progress-bar">
+        <img
+          class="house-card__progress-bar__overlay"
+          src="../img/progressbar_overlay_100_icons_lightergreen.svg"
+          alt=""
+        />
+        <div class="house-card__progress-bar__fill" :style="{ width: fillPercent + '%' }"></div>
+      </div>
     </div>
   </div>
 </template>
