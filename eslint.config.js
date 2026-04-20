@@ -39,4 +39,17 @@ export default defineConfig([
   },
 
   ...pluginOxlint.buildFromOxlintConfigFile('.oxlintrc.json'),
+
+  {
+    files: ['src/**/*.{vue,js,mjs,jsx}'],
+    rules: {
+      indent: ['error', 4],
+      'vue/html-indent': ['error', 4],
+      'no-console': 'warn',
+      'no-unused-vars': 'warn',
+      eqeqeq: 'error',
+      quotes: ['error', 'single'],
+      semi: ['error', 'never'],
+    },
+  },
 ])

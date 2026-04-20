@@ -1,8 +1,13 @@
 {
-  "architecture": {
-    "title": "Architecture"
-  },
-  "database": {
-    "title": "Database"
-  }
+  "title": "Dokumentation",
+  "tutorials": [
+    {
+      "title": "Arkitektur",
+      "name": "architecture"
+    },
+    {
+      "title": "Linting",
+      "name": "linting"
+    }
+  ]
 }

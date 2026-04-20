@@ -43,12 +43,53 @@
 <header>
     
 
-    <h2>architecture</h2>
+    <h2>linting</h2>
 </header>
 
 <article>
-    <h1>Architecture</h1>
-<p>Beskriv din arkitektur her...</p>
+    <h1>Linting</h1>
+<h2>Hvad er linting?</h2>
+<p>Linting er en metode til at analysere kode for fejl og dårlig praksis. Vi bruger ESLint og Oxlint til at sikre ensartet kodekvalitet i projektet.</p>
+<h2>Værktøjer</h2>
+<table>
+<thead>
+<tr>
+<th>Værktøj</th>
+<th>Formål</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ESLint</td>
+<td>Tjekker JavaScript og Vue kode</td>
+</tr>
+<tr>
+<td>Oxlint</td>
+<td>Hurtig linting med fokus på performance</td>
+</tr>
+</tbody>
+</table>
+<h2>Opsætning</h2>
+<p>Linting er konfigureret i <code>eslint.config.js</code> og <code>.oxlintrc.json</code>.</p>
+<h2>Brug</h2>
+<p>Linting køres med følgende kommando:</p>
+<pre class="prettyprint source lang-bash"><code>npm run lint
+</code></pre>
+<p>Dette vil automatisk rette nogle fejl med <code>--fix</code>.</p>
+<h2>Regler</h2>
+<p>Vi har defineret egne regler, fx:</p>
+<ul>
+<li>4 spaces indentation</li>
+<li>ingen console.log i produktion</li>
+<li>brug af === frem for ==</li>
+</ul>
+<h2>Formål</h2>
+<p>Formålet med linting er at:</p>
+<ul>
+<li>forbedre kodekvalitet</li>
+<li>undgå fejl</li>
+<li>sikre ensartet kode i teamet</li>
+</ul>
 </article>
 
 </section>
