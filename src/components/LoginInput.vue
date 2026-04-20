@@ -1,5 +1,5 @@
 <template>
-  <div class="login">
+  <form class="login">
     <div class="login__field">
       <span class="login__icon">
         <svg
@@ -39,12 +39,29 @@
       </span>
       <input type="password" placeholder="Adgangskode" v-model="password" />
     </div>
-  </div>
+  </form>
 </template>
 
 <script setup>
 import { ref } from "vue";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "@/firebase";
+
+
 
 const email = ref("");
 const password = ref("");
+
+
+const submitLogin = async () => {
+    try {
+        const user = await signInWithEmailAndPassword(auth, email.value, password.value);
+        console.log("Login lykkedes for " + user);
+
+    }
+    catch (err) {
+        error.value = err.message
+    };
+
+};
 </script>

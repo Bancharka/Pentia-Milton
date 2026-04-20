@@ -1,7 +1,7 @@
 @use "../abstracts/colors" as *;
 
 .house-card {
-  background: $surface ;
+  background: $surface;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -23,7 +23,6 @@
     width: 90%;
     height: 60px;
     overflow: hidden;
-    
 
     &__overlay {
       position: absolute;
@@ -40,11 +39,10 @@
       height: 60px;
       border-radius: 30px;
       background-color: $secondary;
-      z-index:1;
+      z-index: 1;
       left: 5px;
       max-width: 95%;
-     
-      
+      transition: width 0.75s;
     }
   }
 }
