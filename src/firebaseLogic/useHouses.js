@@ -1,4 +1,4 @@
-import { db } from "@/firebase";
+import { db, storage } from "@/firebase";
 import {
     collection,
     getDocs,
@@ -36,7 +36,7 @@ export function useHouses() {
         return todos;
     }
 
-    async function createHouseFromTemplate(address, city, postalCode) {
+    async function createHouseFromTemplate(address, city, postalCode, registration) {
         const templateTodos = await getDocs(
             query(
                 collection(db, "houseTemplates", "default-house", "todos"),
@@ -47,6 +47,7 @@ export function useHouses() {
         const houseRef = await addDoc(collection(db, "houses"), {
             address,
             city,
+            registration,
             "postal-code": postalCode,
             createdAt: serverTimestamp(),
         });
