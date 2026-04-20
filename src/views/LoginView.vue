@@ -9,7 +9,7 @@ import LoginInput from "@/components/LoginInput.vue";
     <div class="login__container">
       <div class="login__input">
         <LoginInput />
-        <BaseButton variant="outlinewhite" text="Log ind" link="/home" />
+        <BaseButton type="submit" variant="outlinewhite" text="Log ind" link="/home" />
       </div>
     </div>
   </div>
