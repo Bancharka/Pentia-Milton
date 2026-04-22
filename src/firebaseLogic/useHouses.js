@@ -7,6 +7,7 @@ import {
     orderBy,
     serverTimestamp
 } from "firebase/firestore";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 export function useHouses() {
     async function fetchHouseTodos(houseId) {
@@ -37,6 +38,9 @@ export function useHouses() {
     }
 
     async function createHouseFromTemplate(address, city, postalCode, registration) {
+        const imageRef = ref(storage, `houses/${registration}_${image.name}`);
+        await uploadBytes(imageRef, image);
+        const imageUrl = await getDownloadURL(imageRef);
         const templateTodos = await getDocs(
             query(
                 collection(db, "houseTemplates", "default-house", "todos"),
@@ -49,6 +53,7 @@ export function useHouses() {
             city,
             registration,
             "postal-code": postalCode,
+            image: imageUrl,
             createdAt: serverTimestamp(),
         });
 

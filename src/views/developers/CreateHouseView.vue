@@ -5,6 +5,7 @@ import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { useHouses } from "@/firebaseLogic/useHouses";
 
+
 const { createHouseFromTemplate } = useHouses();
 const router = useRouter();
 
