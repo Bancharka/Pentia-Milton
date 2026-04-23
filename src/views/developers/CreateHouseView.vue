@@ -5,6 +5,7 @@ import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { useHouses } from "@/firebaseLogic/useHouses";
 
+
 const { createHouseFromTemplate } = useHouses();
 const router = useRouter();
 
@@ -30,7 +31,7 @@ async function submitHouse() {
     registration.value,
     image.value
   );
-  router.push("/");
+  router.push("/overview");
 }
 
 </script>

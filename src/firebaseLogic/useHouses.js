@@ -7,8 +7,18 @@ import {
     orderBy,
     serverTimestamp
 } from "firebase/firestore";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 export function useHouses() {
+
+    async function fetchHouses() {
+        const housesSnap = await getDocs(collection(db, "houses"));
+        return housesSnap.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+        }));
+    }
+
     async function fetchHouseTodos(houseId) {
         const todoSnap = await getDocs(
             query(
@@ -36,25 +46,22 @@ export function useHouses() {
         return todos;
     }
 
-    async function createHouseFromTemplate(address, city, postalCode, registration) {
+    async function uploadHouseImage(registration, image) {
+        const imageRef = ref(storage, `houses/${registration}_${image.name}`);
+        await uploadBytes(imageRef, image);
+        return await getDownloadURL(imageRef);
+    }
+
+    async function copyTodosFromTemplate(houseId) {
         const templateTodos = await getDocs(
             query(
                 collection(db, "houseTemplates", "default-house", "todos"),
                 orderBy("order")
             )
         );
-
-        const houseRef = await addDoc(collection(db, "houses"), {
-            address,
-            city,
-            registration,
-            "postal-code": postalCode,
-            createdAt: serverTimestamp(),
-        });
-
         for (const todoDoc of templateTodos.docs) {
             const newTodoRef = await addDoc(
-                collection(db, "houses", houseRef.id, "todos"),
+                collection(db, "houses", houseId, "todos"),
                 {
                     title: todoDoc.data().title,
                     order: todoDoc.data().order,
@@ -66,7 +73,7 @@ export function useHouses() {
             );
             for (const subDoc of subTodos.docs) {
                 await addDoc(
-                    collection(db, "houses", houseRef.id, "todos", newTodoRef.id, "subTodos"),
+                    collection(db, "houses", houseId, "todos", newTodoRef.id, "subTodos"),
                     {
                         title: subDoc.data().title,
                         order: subDoc.data().order,
@@ -75,9 +82,24 @@ export function useHouses() {
                 );
             }
         }
+    }
+
+    async function createHouseFromTemplate(address, city, postalCode, registration, image) {
+        const imageUrl = await uploadHouseImage(registration, image);
+
+        const houseRef = await addDoc(collection(db, "houses"), {
+            address,
+            city,
+            postalCode,
+            registration,
+            image: imageUrl,
+            createdAt: serverTimestamp(),
+        });
+
+        await copyTodosFromTemplate(houseRef.id);
 
         return houseRef.id;
     }
 
-    return { fetchHouseTodos, createHouseFromTemplate };
+    return { fetchHouses, fetchHouseTodos, createHouseFromTemplate };
 }
