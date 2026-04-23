@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>Documents:  - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    
+    <h2><a href="index.html">Home</a></h2><h3>Documents</h3><ul><li><a href="tutorial-architecture.html">architecture</a></li><li><a href="tutorial-datamodel.html">datamodel</a></li><li><a href="tutorial-installationguide.html">installationguide</a></li><li><a href="tutorial-linting.html">linting</a></li><li><a href="tutorial-permissionstructure.html">permissionstructure</a></li><li><a href="tutorial-refactoring.html">refactoring</a></li><li><a href="tutorial-techchoice.html">techchoice</a></li><li><a href="tutorial-teststrategy.html">teststrategy</a></li><li><a href="tutorial-usermanual.html">usermanual</a></li></ul>
+    
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">Documents: </h1>
+    
+
+    <section>
+
+<header>
+    
+
+    <h2>techchoice</h2>
+</header>
+
+<article>
+    <h1>Teknologivalg og begrundelse</h1>
+<h2>Formål</h2>
+<p>Formålet med teknologivalget er at sikre en hurtig udviklingsproces, en overskuelig kodebase og en stabil løsning til håndtering af data.</p>
+<p>Valgene er delvist baseret på anbefalinger fra undervisere, men også på hvad der er praktisk og passende for projektets omfang.</p>
+<hr>
+<h2>Frontend</h2>
+<h3>Værktøjer</h3>
+<table>
+<thead>
+<tr>
+<th>Teknologi</th>
+<th>Formål</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Vite</td>
+<td>Build tool og development server</td>
+</tr>
+<tr>
+<td>Vue</td>
+<td>Frontend framework</td>
+</tr>
+<tr>
+<td>SCSS</td>
+<td>Styling</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3>Vite</h3>
+<p><strong>Hvad er det?</strong><br>
+Vite er et moderne build tool, der bruges til at starte og bygge frontend applikationen.</p>
+<p><strong>Begrundelse:</strong></p>
+<ul>
+<li>Meget hurtig opstart og udviklingsserver</li>
+<li>Understøtter hot module replacement (HMR)</li>
+<li>Simpel opsætning sammenlignet med fx Webpack</li>
+<li>God integration med Vue</li>
+</ul>
+<hr>
+<h3>Vue</h3>
+<p><strong>Hvad er det?</strong><br>
+Vue er et JavaScript framework til at opbygge brugergrænseflader.</p>
+<p><strong>Begrundelse:</strong></p>
+<ul>
+<li>Komponentbaseret struktur (genbrugelig kode)</li>
+<li>Let at lære og arbejde med</li>
+<li>God dokumentation</li>
+<li>Velegnet til mindre og mellemstore projekter</li>
+</ul>
+<hr>
+<h3>SCSS</h3>
+<p><strong>Hvad er det?</strong><br>
+SCSS er en udvidelse af CSS med ekstra funktioner.</p>
+<p><strong>Begrundelse:</strong></p>
+<ul>
+<li>Understøtter variabler og nesting</li>
+<li>Gør styling mere struktureret</li>
+<li>Nem at vedligeholde i større projekter</li>
+</ul>
+<hr>
+<h2>Backend og database</h2>
+<h3>Værktøjer</h3>
+<table>
+<thead>
+<tr>
+<th>Teknologi</th>
+<th>Formål</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Firestore</td>
+<td>Database til strukturerede data</td>
+</tr>
+<tr>
+<td>Realtime Database</td>
+<td>Database til realtidsdata</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3>Firebase</h3>
+<p><strong>Hvad er det?</strong><br>
+Firebase er en cloud-baseret platform, der tilbyder backend funktionalitet uden behov for egen server.</p>
+<p><strong>Begrundelse:</strong></p>
+<ul>
+<li>Ingen opsætning af backend nødvendig</li>
+<li>Nem integration med frontend</li>
+<li>Skalerbar løsning</li>
+<li>Anbefalet i undervisningen</li>
+</ul>
+<hr>
+<h3>Firestore</h3>
+<p><strong>Hvad er det?</strong><br>
+Firestore er en NoSQL database fra Firebase.</p>
+<p><strong>Begrundelse:</strong></p>
+<ul>
+<li>Velegnet til strukturerede data</li>
+<li>Understøtter forespørgsler</li>
+<li>Fleksibel datamodel</li>
+</ul>
+<hr>
+<h3>Realtime Database</h3>
+<p><strong>Hvad er det?</strong><br>
+Realtime Database er en database, der opdaterer data live.</p>
+<p><strong>Begrundelse:</strong></p>
+<ul>
+<li>Data opdateres i realtid</li>
+<li>God til simple og dynamiske data</li>
+<li>Let at implementere</li>
+</ul>
+<hr>
+<h2>Overvejelser</h2>
+<p>Valget af teknologier er påvirket af undervisernes anbefalinger, hvilket har gjort det nemmere at komme i gang med projektet.</p>
+<p>Samtidig er der valgt teknologier som:</p>
+<ul>
+<li>er lette at arbejde med</li>
+<li>har god dokumentation</li>
+<li>understøtter hurtig udvikling</li>
+</ul>
+<hr>
+<h2>Mulige alternativer</h2>
+<p>Eksempler på alternativer kunne være:</p>
+<ul>
+<li>Node.js + Express (backend)</li>
+<li>SQL database i stedet for NoSQL</li>
+<li>React i stedet for Vue</li>
+</ul>
+<p>Disse er ikke valgt for at reducere kompleksitet og fokusere på projektets funktionalitet.</p>
+</article>
+
+</section>
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Thu Apr 23 2026 20:50:25 GMT+0200 (Central European Summer Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+
+
+</body>
+</html>

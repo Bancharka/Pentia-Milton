@@ -2,12 +2,40 @@
   "title": "Dokumentation",
   "tutorials": [
     {
+      "title": "Teknologivalg",
+      "name": "techchoice"
+    },
+    {
       "title": "Arkitektur",
       "name": "architecture"
     },
     {
       "title": "Linting",
       "name": "linting"
+    },
+    {
+      "title": "Datamodel",
+      "name": "datamodel"
+    },
+    {
+      "title": "Rettighedsstruktur",
+      "name": "permissionstructure"
+    },
+    {
+      "title": "Refaktoreringsovervejelser",
+      "name": "refactoring"
+    },
+    {
+      "title": "Teststrategi",
+      "name": "teststrategy"
+    },
+    {
+      "title": "Installationsvejledning",
+      "name": "installationguide"
+    },
+    {
+      "title": "Brugervejledning",
+      "name": "usermanual"
     }
   ]
 }
