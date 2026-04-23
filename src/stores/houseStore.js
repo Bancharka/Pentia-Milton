@@ -1,19 +1,15 @@
 import { defineStore } from "pinia";
-import { useFirestore } from "@/firebaseLogic/useFirestore";
-import { ref } from "vue"
-
-
+import { useHouses } from "@/firebaseLogic/useHouses";
+import { ref } from "vue";
 
 export const useHouseStore = defineStore("house", () => {
-
+    const house = ref(null);
     const todos = ref([]);
-    
-    async function loadTodos() {
 
-        const {fetchTodos} = useFirestore();
-        todos.value = await fetchTodos();
+    async function loadHouse() {
+        const { fetchUserHouseTodos } = useHouses();
+        todos.value = await fetchUserHouseTodos();
     }
-  
 
-    return {todos, loadTodos}
+    return { house, todos, loadHouse };
 });

@@ -1,39 +1,25 @@
-import { db, storage } from "@/firebase";
+// useHouses.js
+import { db } from "@/firebase";
 import {
     collection,
     getDocs,
     addDoc,
+    getDoc,
     query,
     orderBy,
-    serverTimestamp
+    where,
+    serverTimestamp,
 } from "firebase/firestore";
+import { auth } from "@/firebase";
 
 export function useHouses() {
-    async function fetchHouseTodos(houseId) {
-        const todoSnap = await getDocs(
-            query(
-                collection(db, "houses", houseId, "todos"),
-                orderBy("order")
-            )
+
+    async function fetchUserHouseTodos() {
+        const snap = await getDocs(
+            query(collection(db, "houses"), where("uid", "==", auth.currentUser.uid))
         );
-        const todos = todoSnap.docs.map(todoDoc => ({
-            id: todoDoc.id,
-            ...todoDoc.data(),
-            subTodos: []
-        }));
-        for (const todo of todos) {
-            const subTodosSnap = await getDocs(
-                query(
-                    collection(db, "houses", houseId, "todos", todo.id, "subTodos"),
-                    orderBy("order")
-                )
-            );
-            todo.subTodos = subTodosSnap.docs.map(subDoc => ({
-                id: subDoc.id,
-                ...subDoc.data()
-            }));
-        }
-        return todos;
+        if (snap.empty) return [];
+        return snap.docs[0].data().todos ?? [];
     }
 
     async function createHouseFromTemplate(address, city, postalCode, registration) {
@@ -44,40 +30,37 @@ export function useHouses() {
             )
         );
 
+        const todos = [];
+
+        for (const todoDoc of templateTodos.docs) {
+            const subTodosSnap = await getDocs(
+                collection(db, "houseTemplates", "default-house", "todos", todoDoc.id, "subTodos")
+            );
+
+            todos.push({
+                title: todoDoc.data().title,
+                order: todoDoc.data().order,
+                done: false,
+                subTodos: subTodosSnap.docs.map(subDoc => ({
+                    title: subDoc.data().title,
+                    order: subDoc.data().order,
+                    done: false,
+                }))
+            });
+        }
+
         const houseRef = await addDoc(collection(db, "houses"), {
+            uid: auth.currentUser.uid,
             address,
             city,
             registration,
             "postal-code": postalCode,
             createdAt: serverTimestamp(),
+            todos,
         });
-
-        for (const todoDoc of templateTodos.docs) {
-            const newTodoRef = await addDoc(
-                collection(db, "houses", houseRef.id, "todos"),
-                {
-                    title: todoDoc.data().title,
-                    order: todoDoc.data().order,
-                    done: false,
-                }
-            );
-            const subTodos = await getDocs(
-                collection(db, "houseTemplates", "default-house", "todos", todoDoc.id, "subTodos")
-            );
-            for (const subDoc of subTodos.docs) {
-                await addDoc(
-                    collection(db, "houses", houseRef.id, "todos", newTodoRef.id, "subTodos"),
-                    {
-                        title: subDoc.data().title,
-                        order: subDoc.data().order,
-                        done: false,
-                    }
-                );
-            }
-        }
 
         return houseRef.id;
     }
 
-    return { fetchHouseTodos, createHouseFromTemplate };
+    return { fetchUserHouseTodos, createHouseFromTemplate };
 }
