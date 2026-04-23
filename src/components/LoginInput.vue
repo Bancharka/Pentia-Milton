@@ -1,5 +1,5 @@
 <template>
-  <form class="login">
+  <form @submit.prevent="submitLogin" class="login">
     <div class="login__field">
       <span class="login__icon">
         <svg
@@ -38,25 +38,35 @@
         </svg>
       </span>
       <input type="password" placeholder="Adgangskode" v-model="password" />
+      
     </div>
+    <BaseButton type="submit" variant="outlinewhite" text="Log ind" />
+    
   </form>
+
+  
 </template>
 
 <script setup>
 import { ref } from "vue";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/firebase";
+import BaseButton from "./BaseButton.vue";
+import { useRouter } from "vue-router";
 
 
 
 const email = ref("");
 const password = ref("");
+const error = ref(null);
+const router = useRouter();
 
 
 const submitLogin = async () => {
     try {
         const user = await signInWithEmailAndPassword(auth, email.value, password.value);
-        console.log("Login lykkedes for " + user);
+        console.log("Login lykkedes for " , user.user.email);
+        router.push("/home-customer");
 
     }
     catch (err) {
