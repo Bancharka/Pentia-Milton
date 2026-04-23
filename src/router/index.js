@@ -33,17 +33,11 @@ const router = createRouter({
     {
       path: "/login",
       name: "login",
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import("../views/LoginView.vue"),
-    }, //TODO add paths
+    },
     {
       path: "/overview",
       name: "overview",
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import("../views/developers/OverviewView.vue"),
       meta: { title: "oversigt" },
     },
@@ -59,13 +53,15 @@ const router = createRouter({
     {
       path: "/create-house",
       name: "create-house",
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import("../views/developers/CreateHouseView.vue"),
       meta: { title: "opret" },
     },
-
+    {
+      path: "/house/:houseId/todos/:todoId",
+      name: "sub-todos",
+      component: () => import("../views/developers/SubTodoListView.vue"),
+      meta: { title: "Subtodos" },
+    },
   ],
 });
 

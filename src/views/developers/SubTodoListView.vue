@@ -1,14 +1,7 @@
 <script setup>
-import { ref, onMounted } from "vue";
-import { useRoute } from "vue-router";
-import { useTodos } from "@/firebaseLogic/useTodos"
 import Header from "@/components/Header.vue";
 import BottomNav from "@/components/BottomNav.vue";
 import TodoCard from "@/components/TodoCard.vue";
-
-const route = useRoute();
-
-
 </script>
 
 <template>
