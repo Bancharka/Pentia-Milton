@@ -1,13 +1,18 @@
 <script setup>
-import { ref, onMounted } from "firebase/storage";
+import { ref, onMounted } from "vue";
 import BottomNav from "@/components/BottomNav.vue";
 import Header from "@/components/Header.vue";
 import HouseCard from "@/components/HouseCard.vue";
 import SearchInput from "@/components/SearchInput.vue";
 import { useHouses } from "@/firebaseLogic/useHouses";
 
-const { fetchHouses, createHouseFromTemplate } = useHouses;
+const { fetchHouses, createHouseFromTemplate } = useHouses();
+
 const houses = ref([]);
+
+onMounted(async () => {
+  houses.value = await fetchHouses();
+});
 </script>
 <template>
   <div class="page-container">
@@ -16,14 +21,14 @@ const houses = ref([]);
       <div class="overview">
         <SearchInput placeholder="Søg efter hus" />
         <HouseCard
-          address="Emiliedalen 14"
-          postal-code="1234"
-          city="Varde"
-          registration="12345678"
+        v-for="house in houses"
+        :key="house.id"
+        :address="house.address"
+        :postalCode="house.postalCode"
+        :city="house.city"
+        :registration="house.registration"
+        :image="house.image"
         />
-        <HouseCard />
-        <HouseCard />
-        <HouseCard />
         <BottomNav />
       </div>
     </div>

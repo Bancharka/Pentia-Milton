@@ -31,7 +31,7 @@ async function submitHouse() {
     registration.value,
     image.value
   );
-  router.push("/");
+  router.push("/overview");
 }
 
 </script>
