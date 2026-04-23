@@ -8,17 +8,17 @@ import houseWalls from "../img/House-walls.png";
 import houseWallsRoof from "../img/House-walls-roof.png";
 import houseDone from "../img/House-done.png";
 
-const store = useHouseStore();
+const houseStore = useHouseStore();
 const userStore = useUserStore();
 
 onMounted(() => {
-    store.loadTodos();
+    houseStore.loadTodos();
     userStore.loadUser();
 });
 
 watchEffect(() => console.log("Velkommen til", userStore.userData?.name, "!"));
 
-const maxArray = computed(() => store.todos.flatMap((todo) => todo.subTodos));
+const maxArray = computed(() => houseStore.todos.flatMap((todo) => todo.subTodos));
 const mitArray = computed(() => maxArray.value.filter((todo) => todo.done === true));
 
 const fillPercent = computed(() => (mitArray.value.length / maxArray.value.length) * 100);

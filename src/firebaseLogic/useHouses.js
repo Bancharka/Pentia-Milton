@@ -10,7 +10,7 @@ import {
     where,
     serverTimestamp,
 } from "firebase/firestore";
-import { auth } from "@/firebase";
+import { auth } from "@/firebase";  
 
 export function useHouses() {
 
@@ -18,8 +18,11 @@ export function useHouses() {
         const snap = await getDocs(
             query(collection(db, "houses"), where("uid", "==", auth.currentUser.uid))
         );
-        if (snap.empty) return [];
-        return snap.docs[0].data().todos ?? [];
+        console.log("houses found:", snap.size);
+    console.log("current uid:", auth.currentUser.uid);
+    if (snap.empty) return [];
+    console.log("house data:", snap.docs[0].data());
+    return snap.docs[0].data().todos ?? [];
     }
 
     async function createHouseFromTemplate(address, city, postalCode, registration) {

@@ -6,10 +6,12 @@ export const useHouseStore = defineStore("house", () => {
     const house = ref(null);
     const todos = ref([]);
 
-    async function loadHouse() {
-        const { fetchUserHouseTodos } = useHouses();
-        todos.value = await fetchUserHouseTodos();
-    }
+    async function loadTodos() {
+        console.log("loadTodos called");
+    const { fetchUserHouseTodos } = useHouses();
+    console.log("fetchUserHouseTodos:", fetchUserHouseTodos);
+    todos.value = await fetchUserHouseTodos();
+}
 
-    return { house, todos, loadHouse };
+return { house, todos, loadTodos };
 });
