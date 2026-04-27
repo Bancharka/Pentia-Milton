@@ -1,3 +1,3 @@
-# Architecture
+# Arkitekturdiagram
 
 Beskriv din arkitektur her...
