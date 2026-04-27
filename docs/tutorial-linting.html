@@ -49,46 +49,174 @@
 <article>
     <h1>Linting</h1>
 <h2>Hvad er linting?</h2>
-<p>Linting er en metode til at analysere kode for fejl og dårlig praksis. Vi bruger ESLint og Oxlint til at sikre ensartet kodekvalitet i projektet.</p>
-<h2>Værktøjer</h2>
+<p>Linting er en automatisk analyse af kode, der finder fejl, dårlige mønstre og inkonsistent stil. Det hjælper med at holde koden ensartet og reducere bugs.</p>
+<p>I dette projekt bruger vi:</p>
+<ul>
+<li><strong>ESLint</strong> til regler og kodestil</li>
+<li><strong>Oxlint</strong> til hurtig performance-orienteret linting</li>
+</ul>
+<hr>
+<h2>Værktøjer og plugins</h2>
+<p>Ud over ESLint bruger vi flere plugins, som tilføjer regelsæt:</p>
 <table>
 <thead>
 <tr>
-<th>Værktøj</th>
+<th>Værktøj / plugin</th>
 <th>Formål</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>ESLint</td>
-<td>Tjekker JavaScript og Vue kode</td>
+<td>ESLint (<code>@eslint/js</code>)</td>
+<td>Grundlæggende JavaScript-regler</td>
 </tr>
 <tr>
-<td>Oxlint</td>
-<td>Hurtig linting med fokus på performance</td>
+<td>Vue plugin (<code>eslint-plugin-vue</code>)</td>
+<td>Regler for Vue-komponenter</td>
+</tr>
+<tr>
+<td>Cypress plugin</td>
+<td>Regler til e2e tests</td>
+</tr>
+<tr>
+<td>Vitest plugin</td>
+<td>Regler til unit tests</td>
+</tr>
+<tr>
+<td>Oxlint plugin</td>
+<td>Hurtig linting baseret på <code>.oxlintrc.json</code></td>
 </tr>
 </tbody>
 </table>
+<hr>
 <h2>Opsætning</h2>
-<p>Linting er konfigureret i <code>eslint.config.js</code> og <code>.oxlintrc.json</code>.</p>
-<h2>Brug</h2>
-<p>Linting køres med følgende kommando:</p>
-<pre class="prettyprint source lang-bash"><code>npm run lint
-</code></pre>
-<p>Dette vil automatisk rette nogle fejl med <code>--fix</code>.</p>
-<h2>Regler</h2>
-<p>Vi har defineret egne regler, fx:</p>
+<p>Linting er konfigureret i:</p>
 <ul>
-<li>4 spaces indentation</li>
-<li>ingen console.log i produktion</li>
-<li>brug af === frem for ==</li>
+<li><code>eslint.config.js</code></li>
+<li><code>.oxlintrc.json</code></li>
 </ul>
+<p>Konfigurationen:</p>
+<ul>
+<li>ignorerer build-mapper (<code>dist</code>, <code>dist-ssr</code>, <code>coverage</code>)</li>
+<li>bruger browser-globals (fx <code>window</code>, <code>document</code>)</li>
+<li>anvender anbefalede regelsæt fra ESLint, Vue, Cypress og Vitest</li>
+<li>tilføjer egne projektspecifikke regler</li>
+</ul>
+<hr>
+<h2>Regler</h2>
+<h3>Standardregler (fra ESLint, Vue, Oxlint m.fl.)</h3>
+<p>Disse regler kommer automatisk fra de inkluderede configs:</p>
+<ul>
+<li>
+<p><strong><code>@eslint/js:recommended</code></strong></p>
+<ul>
+<li>fanger syntaksfejl</li>
+<li>forhindrer bugs (fx undefined variabler)</li>
+</ul>
+</li>
+<li>
+<p><strong>Vue (<code>flat/essential</code>)</strong></p>
+<ul>
+<li>sikrer korrekt brug af Vue syntax</li>
+<li>forhindrer fejl i templates</li>
+</ul>
+</li>
+<li>
+<p><strong>Cypress &amp; Vitest</strong></p>
+<ul>
+<li>sikrer korrekt teststruktur</li>
+<li>undgår fejl i testkode</li>
+</ul>
+</li>
+<li>
+<p><strong>Oxlint</strong></p>
+<ul>
+<li>supplerer med hurtige checks</li>
+<li>fokuserer især på performance og simple fejl</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3>Projektspecifikke regler</h3>
+<p>Disse er defineret direkte i jeres config:</p>
+<ul>
+<li>
+<p><strong>Indentation</strong></p>
+<pre class="prettyprint source lang-js"><code>indent: ['error', 4]
+vue/html-indent: ['error', 4]
+</code></pre>
+<p>4 spaces i både JavaScript og Vue templates</p>
+</li>
+<li>
+<p><strong>Strict equality</strong></p>
+<pre class="prettyprint source lang-js"><code>`eqeqeq: 'error'`  
+</code></pre>
+<p>kræver <code>===</code> i stedet for <code>==</code></p>
+</li>
+<li>
+<p><strong>Quotes</strong></p>
+<pre class="prettyprint source lang-js"><code>`quotes: ['error', 'single']`  
+</code></pre>
+<p>altid <code>'</code> i stedet for <code>&quot;</code></p>
+</li>
+<li>
+<p><strong>Semikoloner</strong></p>
+<pre class="prettyprint source lang-js"><code>`semi: ['error', 'never']` 
+</code></pre>
+<p>semikoloner må ikke bruges</p>
+</li>
+<li>
+<p><strong>Console logs</strong></p>
+<pre class="prettyprint source lang-js"><code>`no-console: 'warn'`  
+</code></pre>
+<p>giver advarsel (ikke build-breaking fejl)</p>
+</li>
+<li>
+<p><strong>Ubrugte variabler</strong></p>
+<pre class="prettyprint source lang-js"><code>`no-unused-vars: 'warn'`  
+</code></pre>
+<p>giver advarsel hvis noget ikke bruges</p>
+</li>
+</ul>
+<hr>
+<h2>Brug</h2>
+<p>Linting køres med:</p>
+<p><code>npm run lint</code></p>
+<hr>
+<h2>Automatisk rettelse vs. manuelle fejl</h2>
+<p>Når linting køres med <code>--fix</code>, sker der to ting:</p>
+<h3>Automatisk rettelse</h3>
+<p>Disse bliver typisk rettet automatisk:</p>
+<ul>
+<li>indentation (4 spaces)</li>
+<li>quotes (<code>&quot;</code> til <code>'</code>)</li>
+<li>fjernelse af semikoloner</li>
+<li>whitespace og generel formatting</li>
+<li>visse Vue template-formateringer</li>
+</ul>
+<h3>Kræver manuel rettelse</h3>
+<p>Disse skal du selv rette:</p>
+<ul>
+<li>brug af <code>console.log</code></li>
+<li>ubrugte variabler</li>
+<li>brug af <code>==</code> i stedet for <code>===</code></li>
+<li>logiske fejl</li>
+<li>potentielle bugs fra ESLint/Oxlint</li>
+</ul>
+<p>Linting vil her vise:</p>
+<ul>
+<li><strong>error</strong> skal rettes</li>
+<li><strong>warning</strong> bør rettes</li>
+</ul>
+<hr>
 <h2>Formål</h2>
-<p>Formålet med linting er at:</p>
+<p>Linting hjælper med at:</p>
 <ul>
 <li>forbedre kodekvalitet</li>
-<li>undgå fejl</li>
-<li>sikre ensartet kode i teamet</li>
+<li>opdage fejl tidligt</li>
+<li>sikre ensartet kodestil</li>
+<li>gøre koden nemmere at læse og vedligeholde</li>
+<li>reducere diskussioner om stil i teamet</li>
 </ul>
 </article>
 
@@ -101,7 +229,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Thu Apr 23 2026 20:50:25 GMT+0200 (Central European Summer Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Mon Apr 27 2026 10:09:05 GMT+0200 (Central European Summer Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>
