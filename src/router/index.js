@@ -12,9 +12,6 @@ const router = createRouter({
     {
       path: "/dev-home",
       name: "home",
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import("../views/developers/HomeView.vue"),
       meta: { title: "Hjem" },
     },
@@ -25,8 +22,8 @@ const router = createRouter({
       meta: { title: "Profil" },
     },
     {
-      path: "/dev-todo",
-      name: "checklist",
+      path: "/todos",
+      name: "todos",
       component: () => import("../views/developers/TodolistView.vue"),
       meta: { title: "Tjekliste" },
     },
@@ -44,9 +41,6 @@ const router = createRouter({
     {
       path: "/home-customer",
       name: "home-customer",
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import("../views/customers/HomeViewCustomer.vue"),
       meta: { title: "Hjem" },
     },
@@ -57,7 +51,7 @@ const router = createRouter({
       meta: { title: "opret" },
     },
     {
-      path: "/house/:houseId/todos/:todoId",
+      path: "/todos/:todoIndex",
       name: "sub-todos",
       component: () => import("../views/developers/SubTodoListView.vue"),
       meta: { title: "Subtodos" },
