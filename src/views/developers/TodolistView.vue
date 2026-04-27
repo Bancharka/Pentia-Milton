@@ -14,12 +14,14 @@ const todos = ref([]);
 onMounted(async () => {
   todos.value = await fetchHouseTodos();
 });
+import SearchInput from "@/components/SearchInput.vue";
 </script>
 
 <template>
   <div class="page-container">
     <Header />
     <div class="site-container site-container--secondary">
+      <SearchInput placeholder="Search" />
       <div class="todo-list">
         <TodoCard
           v-for="(todo, index) in todos"

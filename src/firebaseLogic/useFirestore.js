@@ -1,7 +1,6 @@
 import { db } from "@/firebase";
 import { collection, getDocs, query, orderBy } from "firebase/firestore";
 
-// kig i claude tidligere samtale "firebase to do list" efter hvordan det kan gøres.
 export function useFirestore() {
   async function fetchTodos() {
 

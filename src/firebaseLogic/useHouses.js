@@ -10,7 +10,9 @@ import {
     where,
     serverTimestamp,
 } from "firebase/firestore";
-import { auth } from "@/firebase";
+
+import { auth } from "@/firebase";  
+
 
 export function useHouses() {
 
@@ -63,4 +65,5 @@ export function useHouses() {
     }
 
     return { fetchUserHouseTodos, createHouseFromTemplate };
-} 
+
+}

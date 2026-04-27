@@ -1,6 +1,6 @@
 <template>
   <nav class="bottom-nav">
-    <router-link to="/" class="nav-item" :class="{ active: route.path === '/' }">
+    <router-link to="/home-customer" class="nav-item" :class="{ active: route.path === '/' }">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
