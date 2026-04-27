@@ -56,6 +56,12 @@ const router = createRouter({
       component: () => import("../views/developers/SubTodoListView.vue"),
       meta: { title: "Subtodos" },
     },
+    {
+      path: "/documents",
+      name: "documents",
+      component: () => import("../views/developers/DocumentsView.vue"),
+      meta: { title: "Subtodos" },
+    },
   ],
 });
 
