@@ -1,47 +1,36 @@
 <script setup>
-import { ref, computed, watch, watchEffect } from "vue";
-import { onMounted } from "vue";
+import { ref, computed, watch, watchEffect, onMounted } from "vue";
 import { useHouseStore } from "@/stores/houseStore";
-import {
-  collection,
-  addDoc,
-  getDocs,
-  updateDoc,
-  doc,
-  query,
-  orderBy,
-  serverTimestamp,
-} from "firebase/firestore";
-import { db } from "@/firebase";
+import { useUserStore } from "@/stores/userStore";
 
 import houseFoundation from "../img/House-foundation.png";
 import houseWalls from "../img/House-walls.png";
 import houseWallsRoof from "../img/House-walls-roof.png";
 import houseDone from "../img/House-done.png";
-import { mapSet } from "firebase/firestore/pipelines";
 
-const store = useHouseStore();
+const houseStore = useHouseStore();
+const userStore = useUserStore();
 
-onMounted(() => store.loadTodos());
+onMounted(() => {
+    houseStore.loadTodos();
+    userStore.loadUser();
+});
 
-// den her tager alle subtodo opgaver og ligger dem i ét array, men skal hedde maxarray
-const maxArray = computed(() => store.todos.flatMap((todo) => todo.subTodos));
-// den her sorterer i alle subtodos efter hvilke der er done, og putter dem i et array
+watchEffect(() => console.log("Velkommen til", userStore.userData?.name, "!"));
+
+const maxArray = computed(() => houseStore.todos.flatMap((todo) => todo.subTodos));
 const mitArray = computed(() => maxArray.value.filter((todo) => todo.done === true));
-
-watchEffect(() => console.log("mitArray: ", mitArray.value.length));
-
-// const maxArray = 200;
 
 const fillPercent = computed(() => (mitArray.value.length / maxArray.value.length) * 100);
 
-watchEffect(() => console.log(fillPercent.value, "%"));
+watchEffect(() => console.log("Procent færdigt:", fillPercent.value));
+
 
 const dynamicHouse = computed(() => {
-  if (fillPercent.value <= 25) return houseFoundation;
-  if (fillPercent.value <= 50) return houseWalls;
-  if (fillPercent.value <= 75) return houseWallsRoof;
-  if (fillPercent.value === 100) return houseDone;
+    if (fillPercent.value <= 25) return houseFoundation;
+    if (fillPercent.value <= 50) return houseWalls;
+    if (fillPercent.value <= 75) return houseWallsRoof;
+    return houseDone; // covers 75-100%
 });
 </script>
 
