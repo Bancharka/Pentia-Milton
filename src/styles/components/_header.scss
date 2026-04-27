@@ -1,3 +1,6 @@
+@use "../abstracts" as *;
+
+
 .header {
     display: flex;
     align-items: center;
@@ -8,6 +11,7 @@
     }
 
     &__title {
+        color: $primary;
         flex: 1;
         text-align: center;
         text-transform: uppercase;

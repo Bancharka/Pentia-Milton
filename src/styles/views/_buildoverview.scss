@@ -1,0 +1,9 @@
+@use "../abstracts/" as *;
+
+.build-overview {
+    &__subtodos {
+        list-style: disc;
+        padding-left: 1rem;
+        @include listitem;
+    }
+}

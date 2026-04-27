@@ -4,16 +4,19 @@ import { useRoute } from "vue-router";
 import Header from "@/components/Header.vue";
 import BottomNav from "@/components/BottomNav.vue";
 import TodoCard from "@/components/TodoCard.vue";
-import { useTodos } from "@/firebaseLogic/useTodos";
+import { useHouseStore } from "@/stores/houseStore";
+import { useHouses } from "@/firebaseLogic/useHouses";
 
+const store = useHouseStore();
+const { updateSubTodoDone } = useHouses();
 const route = useRoute();
-const { fetchSubTodos, updateSubTodoDone } = useTodos();
 
 const subTodos = ref([]);
 const todoIndex = Number(route.params.todoIndex);
 
 onMounted(async () => {
-  subTodos.value = await fetchSubTodos(todoIndex);
+  await store.loadHouse();
+  subTodos.value = store.todos[todoIndex]?.subTodos ?? [];
 });
 
 async function handleCheck(subTodoIndex) {

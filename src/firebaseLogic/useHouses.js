@@ -3,6 +3,8 @@ import { db } from "@/firebase";
 import {
     collection,
     getDocs,
+    doc,
+    updateDoc,
     addDoc,
     getDoc,
     query,
@@ -10,21 +12,51 @@ import {
     where,
     serverTimestamp,
 } from "firebase/firestore";
-
-import { auth } from "@/firebase";  
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "@/firebase";
 
 
 export function useHouses() {
 
-    async function fetchUserHouseTodos() {
+    function getCurrentUser() {
+        return new Promise((resolve) => {
+            onAuthStateChanged(auth, (user) => resolve(user));
+        });
+    }
+
+    async function fetchUserHouse() {
+        const user = await getCurrentUser();
+        if (!user) return null;
+
         const snap = await getDocs(
-            query(collection(db, "houses"), where("cuid", "==", auth.currentUser.uid))
+            query(collection(db, "houses"), where("uid", "==", user.uid))  // ← was "cuid"
         );
-        if (snap.empty) return [];
-        return snap.docs[0].data().todos ?? [];
+        if (snap.empty) return null;
+        return { id: snap.docs[0].id, ...snap.docs[0].data() };
+    }
+
+    async function fetchUserHouseTodos() {
+        const house = await fetchUserHouse();
+        if (!house) return [];
+        return house.todos ?? [];
+    }
+
+    async function updateSubTodoDone(todoIndex, subTodoIndex, done) {
+        const house = await fetchUserHouse();
+        if (!house) return;
+
+        const todos = house.todos;
+        todos[todoIndex].subTodos[subTodoIndex].done = done;
+
+        const allDone = todos[todoIndex].subTodos.every(s => s.done);
+        todos[todoIndex].done = allDone;
+
+        const houseRef = doc(db, "houses", house.id);
+        await updateDoc(houseRef, { todos });
     }
 
     async function createHouseFromTemplate(address, city, postalCode, registration) {
+        const user = await getCurrentUser();
         const templateTodos = await getDocs(
             query(
                 collection(db, "houseTemplates", "default-house", "todos"),
@@ -52,7 +84,7 @@ export function useHouses() {
         }
 
         const houseRef = await addDoc(collection(db, "houses"), {
-            uid: auth.currentUser.uid,
+            uid: user.uid,
             address,
             city,
             registration,
@@ -64,6 +96,6 @@ export function useHouses() {
         return houseRef.id;
     }
 
-    return { fetchUserHouseTodos, createHouseFromTemplate };
+    return { fetchUserHouse, fetchUserHouseTodos, createHouseFromTemplate, updateSubTodoDone };
 
 }
