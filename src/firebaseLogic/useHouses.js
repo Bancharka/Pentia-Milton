@@ -16,7 +16,7 @@ export function useHouses() {
 
     async function fetchUserHouseTodos() {
         const snap = await getDocs(
-            query(collection(db, "houses"), where("uid", "==", auth.currentUser.uid))
+            query(collection(db, "houses"), where("cuid", "==", auth.currentUser.uid))
         );
         console.log("houses found:", snap.size);
     console.log("current uid:", auth.currentUser.uid);

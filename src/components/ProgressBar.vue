@@ -23,6 +23,9 @@ const mitArray = computed(() => maxArray.value.filter((todo) => todo.done === tr
 
 const fillPercent = computed(() => (mitArray.value.length / maxArray.value.length) * 100);
 
+watchEffect(() => console.log("Procent færdigt:", fillPercent.value));
+
+
 const dynamicHouse = computed(() => {
     if (fillPercent.value <= 25) return houseFoundation;
     if (fillPercent.value <= 50) return houseWalls;
