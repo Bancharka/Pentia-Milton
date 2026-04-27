@@ -2,6 +2,7 @@
 import { ref, onMounted } from "vue";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db, auth } from "@/firebase";
+import { onAuthStateChanged } from "firebase/auth";
 import BottomNav from "@/components/BottomNav.vue";
 import Header from "@/components/Header.vue";
 import HouseCard from "@/components/HouseCard.vue";
@@ -9,11 +10,16 @@ import SearchInput from "@/components/SearchInput.vue";
 
 const houses = ref([]);
 
-onMounted(async () => {
-  const snap = await getDocs(
-    query(collection(db, "houses"), where("uid", "==", auth.currentUser.uid))
-  );
-  houses.value = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+onMounted(() => {
+  onAuthStateChanged(auth, async (user) => {
+    console.log("user:", user)
+    if (user) {
+      const snap = await getDocs(
+        query(collection(db, "houses"), where("uid", "==", user.uid))
+      );
+      houses.value = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    }
+  });
 });
 </script>
 <template>
@@ -26,7 +32,7 @@ onMounted(async () => {
         v-for="house in houses"
         :key="house.id"
         :address="house.address"
-        :postalCode="house.postalCode"
+        :postalCode="house['postal-code']"
         :city="house.city"
         :registration="house.registration"
         :image="house.image"

@@ -9,8 +9,8 @@ import BaseButton from "@/components/BaseButton.vue";
     <div class="welcome__container">
       <div class="page-container">
         <h1 class="welcome__title">Velkommen</h1>
-        <BaseButton variant="secondary" text="Bygherre" link="/home" />
-        <BaseButton variant="outline" text="Byggeleder" link="/home" />
+        <BaseButton variant="secondary" text="Bygherre" link="/login" />
+        <BaseButton variant="outline" text="Byggeleder" link="/login" />
       </div>
     </div>
   </div>
