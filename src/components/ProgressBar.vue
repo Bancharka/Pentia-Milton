@@ -11,6 +11,7 @@ import houseDone from "../img/House-done.png";
 const houseStore = useHouseStore();
 const userStore = useUserStore();
 
+// det her burde måske flyttes til view'et og ikke være i komponentet
 onMounted(() => {
     houseStore.loadTodos();
     userStore.loadUser();
