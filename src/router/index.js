@@ -57,10 +57,10 @@ const router = createRouter({
       meta: { title: "Subtodos" },
     },
     {
-      path: "/documents",
+      path: "/dev-documents",
       name: "documents",
       component: () => import("../views/developers/DocumentsView.vue"),
-      meta: { title: "Subtodos" },
+      meta: { title: "Dokumenter" },
     },
   ],
 });
