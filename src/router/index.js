@@ -18,7 +18,7 @@ const router = createRouter({
       path: "/dev-home",
       name: "home",
       component: () => import("../views/developers/HomeView.vue"),
-      meta: { title: "Hjem",requiresAuth:true, notCustomerOnly:true },
+      meta: { title: "Hjem", requiresAuth:true, notCustomerOnly:true },
     },
     {
       path: "/dev-profile",
