@@ -1,7 +1,7 @@
 <script setup>
-import { ref, computed, watch, watchEffect, onMounted } from "vue";
+import { computed } from "vue";
 import { useHouseStore } from "@/stores/houseStore";
-import { useUserStore } from "@/stores/userStore";
+
 
 import houseFoundation from "../img/House-foundation.png";
 import houseWalls from "../img/House-walls.png";
@@ -9,22 +9,18 @@ import houseWallsRoof from "../img/House-walls-roof.png";
 import houseDone from "../img/House-done.png";
 
 const houseStore = useHouseStore();
-const userStore = useUserStore();
 
-// det her burde måske flyttes til view'et og ikke være i komponentet
-onMounted(() => {
-    houseStore.loadTodos();
-    userStore.loadUser();
-});
 
-watchEffect(() => console.log("Velkommen til", userStore.userData?.name, "!"));
 
-const maxArray = computed(() => houseStore.todos.flatMap((todo) => todo.subTodos));
-const mitArray = computed(() => maxArray.value.filter((todo) => todo.done === true));
 
-const fillPercent = computed(() => (mitArray.value.length / maxArray.value.length) * 100);
 
-watchEffect(() => console.log("Procent færdigt:", fillPercent.value));
+// max tager alle subtodos og lægger dem sammen til ét array
+const max = computed(() => houseStore.todos.flatMap((todo) => todo.subTodos));
+const done = computed(() => max.value.filter((todo) => todo.done === true));
+
+// Regner procentværdien for todos - done/total*100
+const fillPercent = computed(() => (done.value.length / max.value.length) * 100);
+
 
 
 const dynamicHouse = computed(() => {
@@ -36,14 +32,7 @@ const dynamicHouse = computed(() => {
 </script>
 
 <template>
-   <!-- <div v-for="todo in houseStore.todos" :key="todo.id">
-      <h3> {{ todo.title }}</h3>
-      <p v-for="sub in todo.subTodos" :key="sub.id">
-        {{ sub.title }}
-        <p v-if="sub.done == false"> Mangler </p>
-        <p v-else> Færdig</p>
-      </p>
-    </div> -->
+   
   <div class="page-container"> 
     <div class="house-card">
       <h3>Her kan du følge med i byggeprocessen af dit hus</h3>

@@ -48,7 +48,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
+import { ref } from "vue";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/firebase";
 import BaseButton from "./BaseButton.vue";
@@ -69,7 +69,7 @@ const submitLogin = async () => {
     try {
         const user = await signInWithEmailAndPassword(auth, email.value, password.value);
         console.log("Login lykkedes for " , user.user.email);
-        
+        //Her loader vi userStoren, i stedet for onMounted, for at få informationen kommer ind i storen tilsvarende den user der logger ind, da den ellers aldrig vil få informationen
         await userStore.loadUser();
         
         if(userStore.userData?.customer === true){
