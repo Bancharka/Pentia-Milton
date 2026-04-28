@@ -32,10 +32,12 @@ if (user !== null) {
 </script>
 
 <template>
+  <div class="page-container">
+    <Header />
   
-  <Header />
   
   <ProgressBar/>
   <BottomNav />
+  </div>  
   
 </template>

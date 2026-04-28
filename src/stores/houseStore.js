@@ -11,7 +11,5 @@ export const useHouseStore = defineStore("house", () => {
         house.value = await fetchUserHouse();
         todos.value = house.value?.todos ?? [];
     }
-
-
     return { house, todos, loadHouse };
 });
