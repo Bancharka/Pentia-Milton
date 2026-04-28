@@ -17,7 +17,7 @@
           />
         </svg>
       </span>
-      <input type="email" placeholder="Mail" v-model="email" />
+      <input type="email" placeholder="Email" v-model="email" />
     </div>
 
     <div class="login__field">
@@ -48,11 +48,12 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/firebase";
 import BaseButton from "./BaseButton.vue";
 import { useRouter } from "vue-router";
+import { useUserStore } from "@/stores/userStore";
 
 
 
@@ -60,14 +61,25 @@ const email = ref("");
 const password = ref("");
 const error = ref(null);
 const router = useRouter();
+const userStore = useUserStore();
+
 
 
 const submitLogin = async () => {
     try {
         const user = await signInWithEmailAndPassword(auth, email.value, password.value);
         console.log("Login lykkedes for " , user.user.email);
-        router.push("/home-customer");
-
+        
+        await userStore.loadUser();
+        
+        if(userStore.userData?.customer === true){
+        router.push("/home-customer");}
+          else if(userStore.userData?.customer === false) {
+            router.push("/dev-home")
+          }
+          else {
+            window.alert("Din profil er ikke færdigt oprettet i systemet, venligts kontakt kundeservice")
+          }
     }
     catch (err) {
         error.value = err.message

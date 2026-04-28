@@ -11,6 +11,7 @@ import houseDone from "../img/House-done.png";
 const houseStore = useHouseStore();
 const userStore = useUserStore();
 
+// det her burde måske flyttes til view'et og ikke være i komponentet
 onMounted(() => {
     houseStore.loadTodos();
     userStore.loadUser();
@@ -30,12 +31,12 @@ const dynamicHouse = computed(() => {
     if (fillPercent.value <= 25) return houseFoundation;
     if (fillPercent.value <= 50) return houseWalls;
     if (fillPercent.value <= 75) return houseWallsRoof;
-    return houseDone; // covers 75-100%
+    return houseDone; // 
 });
 </script>
 
 <template>
-  <!-- <div v-for="todo in store.todos" :key="todo.id">
+   <!-- <div v-for="todo in houseStore.todos" :key="todo.id">
       <h3> {{ todo.title }}</h3>
       <p v-for="sub in todo.subTodos" :key="sub.id">
         {{ sub.title }}
