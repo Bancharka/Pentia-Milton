@@ -1,9 +1,45 @@
 @use "../abstracts/" as *;
+@use "../layout/" as*;
 
 .build-overview {
+
+    padding: $spacing-sm;
+    position: relative;
+
+    &__indicator {
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    &__line {
+        width: 1px;
+        flex: 1;
+        min-height: 20px;
+        background: $primary;
+        margin: 4px;
+    }
+
+    &__item {
+        display: flex;
+        align-items: stretch;
+    }
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+    }
+
     &__subtodos {
         list-style: disc;
-        padding-left: 1rem;
+        padding: 1rem;
         @include listitem;
+    }
+
+    &__icon {
+        height: 25px;
+        width: 25px;
+        margin: 0 $spacing-sm;
     }
 }
