@@ -58,8 +58,14 @@ const router = createRouter({
     },
     {
       path: "/dev-documents",
-      name: "documents",
+      name: "dev-documents",
       component: () => import("../views/developers/DocumentsView.vue"),
+      meta: { title: "Dokumenter" },
+    },
+    {
+      path: "/cus-documents",
+      name: "cus-documents",
+      component: () => import("../views/customers/DocumentsViewCustomer.vue"),
       meta: { title: "Dokumenter" },
     },
   ],
