@@ -49,6 +49,7 @@ const router = createRouter({
       component: () => import("../views/customers/HomeViewCustomer.vue"),
       meta: { title: "Hjem", requiresAuth:true, customerOnly:true },
     },
+    // Her skal vi beslutte os for om den kun skal kunne tilgås af den ene eller anden, eller hvad den skal bruges til
     {
       path: "/create-house",
       name: "create-house",
@@ -65,13 +66,13 @@ const router = createRouter({
       path: "/documents",
       name: "documents",
       component: () => import("../views/developers/DocumentsView.vue"),
-      meta: { title: "Subtodos" },
+      meta: { title: "Subtodos", requiresAuth:true, notCustomerOnly:true },
     },
     {
       path: "/build-overview",
       name: "build-overview",
       component: () => import("../views/customers/BuildOverviewView.vue"),
-      meta: { title: "Bygge oversigt" },
+      meta: { title: "Bygge oversigt", requiresAuth:true, customerOnly:true  },
     },
   ],
 });
