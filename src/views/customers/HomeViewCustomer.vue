@@ -15,7 +15,7 @@ const houseStore = useHouseStore();
 const userStore = useUserStore();
 
 onMounted(() => {
-    houseStore.loadTodos();
+    houseStore.loadHouse();
     userStore.loadUser();
 });
 
