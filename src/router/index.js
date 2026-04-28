@@ -67,6 +67,12 @@ const router = createRouter({
       component: () => import("../views/developers/DocumentsView.vue"),
       meta: { title: "Subtodos" },
     },
+    {
+      path: "/build-overview",
+      name: "build-overview",
+      component: () => import("../views/customers/BuildOverviewView.vue"),
+      meta: { title: "Bygge oversigt" },
+    },
   ],
 });
 

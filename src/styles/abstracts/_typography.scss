@@ -37,3 +37,13 @@ h4 {
 .subheading {
     @include subheading;
 }
+
+@mixin listitem {
+    font-size: 12px;
+    font-weight: 300;
+    color: $primary-font;
+}
+
+.listitem {
+    @include listitem;
+}
