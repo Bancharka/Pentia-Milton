@@ -10,7 +10,7 @@ const route = useRoute();
 
 <template>
   <nav  class="bottom-nav">
-    <router-link v-if="userStore.userData?.customer === true"  to="/home-customer" class="nav-item" :class="{ active: route.path === '/' }">
+    <router-link v-if="userStore.userData?.customer === true"  to="/home-customer" class="nav-item" :class="{ active: route.path === '/home-customer' }">
       
       <svg
         xmlns="http://www.w3.org/2000/svg"
