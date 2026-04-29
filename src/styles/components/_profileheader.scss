@@ -5,7 +5,19 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: $spacing-md;
+    margin: $spacing-md;
+
+    &__imagecontainer {
+        position: relative;
+    }
+
+    &__overlay {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
     &__img {
         height: 150px;
@@ -13,6 +25,11 @@
         border-radius: 50%;
         object-fit: cover;
         flex-shrink: 0;
+    }
+
+    &__change-img {
+        height: 30px;
+        width: 30px;
     }
 
     &__text {
