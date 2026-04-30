@@ -12,7 +12,7 @@ const houses = ref([]);
 
 onMounted(() => {
   onAuthStateChanged(auth, async (user) => {
-    console.log("user:", user)
+    
     if (user) {
       const snap = await getDocs(
         query(collection(db, "houses"), where("uid", "==", user.uid))

@@ -28,7 +28,7 @@ const route = useRoute();
       </svg>
     </router-link>
 
-    <router-link v-else  to="/dev-home" class="nav-item" :class="{ active: route.path === '/dev-home' }">
+    <router-link v-else  to="/overview" class="nav-item" :class="{ active: route.path === '/overview' }">
       
       <svg
         xmlns="http://www.w3.org/2000/svg"

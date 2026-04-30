@@ -17,7 +17,7 @@ const router = createRouter({
     {
       path: "/dev-home",
       name: "home",
-      component: () => import("../views/developers/HomeView.vue"),
+      component: () => import("../views/developers/OverviewView.vue"),
       meta: { title: "Hjem", requiresAuth:true, notCustomerOnly:true },
     },
     {
@@ -55,7 +55,9 @@ const router = createRouter({
       component: () => import("../views/customers/HomeViewCustomer.vue"),
       meta: { title: "Hjem", requiresAuth:true, customerOnly:true },
     },
-    // Her skal vi beslutte os for om den kun skal kunne tilgås af den ene eller anden, eller hvad den skal bruges til
+
+
+    // Her skal vi beslutte os for om den kun skal kunne tilgås af den ene eller anden, eller hvad den skal bruges til 
     {
       path: "/create-house",
       name: "create-house",
