@@ -17,8 +17,14 @@ const router = createRouter({
     },
     {
       path: "/dev-profile",
-      name: "profile",
+      name: "dev-profile",
       component: () => import("../views/developers/ProfileView.vue"),
+      meta: { title: "Profil" },
+    },
+    {
+      path: "/cus-profile",
+      name: "cus-profile",
+      component: () => import("../views/customers/ProfileViewCustomer.vue"),
       meta: { title: "Profil" },
     },
     {
