@@ -4,10 +4,14 @@ import { collection, addDoc } from 'firebase/firestore'
 import { ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage'
 import { db, storage } from '@/firebase'
 
-defineProps({
+const props = defineProps({
   isOpen: {
     type: Boolean,
     default: false,
+  },
+  houseId: {
+    type: String,
+    default: null,
   },
 })
 
@@ -27,6 +31,7 @@ const triggerFileInput = () => {
   fileInput.value.click()
 }
 
+
 const formatBytes = (bytes) => {
   if (!bytes) return ''
   if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(0)} KB`
@@ -44,7 +49,7 @@ const handleSubmit = async () => {
     const downloadURL = await getDownloadURL(fileRef)
 
     // Save metadata to Firestore
-    await addDoc(collection(db, 'documents'), {
+    await addDoc(collection(db, 'houses', props.houseId, 'documents'), {
       title: title.value,
       url: downloadURL,
       size: formatBytes(selectedFile.value.size),

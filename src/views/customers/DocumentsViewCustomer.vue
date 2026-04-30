@@ -4,14 +4,25 @@ import Header from '@/components/Header.vue'
 import BottomNav from '@/components/BottomNav.vue'
 import SearchInput from '@/components/SearchInput.vue'
 import { collection, getDocs, query, where } from 'firebase/firestore'
-import { db } from '@/firebase'
+import { auth, db } from '@/firebase'
 
 const documents = ref([])
 const searchQuery = ref('')
 
 const loadDocuments = async () => {
+  const uid = auth.currentUser.uid
+
+  const houseQuery = query(
+    collection(db, 'houses'),
+    where('uid', '==', uid)
+  )
+  const houseSnapshot = await getDocs(houseQuery)
+  if (houseSnapshot.empty) return
+
+  const houseId = houseSnapshot.docs[0].id
+
   const q = query(
-    collection(db, 'documents'),
+    collection(db, 'houses', houseId, 'documents'),
     where('visibleToByggherre', '==', true)
   )
   const snapshot = await getDocs(q)
