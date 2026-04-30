@@ -22,9 +22,15 @@ const router = createRouter({
     },
     {
       path: "/dev-profile",
-      name: "profile",
+      name: "dev-profile",
       component: () => import("../views/developers/ProfileView.vue"),
       meta: { title: "Profil", requiresAuth:true, notCustomerOnly:true },
+    },
+    {
+      path: "/cus-profile",
+      name: "cus-profile",
+      component: () => import("../views/customers/ProfileViewCustomer.vue"),
+      meta: { title: "Profil" },
     },
     {
       path: "/todos",
@@ -62,10 +68,16 @@ const router = createRouter({
       meta: { title: "Subtodos", requiresAuth:true, notCustomerOnly:true },
     },
     {
-      path: "/documents",
-      name: "documents",
+      path: "/dev-documents",
+      name: "dev-documents",
       component: () => import("../views/developers/DocumentsView.vue"),
-      meta: { title: "Subtodos" },
+      meta: { title: "Dokumenter" },
+    },
+    {
+      path: "/cus-documents",
+      name: "cus-documents",
+      component: () => import("../views/customers/DocumentsViewCustomer.vue"),
+      meta: { title: "Dokumenter" },
     },
     {
       path: "/build-overview",
