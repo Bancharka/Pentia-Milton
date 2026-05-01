@@ -1,57 +1,60 @@
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
+import { collection, getDocs, query, where, doc, getDoc } from "firebase/firestore";
+import { auth, db } from "@/firebase";
 import Header from "@/components/Header.vue";
 import BottomNav from "@/components/BottomNav.vue";
 import HouseModal from "@/components/modals/HouseModal.vue";
 import ProfileHeader from "@/components/ProfileHeader.vue";
 
 const isHouseModalOpen = ref(false);
+const owners = ref([]);
+const manager = ref({});
 
-const owners = ref([
-  {
-    name: "Sofie Madsen",
-    email: "Sofie_Madsen@gmail.dk",
-    image: "/images/profile1.jpg",
-  },
-  {
-    name: "Karsten Madsen",
-    email: "Karsten_Madsen@gmail.dk",
-    image: "/images/profile2.jpg",
-  },
-]);
+const loadHouseData = async () => {
+  const uid = auth.currentUser.uid
 
-const manager = ref({
-  name: "Thomas Jensen",
-  email: "Thomas_Jensen@milton.dk",
-  image: "/images/manager.jpg",
-});
+  // Find the house where this customer is cuid
+  const houseQuery = query(
+    collection(db, 'houses'),
+    where('cuid', '==', uid)
+  )
+  const houseSnapshot = await getDocs(houseQuery)
+  if (houseSnapshot.empty) return
+
+  const house = houseSnapshot.docs[0].data()
+
+  // Load customer (owner) from users collection using cuid
+  const customerDoc = await getDoc(doc(db, 'users', house.cuid))
+  if (customerDoc.exists()) {
+    const customer = customerDoc.data()
+    owners.value = [{
+      name: customer.name,
+      email: auth.currentUser.email, // email comes from Auth not Firestore
+      image: customer.profileImage || ''
+    }]
+  }
+
+  // Load developer (manager) from users collection using uid
+  const developerDoc = await getDoc(doc(db, 'users', house.uid))
+  if (developerDoc.exists()) {
+    const developer = developerDoc.data()
+    manager.value = {
+      name: developer.name,
+      email: '', // fetch from Auth not possible for other users
+      image: developer.profileImage || ''
+    }
+  }
+}
+
+onMounted(loadHouseData)
 
 const menuItems = [
-  {
-    label: "Mit hus",
-    icon: "house",
-    action: "modal",
-  },
-  {
-    label: "Notifikationer",
-    route: "/notifications",
-    icon: "bell",
-  },
-  {
-    label: "Sikkerhed",
-    route: "/security",
-    icon: "shield",
-  },
-  {
-    label: "Privat indstillinger",
-    route: "/privacy",
-    icon: "key",
-  },
-  {
-    label: "Hjælp",
-    route: "/help",
-    icon: "help",
-  },
+  { label: "Mit hus", icon: "house", action: "modal" },
+  { label: "Notifikationer", route: "/notifications", icon: "bell" },
+  { label: "Sikkerhed", route: "/security", icon: "shield" },
+  { label: "Privat indstillinger", route: "/privacy", icon: "key" },
+  { label: "Hjælp", route: "/help", icon: "help" },
 ];
 
 const handleItemClick = (item) => {
