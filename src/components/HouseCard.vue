@@ -1,5 +1,4 @@
 <script setup>
-//fallback house image
 import defaultHouse from "@/assets/img/house.png"
 
 defineProps({ address: String, postalCode: [String, Number], city: String, registration: String, image: String });
