@@ -37,6 +37,11 @@ export function useHouses() {
         return house.todos ?? [];
     }
 
+    async function fetchAllHouses() {
+        const snap = await getDocs(collection(db, "houses"));
+        return snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    }
+
     async function uploadHouseImage(registration, image) {
         const imageRef = storageRef(storage, `houses/${registration}_${image.name}`);
         await uploadBytes(imageRef, image);
@@ -100,5 +105,5 @@ export function useHouses() {
         await updateDoc(houseRef, { todos });
     }
 
-    return { fetchUserHouse, fetchUserHouseTodos, createHouseFromTemplate, updateSubTodoDone };
+    return { fetchUserHouse, fetchAllHouses, fetchUserHouseTodos, createHouseFromTemplate, updateSubTodoDone };
 }

@@ -103,7 +103,7 @@ const route = useRoute();
       </svg>
     </router-link>
     <!-- Den her mangler at få den rigtige routing på, det er customer siden der skal laves færdigt -->
-    <router-link v-if="userStore.userData?.customer === true" to="/profile" class="nav-item" :class="{ active: route.path === '/profile' }">
+    <router-link v-if="userStore.userData?.customer === true" to="/cus-profile" class="nav-item" :class="{ active: route.path === '/cus-profile' }">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"

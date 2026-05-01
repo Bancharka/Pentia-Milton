@@ -1,25 +1,22 @@
 <script setup>
-import { ref, onMounted } from "vue";
-import { collection, getDocs, query, where } from "firebase/firestore";
-import { db, auth } from "@/firebase";
-import { onAuthStateChanged } from "firebase/auth";
-import BottomNav from "@/components/BottomNav.vue";
+import { ref, computed, onMounted } from "vue";
+import { useHouseStore } from "@/stores/houseStore";
 import Header from "@/components/Header.vue";
+import BottomNav from "@/components/BottomNav.vue";
 import HouseCard from "@/components/HouseCard.vue";
 import SearchInput from "@/components/SearchInput.vue";
 
-const houses = ref([]);
+const store = useHouseStore();
+const searchQuery = ref("");
 
-onMounted(() => {
-  onAuthStateChanged(auth, async (user) => {
-    
-    if (user) {
-      const snap = await getDocs(
-        query(collection(db, "houses"), where("uid", "==", user.uid))
-      );
-      houses.value = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-    }
-  });
+const filteredList = computed(() =>
+  store.houses.filter((house) =>
+    house.address.toLowerCase().includes(searchQuery.value.toLowerCase())
+  )
+);
+
+onMounted(async () => {
+  await store.loadAllHouses();
 });
 </script>
 <template>
@@ -27,9 +24,9 @@ onMounted(() => {
     <Header />
     <div class="site-container site-container--primary">
       <div class="overview">
-        <SearchInput placeholder="Søg efter hus" />
+        <SearchInput v-model="searchQuery" placeholder="Search" />
         <HouseCard
-        v-for="house in houses"
+        v-for="house in filteredList"
         :key="house.id"
         :address="house.address"
         :postalCode="house['postal-code']"

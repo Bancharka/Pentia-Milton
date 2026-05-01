@@ -30,7 +30,7 @@ const router = createRouter({
       path: "/cus-profile",
       name: "cus-profile",
       component: () => import("../views/customers/ProfileViewCustomer.vue"),
-      meta: { title: "Profil" },
+      meta: { title: "Profil", requiresAuth:true, customerOnly:true },
     },
     {
       path: "/todos",
