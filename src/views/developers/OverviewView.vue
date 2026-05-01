@@ -13,6 +13,7 @@ const filteredList = computed(() =>
   store.houses.filter((house) =>
     house.address.toLowerCase().includes(searchQuery.value.toLowerCase())
   )
+  .sort((a, b) => Number(a['postal-code']) - Number(b['postal-code']))
 );
 
 onMounted(async () => {
