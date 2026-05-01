@@ -4,10 +4,15 @@
 .header {
     display: flex;
     align-items: center;
-    margin: 1rem;
+    margin: 3rem 1rem 1rem;
 
     &__button {
         flex: 1;
+
+        &:hover {
+            cursor: pointer;
+        }
+
     }
 
     &__title {

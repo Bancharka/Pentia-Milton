@@ -75,7 +75,7 @@ const submitLogin = async () => {
         if(userStore.userData?.customer === true){
         router.push("/home-customer");}
           else if(userStore.userData?.customer === false) {
-            router.push("/dev-home")
+            router.push("/overview");
           }
           else {
             window.alert("Din profil er ikke færdigt oprettet i systemet, venligts kontakt kundeservice")

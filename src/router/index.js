@@ -17,7 +17,7 @@ const router = createRouter({
     {
       path: "/dev-home",
       name: "home",
-      component: () => import("../views/developers/HomeView.vue"),
+      component: () => import("../views/developers/OverviewView.vue"),
       meta: { title: "Hjem", requiresAuth:true, notCustomerOnly:true },
     },
     {
@@ -30,7 +30,7 @@ const router = createRouter({
       path: "/cus-profile",
       name: "cus-profile",
       component: () => import("../views/customers/ProfileViewCustomer.vue"),
-      meta: { title: "Profil" },
+      meta: { title: "Profil", requiresAuth:true, customerOnly:true },
     },
     {
       path: "/todos",
@@ -55,6 +55,9 @@ const router = createRouter({
       component: () => import("../views/customers/HomeViewCustomer.vue"),
       meta: { title: "Hjem", requiresAuth:true, customerOnly:true },
     },
+
+
+    // Her skal vi beslutte os for om den kun skal kunne tilgås af den ene eller anden, eller hvad den skal bruges til 
     {
       path: "/create-house",
       name: "create-house",
@@ -71,19 +74,20 @@ const router = createRouter({
       path: "/dev-documents",
       name: "dev-documents",
       component: () => import("../views/developers/DocumentsView.vue"),
-      meta: { title: "Dokumenter" },
+      meta: { title: "Dokumenter", requiresAuth:true, notCustomerOnly:true },
+      
     },
     {
       path: "/cus-documents",
       name: "cus-documents",
       component: () => import("../views/customers/DocumentsViewCustomer.vue"),
-      meta: { title: "Dokumenter" },
+      meta: { title: "Dokumenter", requiresAuth:true, customerOnly:true },
     },
     {
       path: "/build-overview",
       name: "build-overview",
       component: () => import("../views/customers/BuildOverviewView.vue"),
-      meta: { title: "Bygge oversigt" },
+      meta: { title: "Bygge oversigt", requiresAuth:true, customerOnly:true  },
     },
   ],
 });

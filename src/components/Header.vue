@@ -11,7 +11,7 @@ const title = computed(() => route.meta.title);
 
 <template>
   <div class="header">
-    <button class="header__button">
+    <button onclick="history.back()" class="header__button">
       <img src="@/assets/icons/back-arrow.svg" alt="back-arrow" />
     </button>
     <h2 class="header__title">{{ title }}</h2>

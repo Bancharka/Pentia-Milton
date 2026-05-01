@@ -10,7 +10,7 @@ const route = useRoute();
 
 <template>
   <nav  class="bottom-nav">
-    <router-link v-if="userStore.userData?.customer === true"  to="/home-customer" class="nav-item" :class="{ active: route.path === '/' }">
+    <router-link v-if="userStore.userData?.customer === true"  to="/home-customer" class="nav-item" :class="{ active: route.path === '/home-customer' }">
       
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -28,7 +28,7 @@ const route = useRoute();
       </svg>
     </router-link>
 
-    <router-link v-else  to="/dev-home" class="nav-item" :class="{ active: route.path === '/dev-home' }">
+    <router-link v-else  to="/overview" class="nav-item" :class="{ active: route.path === '/overview' }">
       
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -103,7 +103,7 @@ const route = useRoute();
       </svg>
     </router-link>
     <!-- Den her mangler at få den rigtige routing på, det er customer siden der skal laves færdigt -->
-    <router-link v-if="userStore.userData?.customer === true" to="/profile" class="nav-item" :class="{ active: route.path === '/profile' }">
+    <router-link v-if="userStore.userData?.customer === true" to="/cus-profile" class="nav-item" :class="{ active: route.path === '/cus-profile' }">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"

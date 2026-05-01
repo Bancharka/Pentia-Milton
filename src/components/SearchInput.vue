@@ -5,6 +5,11 @@ defineProps({
     default: "Søg...",
   },
 });
+
+
+
+
+const input = defineModel();
 </script>
 <template>
   <div class="searchinput">
@@ -15,6 +20,6 @@ defineProps({
         class="searchinput__icon"
       />
     </span>
-    <input type="text" :placeholder="placeholder" />
+    <input type="text" v-model="input" :placeholder="placeholder" />
   </div>
 </template>
