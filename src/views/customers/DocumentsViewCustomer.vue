@@ -14,7 +14,7 @@ const loadDocuments = async () => {
 
   const houseQuery = query(
     collection(db, 'houses'),
-    where('uid', '==', uid)
+    where('cuid', '==', uid)
   )
   const houseSnapshot = await getDocs(houseQuery)
   if (houseSnapshot.empty) return

@@ -13,16 +13,19 @@ const houseId = ref(null)
 
 const loadDocuments = async () => {
   const uid = auth.currentUser.uid
+  console.log('developer uid:', uid)
 
   // Find the house where this developer is assigned
   const houseQuery = query(
     collection(db, 'houses'),
-    where('developerUid', '==', uid)
+    where('uid', '==', uid)
   )
   const houseSnapshot = await getDocs(houseQuery)
+  console.log('houses found:', houseSnapshot.size)
   if (houseSnapshot.empty) return
 
   houseId.value = houseSnapshot.docs[0].id
+  console.log('houseId set to:', houseId.value)
 
   // Load documents from that house's subcollection
   const docsSnapshot = await getDocs(

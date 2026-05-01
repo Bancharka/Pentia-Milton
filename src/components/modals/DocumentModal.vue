@@ -39,6 +39,9 @@ const formatBytes = (bytes) => {
 }
 
 const handleSubmit = async () => {
+  console.log('houseId:', props.houseId)
+  console.log('title:', title.value)
+  console.log('file:', selectedFile.value)
   if (!title.value || !selectedFile.value) return
   isUploading.value = true
 
