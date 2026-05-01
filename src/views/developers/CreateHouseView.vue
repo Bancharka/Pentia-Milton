@@ -4,6 +4,7 @@ import Header from "@/components/Header.vue";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { useHouses } from "@/firebaseLogic/useHouses";
+import { validateHouseForm } from "@/utils/validateHouseForm"
 
 
 const { createHouseFromTemplate } = useHouses();
@@ -20,18 +21,25 @@ function handleImage(event) {
 }
 
 async function submitHouse() {
-  if (!address.value || !city.value || !postalCode.value || !registration.value || !image.value) {
-    alert("Udfyld alle felter");
-    return;
-  }  
+  const error = validateHouseForm({
+    address: address.value,
+    city: city.value,
+    postalCode: postalCode.value,
+    registration: registration.value,
+    image: image.value
+  })
+  if (error) {
+    alert(error)
+    return
+  }
   await createHouseFromTemplate(
-    address.value,
-    city.value,
-    postalCode.value,
-    registration.value,
-    image.value
-  );
-  router.push("/overview");
+  address.value,
+  city.value,
+  postalCode.value,
+  registration.value,
+  image.value
+);
+  router.push("/overview")
 }
 
 </script>

@@ -6,24 +6,25 @@ import BottomNav from "@/components/BottomNav.vue";
 import TodoCard from "@/components/TodoCard.vue";
 import { useHouseStore } from "@/stores/houseStore";
 import { useHouses } from "@/firebaseLogic/useHouses";
-
+import { getSubTodos, applyToggle } from "@/utils/todoHelpers";
+ 
 const store = useHouseStore();
 const { updateSubTodoDone } = useHouses();
 const route = useRoute();
-
 const subTodos = ref([]);
 const todoIndex = Number(route.params.todoIndex);
-
+ 
 onMounted(async () => {
   await store.loadHouse();
-  subTodos.value = store.todos[todoIndex]?.subTodos ?? [];
+  subTodos.value = getSubTodos(store.todos, todoIndex);
 });
-
+ 
 async function handleCheck(subTodoIndex) {
-  const current = subTodos.value[subTodoIndex].done;
-  await updateSubTodoDone(todoIndex, subTodoIndex, !current);
-  subTodos.value[subTodoIndex].done = !current;
+  const { updated, newDone } = applyToggle(subTodos.value, subTodoIndex);
+  subTodos.value = updated;
+  await updateSubTodoDone(todoIndex, subTodoIndex, newDone);
 }
+
 </script>
 
 <template>
