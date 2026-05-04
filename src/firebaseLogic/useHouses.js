@@ -24,12 +24,21 @@ export function useHouses() {
     async function fetchUserHouse() {
         const user = await getCurrentUser();
         if (!user) return null;
+      
+        // Check if user is a customer or developer
+        const userDoc = await getDocs(
+          query(collection(db, 'users'), where('__name__', '==', user.uid))
+        )
+        const isCustomer = userDoc.docs[0]?.data()?.customer === true
+      
+        const field = isCustomer ? 'cuid' : 'uid'
+      
         const snap = await getDocs(
-            query(collection(db, "houses"), where("uid", "==", user.uid))
-        );
+          query(collection(db, 'houses'), where(field, '==', user.uid))
+        )
         if (snap.empty) return null;
         return { id: snap.docs[0].id, ...snap.docs[0].data() };
-    }
+      }
 
     async function fetchUserHouseTodos() {
         const house = await fetchUserHouse();
