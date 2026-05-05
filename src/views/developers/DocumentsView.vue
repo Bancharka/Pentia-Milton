@@ -6,42 +6,30 @@ import Header from '@/components/Header.vue'
 import BottomNav from '@/components/BottomNav.vue'
 import SearchInput from '@/components/SearchInput.vue'
 import DocumentModal from '@/components/modals/DocumentModal.vue'
+import { useDocumentStore } from '@/stores/documentsStore'
+import { computed } from 'vue'
 
+
+const documentsStore = useDocumentStore();
 const isModalOpen = ref(false)
-const documents = ref([])
-const houseId = ref(null)
+const searchQuery = ref("");
 
-const loadDocuments = async () => {
-  const uid = auth.currentUser.uid
-  console.log('developer uid:', uid)
 
-  // Find the house where this developer is assigned
-  const houseQuery = query(
-    collection(db, 'houses'),
-    where('uid', '==', uid)
+const filteredList = computed(() =>
+  documentsStore.documents.filter((doc) =>
+    doc.title.toLowerCase().includes(searchQuery.value.toLowerCase())
   )
-  const houseSnapshot = await getDocs(houseQuery)
-  console.log('houses found:', houseSnapshot.size)
-  if (houseSnapshot.empty) return
+);
 
-  houseId.value = houseSnapshot.docs[0].id
-  console.log('houseId set to:', houseId.value)
 
-  // Load documents from that house's subcollection
-  const docsSnapshot = await getDocs(
-    collection(db, 'houses', houseId.value, 'documents')
-  )
-  documents.value = docsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))
-}
-
-onMounted(loadDocuments)
+onMounted(() => documentsStore.loadDocuments());
 </script>
 
 <template>
   <div class="page-container">
     <Header />
     <div class="site-container site-container--primary">
-      <SearchInput />
+      <SearchInput v-model="searchQuery" placeholder="Search" />
 
       <button class="docs__add-btn" @click="isModalOpen = true">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
@@ -51,7 +39,7 @@ onMounted(loadDocuments)
 
       <div class="docs__grid">
         <div
-          v-for="doc in documents"
+          v-for="doc in filteredList"
           :key="doc.id"
           class="docs__item"
         >
@@ -68,10 +56,9 @@ onMounted(loadDocuments)
     </div>
 
     <DocumentModal
-    :is-open="isModalOpen"
-  :house-id="houseId"
-  @close="isModalOpen = false"
-  @uploaded="loadDocuments"
+      :is-open="isModalOpen"
+      @close="isModalOpen = false"
+      @uploaded="documentsStore.loadDocuments"
     />
 
     <BottomNav />

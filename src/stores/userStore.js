@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { useUsers } from "@/firebaseLogic/useUsers";
+import { useUsers } from "@/composables/useUsers";
 import { ref } from "vue";
 import { auth } from "@/firebase";
 

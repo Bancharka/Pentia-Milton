@@ -101,7 +101,7 @@ function waitForAuth() {
     });
 }
 
-router.beforeEach(async (to, from) => {
+router.beforeEach(async (to) => {
   const userStore = useUserStore();
   const currentUser = await waitForAuth();
 

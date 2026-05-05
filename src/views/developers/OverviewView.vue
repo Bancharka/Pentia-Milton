@@ -19,6 +19,8 @@ const filteredList = computed(() =>
 onMounted(async () => {
   await store.loadAllHouses();
 });
+
+
 </script>
 <template>
   <div class="page-container">
