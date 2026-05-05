@@ -5,9 +5,10 @@ import Header from "@/components/Header.vue";
 import BottomNav from "@/components/BottomNav.vue";
 import TodoCard from "@/components/TodoCard.vue";
 import { useHouseStore } from "@/stores/houseStore";
-import { useHouses } from "@/firebaseLogic/useHouses";
+import { useHouses } from "@/composables/useHouses";
 import { getSubTodos, applyToggle } from "@/utils/todoHelpers";
 import SearchInput from "@/components/SearchInput.vue";
+import { computed } from "vue";
  
 const store = useHouseStore();
 const { updateSubTodoDone } = useHouses();
@@ -17,11 +18,13 @@ const todoIndex = Number(route.params.todoIndex);
 const searchQuery = ref("");
 
 
+
 const filteredList = computed(() =>
-  store.houses.filter((house) =>
-    house.sub.title.toLowerCase().includes(searchQuery.value.toLowerCase())
+  subTodos.value.filter((sub) =>
+    sub.title.toLowerCase().includes(searchQuery.value.toLowerCase())
   )
 );
+
  
 onMounted(async () => {
   await store.loadHouse();
