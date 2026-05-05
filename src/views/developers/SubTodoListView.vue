@@ -7,17 +7,29 @@ import TodoCard from "@/components/TodoCard.vue";
 import { useHouseStore } from "@/stores/houseStore";
 import { useHouses } from "@/firebaseLogic/useHouses";
 import { getSubTodos, applyToggle } from "@/utils/todoHelpers";
+import SearchInput from "@/components/SearchInput.vue";
  
 const store = useHouseStore();
 const { updateSubTodoDone } = useHouses();
 const route = useRoute();
 const subTodos = ref([]);
 const todoIndex = Number(route.params.todoIndex);
+const searchQuery = ref("");
+
+
+const filteredList = computed(() =>
+  store.houses.filter((house) =>
+    house.sub.title.toLowerCase().includes(searchQuery.value.toLowerCase())
+  )
+);
  
 onMounted(async () => {
   await store.loadHouse();
   subTodos.value = getSubTodos(store.todos, todoIndex);
 });
+
+
+
  
 async function handleCheck(subTodoIndex) {
   const { updated, newDone } = applyToggle(subTodos.value, subTodoIndex);
@@ -31,9 +43,10 @@ async function handleCheck(subTodoIndex) {
   <div class="page-container">
     <Header />
     <div class="site-container site-container--secondary">
+      <SearchInput v-model="searchQuery" placeholder="Search" />
       <div class="todo-list">
         <TodoCard
-          v-for="(sub, index) in subTodos"
+          v-for="(sub, index) in filteredList"
           :key="index"
           :task="sub.title"
           :checked="sub.done"
