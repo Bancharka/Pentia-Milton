@@ -3,7 +3,7 @@ import BaseButton from "@/components/BaseButton.vue";
 import Header from "@/components/Header.vue";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import { useHouses } from "@/firebaseLogic/useHouses";
+import { useHouses } from "@/composables/useHouses";
 import { validateHouseForm } from "@/utils/validateHouseForm"
 
 

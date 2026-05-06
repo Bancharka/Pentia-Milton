@@ -4,25 +4,30 @@ import Header from '@/components/Header.vue'
 import BottomNav from '@/components/BottomNav.vue'
 import SearchInput from '@/components/SearchInput.vue'
 import DocumentModal from '@/components/modals/DocumentModal.vue'
-import { collection, getDocs } from 'firebase/firestore'
-import { db } from '@/firebase' 
+import { useDocumentStore } from '@/stores/documentsStore'
+import { computed } from 'vue'
 
+
+const documentsStore = useDocumentStore();
 const isModalOpen = ref(false)
-const documents = ref([])
+const searchQuery = ref("");
 
-const loadDocuments = async () => {
-  const snapshot = await getDocs(collection(db, 'documents'))
-  documents.value = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))
-}
 
-onMounted(loadDocuments)
+const filteredList = computed(() =>
+  documentsStore.documents.filter((doc) =>
+    doc.title.toLowerCase().includes(searchQuery.value.toLowerCase())
+  )
+);
+
+
+onMounted(() => documentsStore.loadDocuments());
 </script>
 
 <template>
   <div class="page-container">
     <Header />
     <div class="site-container site-container--primary">
-      <SearchInput />
+      <SearchInput v-model="searchQuery" placeholder="Search" />
 
       <button class="docs__add-btn" @click="isModalOpen = true">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
@@ -32,7 +37,7 @@ onMounted(loadDocuments)
 
       <div class="docs__grid">
         <div
-          v-for="doc in documents"
+          v-for="doc in filteredList"
           :key="doc.id"
           class="docs__item"
         >
@@ -51,7 +56,7 @@ onMounted(loadDocuments)
     <DocumentModal
       :is-open="isModalOpen"
       @close="isModalOpen = false"
-      @uploaded="loadDocuments"
+      @uploaded="documentsStore.loadDocuments"
     />
 
     <BottomNav />

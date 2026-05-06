@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { useHouses } from "@/firebaseLogic/useHouses";
+import { useHouses } from "@/composables/useHouses";
 import { ref } from "vue";
 
 export const useHouseStore = defineStore("house", () => {
