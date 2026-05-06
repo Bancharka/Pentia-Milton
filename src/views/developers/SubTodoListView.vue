@@ -14,7 +14,7 @@ const route = useRoute()
 const subTodos = ref([])
 const todoIndex = Number(route.params.todoIndex)
 const searchQuery = ref('')
-const todoTitle = ref("");
+const todoTitle = ref('')
 const filteredList = computed(() =>
     subTodos.value.filter((sub) =>
         sub.title.toLowerCase().includes(searchQuery.value.toLowerCase())

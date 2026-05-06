@@ -9,7 +9,7 @@ const store = useHouseStore()
 const route = useRoute()
 onMounted(async () => {
     await store.loadHouseById(route.params.houseId)
-  });
+})
 </script>
 <template>
     <div class="page-container">
