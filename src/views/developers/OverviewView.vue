@@ -1,5 +1,6 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
+import { useRouter } from "vue-router";
 import { useHouseStore } from '@/stores/houseStore'
 import Header from '@/components/Header.vue'
 import BottomNav from '@/components/BottomNav.vue'
@@ -7,6 +8,7 @@ import HouseCard from '@/components/HouseCard.vue'
 import SearchInput from '@/components/SearchInput.vue'
 
 const store = useHouseStore()
+const router = useRouter();
 const searchQuery = ref('')
 
 const filteredList = computed(() =>
@@ -42,6 +44,7 @@ onMounted(async () => {
                     :city="house.city"
                     :registration="house.registration"
                     :image="house.image"
+                     @click="goToHouse(house.id)"
                 />
                 <BottomNav />
             </div>
