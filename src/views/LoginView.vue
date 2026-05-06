@@ -10,6 +10,8 @@ import LoginInput from '@/components/LoginInput.vue'
             <div class="login__input">
                 <LoginInput />
         
+
+                
             </div>
         </div>
     </div>

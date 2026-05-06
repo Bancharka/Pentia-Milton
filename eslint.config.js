@@ -47,6 +47,8 @@ export default defineConfig([
       'vue/html-indent': ['error', 4],
       'no-console': 'warn',
       'no-unused-vars': 'warn',
+      'vue/html-self-closing': 'error',
+      'no-multiple-empty-lines': ['error', { max: 0 }],
       eqeqeq: 'error',
       quotes: ['error', 'single'],
       semi: ['error', 'never'],
