@@ -19,27 +19,27 @@ const props = defineProps({
 });
 
 // max tager alle subtodos og lægger dem sammen til ét array
-const max = computed(() => houseStore.todos.flatMap((todo) => todo.subTodos));
-const done = computed(() => max.value.filter((todo) => todo.done === true));
+const max = computed(() => houseStore.todos.flatMap((todo) => todo.subTodos))
+const done = computed(() => max.value.filter((todo) => todo.done === true))
 
 // Regner procentværdien for todos - done/total*100
-const fillPercent = computed(() => (done.value.length / max.value.length) * 100);
+const fillPercent = computed(() => (done.value.length / max.value.length) * 100)
 
 const dynamicHouse = computed(() => {
-    if (fillPercent.value <= 25) return houseFoundation;
-    if (fillPercent.value <= 50) return houseWalls;
-    if (fillPercent.value <= 75) return houseWallsRoof;
-    return houseDone; // 
-});
+    if (fillPercent.value <= 25) return houseFoundation
+    if (fillPercent.value <= 50) return houseWalls
+    if (fillPercent.value <= 75) return houseWallsRoof
+    return houseDone // 
+})
 </script>
 
 <template>
     <div class="house-card" :class="{ 'house-card--with-button': props.withButton }">
       <h3>Her kan du følge med i byggeprocessen af dit hus</h3>
 
-      <div>
-        <img :src="dynamicHouse" />
-      </div>
+            <div>
+                <img :src="dynamicHouse" />
+            </div>
 
       <div class="house-card__progress-bar">
         <img

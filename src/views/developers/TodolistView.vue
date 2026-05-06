@@ -8,8 +8,8 @@ import SearchInput from "@/components/SearchInput.vue";
 import { useHouseStore } from "@/stores/houseStore";
 import { computed } from "vue";
 
-const store = useHouseStore();
-const searchQuery = ref("");
+const store = useHouseStore()
+const searchQuery = ref('')
 
 
 const filteredList = computed(() =>
@@ -38,6 +38,4 @@ onMounted(async () => {
         />
       </div>
     </div>
-    <BottomNav />
-  </div>
 </template>

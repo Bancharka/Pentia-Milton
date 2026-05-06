@@ -1,30 +1,29 @@
 <script setup>
-import { ref, onMounted } from "vue";
-import { useRoute } from "vue-router";
-import BottomNav from "@/components/BottomNav.vue";
-import TodoCard from "@/components/TodoCard.vue";
-import { useHouseStore } from "@/stores/houseStore";
-import { useHouses } from "@/composables/useHouses";
-import { getSubTodos, applyToggle } from "@/utils/todoHelpers";
-import SearchInput from "@/components/SearchInput.vue";
-import { computed } from "vue";
+import { ref, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
+import Header from '@/components/Header.vue'
+import BottomNav from '@/components/BottomNav.vue'
+import TodoCard from '@/components/TodoCard.vue'
+import { useHouseStore } from '@/stores/houseStore'
+import { useHouses } from '@/composables/useHouses'
+import { getSubTodos, applyToggle } from '@/utils/todoHelpers'
+import SearchInput from '@/components/SearchInput.vue'
+import { computed } from 'vue'
  
-const store = useHouseStore();
-const { updateSubTodoDone } = useHouses();
-const { updateSubTodoDoneById } = useHouses();
-const route = useRoute();
-const subTodos = ref([]);
-const todoTitle = ref("");
-const todoIndex = Number(route.params.todoIndex);
-const searchQuery = ref("");
+const store = useHouseStore()
+const { updateSubTodoDone } = useHouses()
+const route = useRoute()
+const subTodos = ref([])
+const todoIndex = Number(route.params.todoIndex)
+const searchQuery = ref('')
 
 
 
 const filteredList = computed(() =>
-  subTodos.value.filter((sub) =>
-    sub.title.toLowerCase().includes(searchQuery.value.toLowerCase())
-  )
-);
+    subTodos.value.filter((sub) =>
+        sub.title.toLowerCase().includes(searchQuery.value.toLowerCase())
+    )
+)
 
 
 onMounted(async () => {
@@ -33,10 +32,11 @@ onMounted(async () => {
   todoTitle.value = store.todos[todoIndex]?.title ?? "";
 });
 
+
 async function handleCheck(subTodoIndex) {
-  const { updated, newDone } = applyToggle(subTodos.value, subTodoIndex);
-  subTodos.value = updated;
-  await updateSubTodoDoneById(route.params.houseId, todoIndex, subTodoIndex, newDone);
+    const { updated, newDone } = applyToggle(subTodos.value, subTodoIndex)
+    subTodos.value = updated
+    await updateSubTodoDone(todoIndex, subTodoIndex, newDone)
 }
 
 </script>
@@ -62,6 +62,4 @@ async function handleCheck(subTodoIndex) {
         />
       </div>
     </div>
-    <BottomNav />
-  </div>
 </template>

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { applyToggle } from "@/utils/todoHelpers"
+import { applyToggle } from '@/utils/todoHelpers'
 
 describe('applyToggle', () => {
     it('returns the updated array with the toggled value', () => {
