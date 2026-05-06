@@ -1,7 +1,5 @@
 <script setup>
 import { ref, onMounted } from 'vue'
-import { collection, getDocs, query, where } from 'firebase/firestore'
-import { auth, db } from '@/firebase'
 import Header from '@/components/Header.vue'
 import BottomNav from '@/components/BottomNav.vue'
 import SearchInput from '@/components/SearchInput.vue'

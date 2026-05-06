@@ -1,28 +1,8 @@
 <script setup>
-import { ref } from "vue";
 import Header from "@/components/Header.vue";
 import BottomNav from "@/components/BottomNav.vue";
 import ProfileHeader from "@/components/ProfileHeader.vue";
 
-// (valgfri) behold kun hvis de bruges andre steder
-const owners = ref([
-  {
-    name: "Sofie Madsen",
-    email: "Sofie_Madsen@gmail.dk",
-    image: "/images/profile1.jpg",
-  },
-  {
-    name: "Karsten Madsen",
-    email: "Karsten_Madsen@gmail.dk",
-    image: "/images/profile2.jpg",
-  },
-]);
-
-const manager = ref({
-  name: "Thomas Jensen",
-  email: "Thomas_Jensen@milton.dk",
-  image: "/images/manager.jpg",
-});
 
 const menuItems = [
   {
