@@ -1,5 +1,4 @@
 <script setup>
-import { onMounted } from "vue";
 import { useRoute } from "vue-router";
 import { ref, onMounted } from "vue";
 import Header from "@/components/Header.vue";
