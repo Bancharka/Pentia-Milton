@@ -1,38 +1,30 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
-import { useRouter } from "vue-router";
+import { useRouter } from 'vue-router'
 import { useHouseStore } from '@/stores/houseStore'
-import Header from '@/components/Header.vue'
+import HeaderBack from '@/components/HeaderBack.vue'
 import BottomNav from '@/components/BottomNav.vue'
 import HouseCard from '@/components/HouseCard.vue'
 import SearchInput from '@/components/SearchInput.vue'
-
 const store = useHouseStore()
-const router = useRouter();
+const router = useRouter()
 const searchQuery = ref('')
-
 const filteredList = computed(() =>
     store.houses.filter((house) =>
         house.address.toLowerCase().includes(searchQuery.value.toLowerCase())
     )
         .sort((a, b) => Number(a['postal-code']) - Number(b['postal-code']))
 )
-
 function goToHouse(houseId) {
-  router.push(`/houses/${houseId}`);
+    router.push(`/houses/${houseId}`)
 }
-
-
-
 onMounted(async () => {
     await store.loadAllHouses()
 })
-
-
 </script>
 <template>
     <div class="page-container">
-        <Header />
+        <HeaderBack />
         <div class="site-container site-container--primary">
             <div class="overview">
                 <SearchInput v-model="searchQuery" placeholder="Search" />
@@ -44,7 +36,7 @@ onMounted(async () => {
                     :city="house.city"
                     :registration="house.registration"
                     :image="house.image"
-                     @click="goToHouse(house.id)"
+                    @click="goToHouse(house.id)"
                 />
                 <BottomNav />
             </div>

@@ -1,9 +1,7 @@
 <script setup>
-import Header from "@/components/Header.vue";
-import BottomNav from "@/components/BottomNav.vue";
-import ProfileHeader from "@/components/ProfileHeader.vue";
-
-
+import HeaderBack from '@/components/HeaderBack.vue'
+import BottomNav from '@/components/BottomNav.vue'
+import ProfileHeader from '@/components/ProfileHeader.vue'
 const menuItems = [
     {
         label: 'Notifikationer',
@@ -27,14 +25,11 @@ const menuItems = [
     },
 ]
 </script>
-
 <template>
     <div class="page-container">
-        <Header />
-
+        <HeaderBack />
         <div class="site-container site-container--primary">
             <ProfileHeader />
-
             <div class="profile-menu">
                 <router-link
                     v-for="item in menuItems"
@@ -43,7 +38,6 @@ const menuItems = [
                     class="profile-menu__item"
                 >
                     <div class="profile-menu__icon">
-
                         <svg
                             v-if="item.icon === 'bell'"
                             xmlns="http://www.w3.org/2000/svg"
@@ -57,7 +51,6 @@ const menuItems = [
                                 clip-rule="evenodd"
                             />
                         </svg>
-
                         <svg
                             v-else-if="item.icon === 'shield'"
                             xmlns="http://www.w3.org/2000/svg"
@@ -71,7 +64,6 @@ const menuItems = [
                                 clip-rule="evenodd"
                             />
                         </svg>
-
                         <svg
                             v-else-if="item.icon === 'key'"
                             xmlns="http://www.w3.org/2000/svg"
@@ -85,7 +77,6 @@ const menuItems = [
                                 clip-rule="evenodd"
                             />
                         </svg>
-
                         <svg
                             v-else
                             xmlns="http://www.w3.org/2000/svg"
@@ -100,14 +91,12 @@ const menuItems = [
                             />
                         </svg>
                     </div>
-
                     <span class="profile-menu__label">
                         {{ item.label }}
                     </span>
                 </router-link>
             </div>
         </div>
-
         <BottomNav />
     </div>
 </template>

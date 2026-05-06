@@ -5,18 +5,14 @@ import { doc, getDoc, updateDoc } from 'firebase/firestore'
 import { ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage'
 import { onAuthStateChanged } from 'firebase/auth'
 import defaultImg from '@/assets/img/builder.png'
-
 const name = ref('')
 const email = ref('')
 const profileImage = ref(defaultImg)
 const fileInput = ref(null)
-
 onMounted(() => {
     onAuthStateChanged(auth, async (user) => {
         if (!user) return
-
         email.value = user.email
-
         const userDoc = await getDoc(doc(db, 'users', user.uid))
         if (userDoc.exists()) {
             name.value = userDoc.data().name ?? ''
@@ -24,28 +20,23 @@ onMounted(() => {
         }
     })
 })
-
 async function handleImageChange(event) {
     const file = event.target.files[0]
     if (!file) return
-
     const user = auth.currentUser
-
-    const imageRef = storageRef(storage, `profileImages/${user.uid}`);
-    await uploadBytes(imageRef, file);
-    const imageUrl = await getDownloadURL(imageRef);
-
-    await updateDoc(doc(db, "users", user.uid), {
+    const imageRef = storageRef(storage, `profileImages/${user.uid}`)
+    await uploadBytes(imageRef, file)
+    const imageUrl = await getDownloadURL(imageRef)
+    await updateDoc(doc(db, 'users', user.uid), {
         profileImage: imageUrl
     })
-
     profileImage.value = imageUrl
 }
 </script>
 <template>
     <div class="profile-header">
         <div class="profile-header__imagecontainer" @click="fileInput.click()">
-            <img class="profile-header__img" :src="profileImage" alt="Profilbillede" />
+            <img class="profile-header__img" :src="profileImage" alt="Profilbillede" >
             <div class="profile-header__overlay">
                 <img class="profile-header__change-img" src="@/assets/icons/changeimg.svg" alt="Skift billede">
             </div>

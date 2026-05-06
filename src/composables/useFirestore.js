@@ -1,24 +1,18 @@
 import { db } from '@/firebase'
 import { collection, getDocs, query, orderBy } from 'firebase/firestore'
-
 export function useFirestore() {
     async function fetchTodos() {
-
         const todoSnap = await getDocs(
             query(
                 collection(db, 'houseTemplates', 'default-house', 'todos'),
                 orderBy('order')
             )
         )
-
         const todos = todoSnap.docs.map(todoDoc => ({
             id: todoDoc.id,
             ...todoDoc.data(),
             subTodos: []
-
         }))
-
-
         for (const todo of todos) {
             const subTodosSnap = await getDocs(
                 query(
@@ -26,17 +20,12 @@ export function useFirestore() {
                     orderBy('order')
                 )
             )
-
-
             todo.subTodos = subTodosSnap.docs.map(subDoc => ({
                 id: subDoc.id,
                 ...subDoc.data()
-
             }))
         }
-
         return todos
     }
-
     return { fetchTodos }
 }
