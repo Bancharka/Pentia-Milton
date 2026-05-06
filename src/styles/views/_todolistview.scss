@@ -1,0 +1,6 @@
+@use "../layout" as *;
+
+.todo-list {
+    padding: $spacing-sm;
+    margin-bottom: $spacing-xxl;
+}

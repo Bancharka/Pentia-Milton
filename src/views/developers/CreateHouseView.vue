@@ -1,59 +1,59 @@
 <script setup>
-import BaseButton from "@/components/BaseButton.vue";
-import Header from "@/components/Header.vue";
-import { ref } from "vue";
-import { useRouter } from "vue-router";
-import { useHouses } from "@/composables/useHouses";
-import { validateHouseForm } from "@/utils/validateHouseForm"
+import BaseButton from '@/components/BaseButton.vue'
+import Header from '@/components/Header.vue'
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { useHouses } from '@/composables/useHouses'
+import { validateHouseForm } from '@/utils/validateHouseForm'
 
 
-const { createHouseFromTemplate } = useHouses();
-const router = useRouter();
+const { createHouseFromTemplate } = useHouses()
+const router = useRouter()
 
-const address = ref("");
-const city = ref("");
-const postalCode = ref("");
-const registration = ref("");
-const image = ref(null);
+const address = ref('')
+const city = ref('')
+const postalCode = ref('')
+const registration = ref('')
+const image = ref(null)
 
 function handleImage(event) {
-  image.value = event.target.files[0];
+    image.value = event.target.files[0]
 }
 
 async function submitHouse() {
-  const error = validateHouseForm({
-    address: address.value,
-    city: city.value,
-    postalCode: postalCode.value,
-    registration: registration.value,
-    image: image.value
-  })
-  if (error) {
-    alert(error)
-    return
-  }
-  await createHouseFromTemplate(
-  address.value,
-  city.value,
-  postalCode.value,
-  registration.value,
-  image.value
-);
-  router.push("/overview")
+    const error = validateHouseForm({
+        address: address.value,
+        city: city.value,
+        postalCode: postalCode.value,
+        registration: registration.value,
+        image: image.value
+    })
+    if (error) {
+        alert(error)
+        return
+    }
+    await createHouseFromTemplate(
+        address.value,
+        city.value,
+        postalCode.value,
+        registration.value,
+        image.value
+    )
+    router.push('/overview')
 }
 
 </script>
 
 <template>
-  <div class="page-container">
-    <Header />
-    <form @submit.prevent="submitHouse">
-      <input v-model="address" type="text" placeholder="Adresse" />
-      <input v-model="city" type="text" placeholder="By" />
-      <input v-model="postalCode" type="number" placeholder="Post nummer" />
-      <input v-model="registration" type="text" placeholder="Registreringsnummer" />
-      <input type="file" accept="image/*" @change="handleImage">
-      <BaseButton type="submit" text="Indsend" variant="primary" />
-    </form>
-  </div>
+    <div class="page-container">
+        <Header />
+        <form @submit.prevent="submitHouse">
+            <input v-model="address" type="text" placeholder="Adresse" />
+            <input v-model="city" type="text" placeholder="By" />
+            <input v-model="postalCode" type="number" placeholder="Post nummer" />
+            <input v-model="registration" type="text" placeholder="Registreringsnummer" />
+            <input type="file" accept="image/*" @change="handleImage">
+            <BaseButton type="submit" text="Indsend" variant="primary" />
+        </form>
+    </div>
 </template>

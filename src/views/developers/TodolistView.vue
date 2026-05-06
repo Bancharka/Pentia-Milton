@@ -1,4 +1,5 @@
 <script setup>
+import { useRoute } from "vue-router";
 import { ref, onMounted } from "vue";
 import Header from "@/components/Header.vue";
 import BottomNav from "@/components/BottomNav.vue";
@@ -7,8 +8,8 @@ import SearchInput from "@/components/SearchInput.vue";
 import { useHouseStore } from "@/stores/houseStore";
 import { computed } from "vue";
 
-const store = useHouseStore();
-const searchQuery = ref("");
+const store = useHouseStore()
+const searchQuery = ref('')
 
 
 const filteredList = computed(() =>
@@ -16,9 +17,10 @@ const filteredList = computed(() =>
     todo.title.toLowerCase().includes(searchQuery.value.toLowerCase())
   )
 );
+const route = useRoute();
 
 onMounted(async () => {
-  await store.loadHouse();
+  await store.loadHouseById(route.params.houseId);
 });
 </script>
 
@@ -32,10 +34,8 @@ onMounted(async () => {
           :key="index"
           :task="todo.title"
           :checked="todo.done"
-          :link="`/todos/${index}`"
+          :link="`/houses/${route.params.houseId}/todos/${index}`"
         />
       </div>
     </div>
-    <BottomNav />
-  </div>
 </template>
