@@ -62,4 +62,5 @@ async function handleCheck(subTodoIndex) {
         />
       </div>
     </div>
+    </div>
 </template>
