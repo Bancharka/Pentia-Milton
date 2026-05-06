@@ -18,25 +18,25 @@ const router = createRouter({
       path: "/dev-home",
       name: "home",
       component: () => import("../views/developers/OverviewView.vue"),
-      meta: { title: "Hjem", requiresAuth:true, notCustomerOnly:true },
+      meta: { title: "Hjem", requiresAuth: true, notCustomerOnly: true },
     },
     {
       path: "/dev-profile",
       name: "dev-profile",
       component: () => import("../views/developers/ProfileView.vue"),
-      meta: { title: "Profil", requiresAuth:true, notCustomerOnly:true },
+      meta: { title: "Profil", requiresAuth: true, notCustomerOnly: true },
     },
     {
       path: "/cus-profile",
       name: "cus-profile",
       component: () => import("../views/customers/ProfileViewCustomer.vue"),
-      meta: { title: "Profil", requiresAuth:true, customerOnly:true },
+      meta: { title: "Profil", requiresAuth: true, customerOnly: true },
     },
     {
       path: "/todos",
       name: "todos",
       component: () => import("../views/developers/TodolistView.vue"),
-      meta: { title: "Tjekliste", requiresAuth:true, notCustomerOnly:true },
+      meta: { title: "Tjekliste", requiresAuth: true, notCustomerOnly: true },
     },
     {
       path: "/login",
@@ -47,13 +47,13 @@ const router = createRouter({
       path: "/overview",
       name: "overview",
       component: () => import("../views/developers/OverviewView.vue"),
-      meta: { title: "oversigt", requiresAuth:true, notCustomerOnly:true },
+      meta: { title: "oversigt", requiresAuth: true, notCustomerOnly: true },
     },
     {
       path: "/home-customer",
       name: "home-customer",
       component: () => import("../views/customers/HomeViewCustomer.vue"),
-      meta: { title: "Hjem", requiresAuth:true, customerOnly:true },
+      meta: { title: "Hjem", requiresAuth: true, customerOnly: true },
     },
 
 
@@ -68,37 +68,56 @@ const router = createRouter({
       path: "/todos/:todoIndex",
       name: "sub-todos",
       component: () => import("../views/developers/SubTodoListView.vue"),
-      meta: { title: "Subtodos", requiresAuth:true, notCustomerOnly:true },
+      meta: { title: "Subtodos", requiresAuth: true, notCustomerOnly: true },
     },
+    {
+      path: "/houses/:houseId",
+      name: "house-progress",
+      component: () => import("../views/developers/HouseProgressView.vue"),
+      meta: { title: "Byggeprogres", requiresAuth: true, notCustomerOnly: true },
+    },
+    {
+      path: "/houses/:houseId/todos",
+      name: "house-todos",
+      component: () => import("../views/developers/TodolistView.vue"),
+      meta: { title: "Tjekliste", requiresAuth: true, notCustomerOnly: true },
+    },
+    {
+      path: "/houses/:houseId/todos/:todoIndex",
+      name: "house-sub-todos",
+      component: () => import("../views/developers/SubTodoListView.vue"),
+      meta: { title: "Subtodos", requiresAuth: true, notCustomerOnly: true },
+    },
+
     {
       path: "/dev-documents",
       name: "dev-documents",
       component: () => import("../views/developers/DocumentsView.vue"),
-      meta: { title: "Dokumenter", requiresAuth:true, notCustomerOnly:true },
-      
+      meta: { title: "Dokumenter", requiresAuth: true, notCustomerOnly: true },
+
     },
     {
       path: "/cus-documents",
       name: "cus-documents",
       component: () => import("../views/customers/DocumentsViewCustomer.vue"),
-      meta: { title: "Dokumenter", requiresAuth:true, customerOnly:true },
+      meta: { title: "Dokumenter", requiresAuth: true, customerOnly: true },
     },
     {
       path: "/build-overview",
       name: "build-overview",
       component: () => import("../views/customers/BuildOverviewView.vue"),
-      meta: { title: "Bygge oversigt", requiresAuth:true, customerOnly:true  },
+      meta: { title: "Bygge oversigt", requiresAuth: true, customerOnly: true },
     },
   ],
 });
 
 function waitForAuth() {
-    return new Promise((resolve) => {
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
-            unsubscribe();
-            resolve(user);
-        });
+  return new Promise((resolve) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      unsubscribe();
+      resolve(user);
     });
+  });
 }
 
 router.beforeEach(async (to, from) => {
@@ -107,7 +126,7 @@ router.beforeEach(async (to, from) => {
 
   if (to.meta.requiresAuth && !currentUser) {
     return "/login";
-    
+
   }
 
   if (currentUser && !userStore.userData) {
@@ -116,14 +135,14 @@ router.beforeEach(async (to, from) => {
 
   if (to.meta.custumerOnly && !userStore.userData?.customer) {
     return "/dev-home";
-    
+
   }
 
   if (to.meta.notCustomerOnly && userStore.userData?.customer) {
     return "/home-customer";
-    
+
   }
-  
+
 
 
 })

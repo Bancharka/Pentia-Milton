@@ -31,12 +31,10 @@ async function handleImageChange(event) {
 
     const user = auth.currentUser;
 
-    // upload to storage
     const imageRef = storageRef(storage, `profileImages/${user.uid}`);
     await uploadBytes(imageRef, file);
     const imageUrl = await getDownloadURL(imageRef);
 
-    // save URL to users collection
     await updateDoc(doc(db, "users", user.uid), {
         profileImage: imageUrl
     });

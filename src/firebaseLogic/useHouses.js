@@ -2,6 +2,7 @@ import { db, auth, storage } from "@/firebase";
 import {
     collection,
     getDocs,
+    getDoc,
     doc,
     updateDoc,
     addDoc,
@@ -14,7 +15,6 @@ import { ref as storageRef, uploadBytes, getDownloadURL } from "firebase/storage
 import { onAuthStateChanged } from "firebase/auth";
 
 export function useHouses() {
-
     function getCurrentUser() {
         return new Promise((resolve) => {
             onAuthStateChanged(auth, (user) => resolve(user));
@@ -31,15 +31,21 @@ export function useHouses() {
         return { id: snap.docs[0].id, ...snap.docs[0].data() };
     }
 
-    async function fetchUserHouseTodos() {
-        const house = await fetchUserHouse();
-        if (!house) return [];
-        return house.todos ?? [];
+    async function fetchHouseById(houseId) {
+        const snap = await getDoc(doc(db, "houses", houseId));
+        if (!snap.exists()) return null;
+        return { id: snap.id, ...snap.data() };
     }
 
     async function fetchAllHouses() {
         const snap = await getDocs(collection(db, "houses"));
-        return snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        return snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    }
+
+    async function fetchUserHouseTodos() {
+        const house = await fetchUserHouse();
+        if (!house) return [];
+        return house.todos ?? [];
     }
 
     async function uploadHouseImage(registration, image) {
@@ -73,6 +79,7 @@ export function useHouses() {
         }
         return todos;
     }
+
     async function saveHouseToFirestore(user, address, city, postalCode, registration, imageUrl, todos) {
         const houseRef = await addDoc(collection(db, "houses"), {
             uid: user.uid,
@@ -94,6 +101,7 @@ export function useHouses() {
         return await saveHouseToFirestore(user, address, city, postalCode, registration, imageUrl, todos);
     }
 
+    //bruges af customer view
     async function updateSubTodoDone(todoIndex, subTodoIndex, done) {
         const house = await fetchUserHouse();
         if (!house) return;
@@ -105,5 +113,26 @@ export function useHouses() {
         await updateDoc(houseRef, { todos });
     }
 
-    return { fetchUserHouse, fetchAllHouses, fetchUserHouseTodos, createHouseFromTemplate, updateSubTodoDone };
+    //bruges af dev
+    async function updateSubTodoDoneById(houseId, todoIndex, subTodoIndex, done) {
+        const house = await fetchHouseById(houseId);
+        if (!house) return;
+        const todos = house.todos;
+        todos[todoIndex].subTodos[subTodoIndex].done = done;
+        const allDone = todos[todoIndex].subTodos.every(s => s.done);
+        todos[todoIndex].done = allDone;
+        const houseRef = doc(db, "houses", houseId);
+        await updateDoc(houseRef, { todos });
+    }
+
+
+    return {
+        fetchUserHouse,
+        fetchHouseById,
+        fetchAllHouses,
+        fetchUserHouseTodos,
+        createHouseFromTemplate,
+        updateSubTodoDone,
+        updateSubTodoDoneById
+    };
 }

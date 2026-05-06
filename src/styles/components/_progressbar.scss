@@ -45,4 +45,17 @@
       transition: width 0.75s;
     }
   }
+
+  &--with-button {
+    padding-bottom: 50px;
+
+    .house-card__progress-bar {
+      bottom: 28%;
+    }
+
+    .house-card__button {
+      position: absolute;
+      bottom: 100px;
+    }
+  }
 }

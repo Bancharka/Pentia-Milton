@@ -34,8 +34,6 @@ if (user !== null) {
 <template>
   <div class="page-container">
     <Header />
-  
-  
   <ProgressBar/>
   <BottomNav />
   </div>  

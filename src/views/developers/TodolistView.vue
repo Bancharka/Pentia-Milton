@@ -1,6 +1,6 @@
 <script setup>
-import { ref, onMounted } from "vue";
-import { useRouter } from "vue-router";
+import { onMounted } from "vue";
+import { useRoute } from "vue-router";
 import Header from "@/components/Header.vue";
 import BottomNav from "@/components/BottomNav.vue";
 import TodoCard from "@/components/TodoCard.vue";
@@ -8,9 +8,10 @@ import SearchInput from "@/components/SearchInput.vue";
 import { useHouseStore } from "@/stores/houseStore";
 
 const store = useHouseStore();
+const route = useRoute();
 
 onMounted(async () => {
-  await store.loadHouse();
+  await store.loadHouseById(route.params.houseId);
 });
 </script>
 
@@ -25,7 +26,7 @@ onMounted(async () => {
           :key="index"
           :task="todo.title"
           :checked="todo.done"
-          :link="`/todos/${index}`"
+          :link="`/houses/${route.params.houseId}/todos/${index}`"
         />
       </div>
     </div>

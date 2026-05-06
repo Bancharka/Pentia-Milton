@@ -1,4 +1,5 @@
 <script setup>
+import { useRouter } from "vue-router";
 import { ref, computed, onMounted } from "vue";
 import { useHouseStore } from "@/stores/houseStore";
 import Header from "@/components/Header.vue";
@@ -8,6 +9,7 @@ import SearchInput from "@/components/SearchInput.vue";
 
 const store = useHouseStore();
 const searchQuery = ref("");
+const router = useRouter();
 
 const filteredList = computed(() =>
   store.houses.filter((house) =>
@@ -15,6 +17,12 @@ const filteredList = computed(() =>
   )
   .sort((a, b) => Number(a['postal-code']) - Number(b['postal-code']))
 );
+
+function goToHouse(houseId) {
+  router.push(`/houses/${houseId}`);
+}
+
+
 
 onMounted(async () => {
   await store.loadAllHouses();
@@ -34,6 +42,7 @@ onMounted(async () => {
         :city="house.city"
         :registration="house.registration"
         :image="house.image"
+        @click="goToHouse(house.id)"
         />
         <BottomNav />
       </div>

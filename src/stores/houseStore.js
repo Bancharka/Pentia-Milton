@@ -13,10 +13,16 @@ export const useHouseStore = defineStore("house", () => {
         todos.value = house.value?.todos ?? [];
     }
 
+    async function loadHouseById(houseId) {
+        const { fetchHouseById } = useHouses();
+        house.value = await fetchHouseById(houseId);
+        todos.value = house.value?.todos ?? [];
+    }
+
     async function loadAllHouses() {
         const { fetchAllHouses } = useHouses();
         houses.value = await fetchAllHouses();
     }
 
-    return { house, houses, todos, loadHouse, loadAllHouses };
+    return { house, houses, todos, loadHouse, loadAllHouses, loadHouseById };
 });
