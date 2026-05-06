@@ -1,7 +1,5 @@
 <script setup>
 import { ref } from 'vue'
-import { signInWithEmailAndPassword } from 'firebase/auth'
-import { auth } from '@/firebase'
 import BaseButton from './BaseButton.vue'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/userStore'
@@ -12,7 +10,6 @@ const router = useRouter()
 const userStore = useUserStore()
 const submitLogin = async () => {
     try {
-        const user = await signInWithEmailAndPassword(auth, email.value, password.value)
         //Her loader vi userStoren, i stedet for onMounted, for at få informationen kommer ind i storen tilsvarende den user der logger ind, da den ellers aldrig vil få informationen
         await userStore.loadUser()
         if(userStore.userData?.customer === true){

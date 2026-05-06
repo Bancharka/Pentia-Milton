@@ -9,15 +9,12 @@ import { getSubTodos, applyToggle } from '@/utils/todoHelpers'
 import SearchInput from '@/components/SearchInput.vue'
 import { computed } from 'vue'
 const store = useHouseStore()
-const { updateSubTodoDoneById } = useHouses()
+const { updateSubTodoDone } = useHouses()
 const route = useRoute()
 const subTodos = ref([])
 const todoIndex = Number(route.params.todoIndex)
 const searchQuery = ref('')
 const todoTitle = ref("");
-
-
-
 const filteredList = computed(() =>
     subTodos.value.filter((sub) =>
         sub.title.toLowerCase().includes(searchQuery.value.toLowerCase())
@@ -30,8 +27,8 @@ onMounted(async () => {
 })
 async function handleCheck(subTodoIndex) {
     const { updated, newDone } = applyToggle(subTodos.value, subTodoIndex)
-    subTodos.value = updated;
-    await updateSubTodoDoneById(route.params.houseId, todoIndex, subTodoIndex, newDone);
+    subTodos.value = updated
+    await updateSubTodoDone(todoIndex, subTodoIndex, newDone)
 }
 </script>
 <template>
