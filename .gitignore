@@ -41,3 +41,4 @@ __screenshots__/
 # .gitignore
 .env
 .env.local
+cypress.env.json

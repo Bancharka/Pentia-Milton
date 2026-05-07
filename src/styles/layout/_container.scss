@@ -1,19 +1,10 @@
 @use "../abstracts" as *;
 
-.phone-wrapper {
-  position: relative;
-  width: 390px;
-  margin: 2rem auto;
-  overflow: hidden;
-}
+
 
 .mobile-container {
   position: relative;
-  margin: auto;
-  height: 90vh;
-  max-width: 360px;
-  border-radius: 25px;
-  border: #000000 solid 8px;
+  margin: auto;  
   overflow: hidden;
 }
 
@@ -23,14 +14,7 @@
   overflow: hidden;
 }
 
-.phone-status {
-  position: absolute;
-  top: 1rem;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 75%;
-  z-index: 1;
-}
+
 
 .site-container {
   height: 85%;

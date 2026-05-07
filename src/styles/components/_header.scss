@@ -1,10 +1,11 @@
 @use "../abstracts" as *;
+@use "../layout" as *;
 
 
 .header {
     display: flex;
     align-items: center;
-    margin: 3rem 1rem 1rem;
+    margin: $spacing-md;
 
     &__button {
         flex: 1;

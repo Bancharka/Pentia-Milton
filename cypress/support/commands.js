@@ -23,3 +23,18 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+
+Cypress.Commands.add('login', () => {
+  cy.request({
+    method: 'POST',
+    url: `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${Cypress.env('FIREBASE_API_KEY')}`,
+    body: {
+      email: Cypress.env('TEST_EMAIL'),
+      returnSecureToken: true,
+      password: Cypress.env('TEST_PASSWORD'),
+    },
+  }).then(({ body }) => {
+    window.localStorage.setItem('firebaseToken', body.idToken);
+  });
+});

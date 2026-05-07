@@ -1,6 +1,6 @@
 @use "../abstracts/colors" as *;
 
-.house-card {
+.progress {
   background: $surface;
   display: flex;
   flex-direction: column;
@@ -16,9 +16,9 @@
     padding-bottom: 50px;
   }
 
-  &__progress-bar {
-    position: absolute;
-    bottom: 20%;
+  &__bar {
+    position: fixed;
+    bottom: 120px;
     margin: auto;
     width: 90%;
     height: 60px;
@@ -49,11 +49,11 @@
   &--with-button {
     padding-bottom: 50px;
 
-    .house-card__progress-bar {
+    .progress__bar {
       bottom: 28%;
     }
 
-    .house-card__button {
+    .progress__button {
       position: absolute;
       bottom: 100px;
     }

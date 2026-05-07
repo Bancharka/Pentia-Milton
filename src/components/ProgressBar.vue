@@ -34,22 +34,22 @@ const dynamicHouse = computed(() => {
 </script>
 
 <template>
-    <div class="house-card" :class="{ 'house-card--with-button': props.withButton }">
+    <div class="progress" :class="{ 'progress--with-button': props.withButton }">
       <h3>Her kan du følge med i byggeprocessen af dit hus</h3>
 
             <div>
                 <img :src="dynamicHouse" />
             </div>
 
-      <div class="house-card__progress-bar">
+      <div class="progress__bar">
         <img
-          class="house-card__progress-bar__overlay"
+          class="progress__bar__overlay"
           src="../img/progressbar_overlay_100_icons_lightergreen.svg"
           alt=""
         />
-        <div class="house-card__progress-bar__fill" :style="{ width: fillPercent + '%' }"></div>
+        <div class="progress__bar__fill" :style="{ width: fillPercent + '%' }"></div>
       </div>
-      <div class="house-card__button">
+      <div class="progress__button">
         <BaseButton
         v-if="props.withButton"
         text="Gennemgå tjekliste"
