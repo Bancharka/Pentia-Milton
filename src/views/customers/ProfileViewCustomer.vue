@@ -2,18 +2,15 @@
 import { ref, onMounted } from 'vue'
 import { collection, getDocs, query, where, doc, getDoc } from 'firebase/firestore'
 import { auth, db } from '@/firebase'
-import Header from '@/components/Header.vue'
+import HeaderBack from '@/components/HeaderBack.vue'
 import BottomNav from '@/components/BottomNav.vue'
 import HouseModal from '@/components/modals/HouseModal.vue'
 import ProfileHeader from '@/components/ProfileHeader.vue'
-
 const isHouseModalOpen = ref(false)
 const owners = ref([])
 const manager = ref({})
-
 const loadHouseData = async () => {
     const uid = auth.currentUser.uid
-
     // Find the house where this customer is cuid
     const houseQuery = query(
         collection(db, 'houses'),
@@ -21,9 +18,7 @@ const loadHouseData = async () => {
     )
     const houseSnapshot = await getDocs(houseQuery)
     if (houseSnapshot.empty) return
-
     const house = houseSnapshot.docs[0].data()
-
     // Load customer (owner) from users collection using cuid
     const customerDoc = await getDoc(doc(db, 'users', house.cuid))
     if (customerDoc.exists()) {
@@ -34,7 +29,6 @@ const loadHouseData = async () => {
             image: customer.profileImage || ''
         }]
     }
-
     // Load developer (manager) from users collection using uid
     const developerDoc = await getDoc(doc(db, 'users', house.uid))
     if (developerDoc.exists()) {
@@ -46,9 +40,7 @@ const loadHouseData = async () => {
         }
     }
 }
-
 onMounted(loadHouseData)
-
 const menuItems = [
     { label: 'Mit hus', icon: 'house', action: 'modal' },
     { label: 'Notifikationer', route: '/notifications', icon: 'bell' },
@@ -56,17 +48,15 @@ const menuItems = [
     { label: 'Privat indstillinger', route: '/privacy', icon: 'key' },
     { label: 'Hjælp', route: '/help', icon: 'help' },
 ]
-
 const handleItemClick = (item) => {
     if (item.action === 'modal') {
         isHouseModalOpen.value = true
     }
 }
 </script>
-
 <template>
     <div class="page-container">
-        <Header />
+        <HeaderBack />
         <div class="site-container site-container--primary">
             <ProfileHeader />
             <div class="profile-menu">
@@ -93,7 +83,6 @@ const handleItemClick = (item) => {
                                 d="m12 5.432 8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 0 1-.75-.75v-4.5a.75.75 0 0 0-.75-.75h-3a.75.75 0 0 0-.75.75V21a.75.75 0 0 1-.75.75H5.625a1.875 1.875 0 0 1-1.875-1.875v-6.198a2.29 2.29 0 0 0 .091-.086L12 5.432Z"
                             />
                         </svg>
-
                         <svg
                             v-else-if="item.icon === 'bell'"
                             xmlns="http://www.w3.org/2000/svg"
@@ -107,7 +96,6 @@ const handleItemClick = (item) => {
                                 clip-rule="evenodd"
                             />
                         </svg>
-
                         <svg
                             v-else-if="item.icon === 'shield'"
                             xmlns="http://www.w3.org/2000/svg"
@@ -121,7 +109,6 @@ const handleItemClick = (item) => {
                                 clip-rule="evenodd"
                             />
                         </svg>
-
                         <svg
                             v-else-if="item.icon === 'key'"
                             xmlns="http://www.w3.org/2000/svg"
@@ -135,7 +122,6 @@ const handleItemClick = (item) => {
                                 clip-rule="evenodd"
                             />
                         </svg>
-
                         <svg
                             v-else
                             xmlns="http://www.w3.org/2000/svg"
@@ -150,7 +136,6 @@ const handleItemClick = (item) => {
                             />
                         </svg>
                     </div>
-
                     <span class="profile-menu__label">{{ item.label }}</span>
                 </component>
             </div>

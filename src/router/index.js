@@ -3,9 +3,6 @@ import WelcomeView from '../views/WelcomeView.vue'
 import { auth } from '@/firebase'
 import { useUserStore } from '@/stores/userStore'
 import { onAuthStateChanged } from 'firebase/auth'
-
-
-
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
@@ -55,8 +52,6 @@ const router = createRouter({
             component: () => import('../views/customers/HomeViewCustomer.vue'),
             meta: { title: 'Hjem', requiresAuth: true, customerOnly: true },
         },
-
-
         // Her skal vi beslutte os for om den kun skal kunne tilgås af den ene eller anden, eller hvad den skal bruges til 
         {
             path: '/create-house',
@@ -75,7 +70,6 @@ const router = createRouter({
             name: 'dev-documents',
             component: () => import('../views/developers/DocumentsView.vue'),
             meta: { title: 'Dokumenter', requiresAuth: true, notCustomerOnly: true },
-
         },
         {
             path: '/cus-documents',
@@ -90,26 +84,25 @@ const router = createRouter({
             meta: { title: 'Bygge oversigt', requiresAuth: true, customerOnly: true },
         },
         {
-            path: "/houses/:houseId",
-            name: "house-progress",
-            component: () => import("../views/developers/HouseProgressView.vue"),
-            meta: { title: "Byggeprogres", requiresAuth: true, notCustomerOnly: true },
+            path: '/houses/:houseId',
+            name: 'house-progress',
+            component: () => import('../views/developers/HouseProgressView.vue'),
+            meta: { title: 'Byggeprogres', requiresAuth: true, notCustomerOnly: true },
         },
         {
-            path: "/houses/:houseId/todos",
-            name: "house-todos",
-            component: () => import("../views/developers/TodolistView.vue"),
-            meta: { title: "Tjekliste", requiresAuth: true, notCustomerOnly: true },
+            path: '/houses/:houseId/todos',
+            name: 'house-todos',
+            component: () => import('../views/developers/TodolistView.vue'),
+            meta: { title: 'Tjekliste', requiresAuth: true, notCustomerOnly: true },
         },
         {
-            path: "/houses/:houseId/todos/:todoIndex",
-            name: "house-sub-todos",
-            component: () => import("../views/developers/SubTodoListView.vue"),
-            meta: { title: "Subtodos", requiresAuth: true, notCustomerOnly: true },
+            path: '/houses/:houseId/todos/:todoIndex',
+            name: 'house-sub-todos',
+            component: () => import('../views/developers/SubTodoListView.vue'),
+            meta: { title: 'Subtodos', requiresAuth: true, notCustomerOnly: true },
         },
     ],
 })
-
 function waitForAuth() {
     return new Promise((resolve) => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -118,32 +111,20 @@ function waitForAuth() {
         })
     })
 }
-
 router.beforeEach(async (to) => {
     const userStore = useUserStore()
     const currentUser = await waitForAuth()
-
     if (to.meta.requiresAuth && !currentUser) {
         return '/login'
-
     }
-
     if (currentUser && !userStore.userData) {
         await userStore.loadUser()
     }
-
     if (to.meta.custumerOnly && !userStore.userData?.customer) {
         return '/dev-home'
-
     }
-
     if (to.meta.notCustomerOnly && userStore.userData?.customer) {
         return '/home-customer'
-
     }
-
-
-
 })
-
 export default router

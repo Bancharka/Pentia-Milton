@@ -1,7 +1,6 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterView } from 'vue-router'
 </script>
-
 <template>
     
         <div class="mobile-container">
@@ -10,5 +9,4 @@ import { RouterLink, RouterView } from 'vue-router'
         </div>
     
 </template>
-
 <style scoped></style>

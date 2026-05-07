@@ -1,40 +1,31 @@
 <script setup>
 import { ref, onMounted } from 'vue'
-import Header from '@/components/Header.vue'
+import HeaderBack from '@/components/HeaderBack.vue'
 import BottomNav from '@/components/BottomNav.vue'
 import SearchInput from '@/components/SearchInput.vue'
 import DocumentModal from '@/components/modals/DocumentModal.vue'
 import { useDocumentStore } from '@/stores/documentsStore'
 import { computed } from 'vue'
-
-
 const documentsStore = useDocumentStore()
 const isModalOpen = ref(false)
 const searchQuery = ref('')
-
-
 const filteredList = computed(() =>
     documentsStore.documents.filter((doc) =>
         doc.title.toLowerCase().includes(searchQuery.value.toLowerCase())
     )
 )
-
-
 onMounted(() => documentsStore.loadDocuments())
 </script>
-
 <template>
     <div class="page-container">
-        <Header />
+        <HeaderBack />
         <div class="site-container site-container--primary">
             <SearchInput v-model="searchQuery" placeholder="Search" />
-
             <button class="docs__add-btn" @click="isModalOpen = true">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
                     <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 9a.75.75 0 0 0-1.5 0v2.25H9a.75.75 0 0 0 0 1.5h2.25V15a.75.75 0 0 0 1.5 0v-2.25H15a.75.75 0 0 0 0-1.5h-2.25V9Z" clip-rule="evenodd" />
                 </svg>
             </button>
-
             <div class="docs__grid">
                 <div
                     v-for="doc in filteredList"
@@ -52,13 +43,11 @@ onMounted(() => documentsStore.loadDocuments())
                 </div>
             </div>
         </div>
-
         <DocumentModal
             :is-open="isModalOpen"
             @close="isModalOpen = false"
             @uploaded="documentsStore.loadDocuments"
         />
-
         <BottomNav />
     </div>
 </template>
