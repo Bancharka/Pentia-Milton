@@ -5,6 +5,7 @@ describe('overview', () => {
   beforeEach(() => {
     cy.login();
     cy.visit('/overview');
+    
   });
 
   it('should be on /overview', () => {
@@ -50,7 +51,69 @@ describe('overview', () => {
 
   });
 
+  it('should go into a specific house when clicking on it', () => {
 
+    // Klikker på housecard Clara
+    cy.contains(".housecard__title", "clara").click()
+
+    // Tjekker om url passer til det housecard
+    cy.url().should("eq", "http://localhost:5173/houses/MGxfuimym3Nb59jRamU3")
+
+  });
+
+  it('back button should work inside a specific house', () => {
+
+    // Klikker på housecard Clara
+    cy.contains(".housecard__title", "clara").click()
+
+    // Tjekker om url passer til det housecard
+    cy.url().should("eq", "http://localhost:5173/houses/MGxfuimym3Nb59jRamU3")
+
+    // Klikker på back knappen
+    cy.get(".header__button").click()
+
+    // Tjekker at vi er tilbage på overview
+    cy.url().should("eq", "http://localhost:5173/overview")
+  });
+
+
+  it('should scroll to the bottom and up again', () => {
+
+    cy.wait(2000)
+    // scroller til bunden af sidebaren
+    cy.scrollTo("bottom", {duration:1000});
+
+
+    // scroller til toppen af sidebaren
+    cy.scrollTo("top", {duration:1000});
+
+  });
+  
+
+  it('should click on profile in the bottom navbar', () => {
+
+  // klikker på profil knappen
+  cy.get("[href='/dev-profile']").click();
+
+  //Tjekker om url er skiftet
+  cy.url().should("eq", "http://localhost:5173/dev-profile");
+
+  //Tjekker at profil email matcher den profil der er logget ind
+  cy.contains(Cypress.env('TEST_EMAIL')).should("exist");
+  
+
+  });
+
+
+  it('should click on profile in the bottom navbar', () => {
+
+  
+
+  //Tjekker at der er en page title
+  cy.get(".header__title").should("exist");
+  
+
+  });
 
 
 });
