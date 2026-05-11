@@ -99,21 +99,29 @@ describe('overview', () => {
   cy.url().should("eq", "http://localhost:5173/dev-profile");
 
   //Tjekker at profil email matcher den profil der er logget ind
-  cy.contains(Cypress.env('TEST_EMAIL')).should("exist");
+  cy.contains(Cypress.env('TEST_DEV_EMAIL')).should("exist");
   
 
   });
 
 
-  it('should click on profile in the bottom navbar', () => {
+  it('should navigate away from and back to profile and back', () => {
 
-  
+  // klikker på profil knappen
+  cy.get("[href='/dev-profile']").click();
 
-  //Tjekker at der er en page title
-  cy.get(".header__title").should("exist");
+  //Tjekker om url er skiftet
+  cy.url().should("eq", "http://localhost:5173/dev-profile");
+
+  //Tjekker at profil email matcher den profil der er logget ind
+  cy.get(".header__button").click()
+
+  //Tjekker om url er skiftet tilbage
+  cy.url().should("eq", "http://localhost:5173/overview");
   
 
   });
+  
 
 
 });

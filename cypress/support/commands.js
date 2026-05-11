@@ -30,7 +30,7 @@ Cypress.Commands.add('login', () => {
     method: 'POST',
     url: `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${Cypress.env('FIREBASE_API_KEY')}`,
     body: {
-      email: Cypress.env('TEST_EMAIL'),
+      email: Cypress.env('TEST_DEV_EMAIL' || 'TEST_CUSTOMER_EMAIL'),
       returnSecureToken: true,
       password: Cypress.env('TEST_PASSWORD'),
     },
@@ -38,3 +38,17 @@ Cypress.Commands.add('login', () => {
     window.localStorage.setItem('firebaseToken', body.idToken);
   });
 });
+
+// Cypress.Commands.add('customerLogin', () => {
+//   cy.request({
+//     method: 'POST',
+//     url: `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${Cypress.env('FIREBASE_API_KEY')}`,
+//     body: {
+//       email: Cypress.env('TEST_CUSTOMER_EMAIL'),
+//       returnSecureToken: true,
+//       password: Cypress.env('TEST_PASSWORD'),
+//     },
+//   }).then(({ body }) => {
+//     window.localStorage.setItem('firebaseToken', body.idToken);
+//   });
+// });
