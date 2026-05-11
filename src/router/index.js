@@ -15,13 +15,13 @@ const router = createRouter({
             path: '/dev-home',
             name: 'home',
             component: () => import('../views/developers/OverviewView.vue'),
-            meta: { title: 'Hjem', requiresAuth: true, notCustomerOnly: true },
+            meta: { title: 'Hjem', requiresAuth: true, devOnly: true },
         },
         {
             path: '/dev-profile',
             name: 'dev-profile',
             component: () => import('../views/developers/ProfileView.vue'),
-            meta: { title: 'Profil', requiresAuth: true, notCustomerOnly: true },
+            meta: { title: 'Profil', requiresAuth: true, devOnly: true },
         },
         {
             path: '/cus-profile',
@@ -33,7 +33,7 @@ const router = createRouter({
             path: '/todos',
             name: 'todos',
             component: () => import('../views/developers/TodolistView.vue'),
-            meta: { title: 'Tjekliste', requiresAuth: true, notCustomerOnly: true },
+            meta: { title: 'Tjekliste', requiresAuth: true, devOnly: true },
         },
         {
             path: '/login',
@@ -44,7 +44,7 @@ const router = createRouter({
             path: '/overview',
             name: 'overview',
             component: () => import('../views/developers/OverviewView.vue'),
-            meta: { title: 'oversigt', requiresAuth: true, notCustomerOnly: true },
+            meta: { title: 'oversigt', requiresAuth: true, devOnly: true },
         },
         {
             path: '/home-customer',
@@ -63,13 +63,13 @@ const router = createRouter({
             path: '/todos/:todoIndex',
             name: 'sub-todos',
             component: () => import('../views/developers/SubTodoListView.vue'),
-            meta: { title: 'Subtodos', requiresAuth: true, notCustomerOnly: true },
+            meta: { title: 'Subtodos', requiresAuth: true, devOnly: true },
         },
         {
             path: '/dev-documents',
             name: 'dev-documents',
             component: () => import('../views/developers/DocumentsView.vue'),
-            meta: { title: 'Dokumenter', requiresAuth: true, notCustomerOnly: true },
+            meta: { title: 'Dokumenter', requiresAuth: true, devOnly: true },
         },
         {
             path: '/cus-documents',
@@ -87,19 +87,19 @@ const router = createRouter({
             path: '/houses/:houseId',
             name: 'house-progress',
             component: () => import('../views/developers/HouseProgressView.vue'),
-            meta: { title: 'Byggeprogres', requiresAuth: true, notCustomerOnly: true },
+            meta: { title: 'Byggeprogres', requiresAuth: true, devOnly: true },
         },
         {
             path: '/houses/:houseId/todos',
             name: 'house-todos',
             component: () => import('../views/developers/TodolistView.vue'),
-            meta: { title: 'Tjekliste', requiresAuth: true, notCustomerOnly: true },
+            meta: { title: 'Tjekliste', requiresAuth: true, devOnly: true },
         },
         {
             path: '/houses/:houseId/todos/:todoIndex',
             name: 'house-sub-todos',
             component: () => import('../views/developers/SubTodoListView.vue'),
-            meta: { title: 'Subtodos', requiresAuth: true, notCustomerOnly: true },
+            meta: { title: 'Subtodos', requiresAuth: true, devOnly: true },
         },
         { 
             path: '/:pathMatch(.*)*', 
@@ -125,10 +125,10 @@ router.beforeEach(async (to) => {
     if (currentUser && !userStore.userData) {
         await userStore.loadUser()
     }
-    if (to.meta.custumerOnly && !userStore.userData?.customer) {
+    if (to.meta.customerOnly && !userStore.userData?.customer) {
         return '/dev-home'
     }
-    if (to.meta.notCustomerOnly && userStore.userData?.customer) {
+    if (to.meta.devOnly && userStore.userData?.customer) {
         return '/home-customer'
     }
 })
