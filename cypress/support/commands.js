@@ -1,54 +1,23 @@
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+import { initializeApp, getApps } from 'firebase/app'
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 
+const app = getApps().length === 0 ? initializeApp({
+  apiKey: Cypress.env('FIREBASE_API_KEY'),
+  authDomain: Cypress.env('FIREBASE_AUTH_DOMAIN'),
+  projectId: Cypress.env('FIREBASE_PROJECT_ID'),
+  appId: Cypress.env('FIREBASE_APP_ID'),
+}) : getApps()[0]
 
-Cypress.Commands.add('login', () => {
-  cy.request({
-    method: 'POST',
-    url: `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${Cypress.env('FIREBASE_API_KEY')}`,
-    body: {
-      email: Cypress.env('TEST_DEV_EMAIL' || 'TEST_CUSTOMER_EMAIL'),
-      returnSecureToken: true,
-      password: Cypress.env('TEST_PASSWORD'),
-    },
-  }).then(({ body }) => {
-    window.localStorage.setItem('firebaseToken', body.idToken);
-  });
-});
+const auth = getAuth(app)
 
-// Cypress.Commands.add('customerLogin', () => {
-//   cy.request({
-//     method: 'POST',
-//     url: `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${Cypress.env('FIREBASE_API_KEY')}`,
-//     body: {
-//       email: Cypress.env('TEST_CUSTOMER_EMAIL'),
-//       returnSecureToken: true,
-//       password: Cypress.env('TEST_PASSWORD'),
-//     },
-//   }).then(({ body }) => {
-//     window.localStorage.setItem('firebaseToken', body.idToken);
-//   });
-// });
+Cypress.Commands.add('customerLogin', () => {
+  cy.wrap(
+    signInWithEmailAndPassword(auth, Cypress.env('TEST_CUSTOMER_EMAIL'), Cypress.env('TEST_PASSWORD'))
+  )
+})
+
+Cypress.Commands.add('devLogin', () => {
+  cy.wrap(
+    signInWithEmailAndPassword(auth, Cypress.env('TEST_DEV_EMAIL'), Cypress.env('TEST_PASSWORD'))
+  )
+})

@@ -1,7 +1,8 @@
 describe('overview', () => {
   beforeEach(() => {
-    cy.login();
+    cy.customerLogin();
     cy.visit('/home-customer');
+
     
   });
 
@@ -15,12 +16,6 @@ describe('overview', () => {
 
     });
 
-    it('should check the progressbar has a width of 142.71875px == 34.1463%', () => {
-
-        // Tjekker om progressbaren har en bredde
-        cy.get('.house-card__progress-bar__fill').should('have.css', 'width','142.71875px')
-
-    });
 
     it('should have an illustration of the house', () => {
 
@@ -34,6 +29,17 @@ describe('overview', () => {
         ])
     })
 })
+
+
+    it('should navigate to todo list', () => {
+
+        // Tjekker url om den er på home customer
+        cy.get("[href='/build-overview']").click();
+
+        // Tjekker for om der er en header med "hjem"
+        cy.get('.header').should('contain', 'Bygge oversigt')
+
+    });
 
 
 

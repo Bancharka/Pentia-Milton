@@ -3,8 +3,9 @@
 
 describe('overview', () => {
   beforeEach(() => {
-    cy.login();
+    cy.devLogin();
     cy.visit('/overview');
+
     
   });
 
