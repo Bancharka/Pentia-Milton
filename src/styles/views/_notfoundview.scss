@@ -1,0 +1,51 @@
+@use "../abstracts" as *;
+@use "../layout/" as *;
+
+.not-found {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: $spacing-xxl $spacing-xl;
+    gap: $spacing-lg;
+    height: 100%;
+
+    &__icon {
+        width: 80px;
+        height: 80px;
+        background-color: $primary;
+        border-radius: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        svg {
+            width: 44px;
+            height: 44px;
+            color: $white;
+        }
+    }
+
+    &__code {
+        font-size: 5rem;
+        font-weight: 700;
+        color: $primary;
+        line-height: 1;
+        margin: 0;
+    }
+
+    &__title {
+        font-size: 1.4rem;
+        font-weight: 600;
+        color: $primary;
+        margin: 0;
+    }
+
+    &__subtitle {
+        font-size: 1rem;
+        color: $subheading;
+        margin: 0;
+        max-width: 280px;
+    }
+}
