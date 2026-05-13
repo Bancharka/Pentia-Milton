@@ -13,8 +13,11 @@ onMounted(async () => {
 </script>
 <template>
     <div class="page-container">
+        
         <HeaderBack />
-        <ProgressBar :withButton="true" />
+        <div class="site-container site-container--secondary">
+            <ProgressBar :withButton="true" />
+        </div>
         <BottomNav />
     </div>
 </template>
