@@ -42,5 +42,83 @@ describe('overview', () => {
     });
 
 
+    it('should click on profile in the bottom navbar', () => {
+
+        // klikker på profil knappen
+        cy.get("[href='/cus-profile']").click();
+
+        //Tjekker om url er skiftet
+        cy.url().should("eq", "http://localhost:5173/cus-profile");
+
+        //Tjekker at profil email matcher den profil der er logget ind
+        cy.contains(Cypress.env('TEST_CUSTOMER_EMAIL')).should("exist");
+    
+
+    });
+
+
+    it('should navigate to todolist and check for items in the list', () => {
+
+        // klikker på todo liste knappen knappen
+        cy.get("[href='/build-overview']").click();
+
+        //Tjekker om url er skiftet
+        cy.url().should("eq", "http://localhost:5173/build-overview");
+
+        //Tjekker om der er en liste af todos
+        cy.get(".build-overview__title").should("have.length", 7)
+
+  
+  
+
+  });
+
+
+
+  it('should navigate all of the available links in navbar', () => {
+
+        // klikker på knappen 
+        cy.get("[href='/build-overview']").click();
+
+        //Tjekker om url er skiftet
+        cy.url().should("eq", "http://localhost:5173/build-overview");
+
+        // klikker på knappen 
+        cy.get("[href='/cus-documents']").click();
+
+        //Tjekker om url er skiftet
+        cy.url().should("eq", "http://localhost:5173/cus-documents");
+
+        // klikker på knappen 
+        cy.get("[href='/cus-profile']").click();
+
+        //Tjekker om url er skiftet
+        cy.url().should("eq", "http://localhost:5173/cus-profile");
+  
+        // klikker på knappen 
+        cy.get("[href='/home-customer']").click();
+
+        //Tjekker om url er skiftet
+        cy.url().should("eq", "http://localhost:5173/home-customer");
+  });
+
+     it('should navigate to profile and click "mit hus"', () => {
+
+        // klikker på profil knappen 
+        cy.get("[href='/cus-profile']").click();
+
+        //Tjekker om url er skiftet
+        cy.url().should("eq", "http://localhost:5173/cus-profile");
+
+        //klikker på Mit hus knappen
+        cy.get("button.profile-menu__item").click()
+
+        //Tjekker om modalen er poppet op
+        cy.get(".house-modal__content").should("contain", (Cypress.env('TEST_CUSTOMER_EMAIL')))
+        
+  });
+    
+
+
 
   });
