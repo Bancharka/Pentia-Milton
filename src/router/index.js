@@ -52,7 +52,6 @@ const router = createRouter({
             component: () => import('../views/customers/HomeViewCustomer.vue'),
             meta: { title: 'Hjem', requiresAuth: true, customerOnly: true },
         },
-        // Her skal vi beslutte os for om den kun skal kunne tilgås af den ene eller anden, eller hvad den skal bruges til 
         {
             path: '/create-house',
             name: 'create-house',
@@ -101,10 +100,10 @@ const router = createRouter({
             component: () => import('../views/developers/SubTodoListView.vue'),
             meta: { title: 'Subtodos', requiresAuth: true, devOnly: true },
         },
-        { 
-            path: '/:pathMatch(.*)*', 
-            name: 'not-found', 
-            component: () => import('../views/NotFoundView.vue') 
+        {
+            path: '/:pathMatch(.*)*',
+            name: 'not-found',
+            component: () => import('../views/NotFoundView.vue')
         },
     ],
 })

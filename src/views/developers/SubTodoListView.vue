@@ -9,7 +9,7 @@ import { getSubTodos, applyToggle } from '@/utils/todoHelpers'
 import SearchInput from '@/components/SearchInput.vue'
 import { computed } from 'vue'
 const store = useHouseStore()
-const { updateSubTodoDone } = useHouses()
+const { updateSubTodoDoneById } = useHouses()
 const route = useRoute()
 const subTodos = ref([])
 const todoIndex = Number(route.params.todoIndex)
@@ -28,7 +28,7 @@ onMounted(async () => {
 async function handleCheck(subTodoIndex) {
     const { updated, newDone } = applyToggle(subTodos.value, subTodoIndex)
     subTodos.value = updated
-    await updateSubTodoDone(todoIndex, subTodoIndex, newDone)
+    await updateSubTodoDoneById(route.params.houseId, todoIndex, subTodoIndex, newDone)
 }
 </script>
 <template>
