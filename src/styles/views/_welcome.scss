@@ -1,7 +1,9 @@
 @use "../abstracts" as *;
 
 .welcome {
+    
     position: relative;
+    
 
     &__background {
         position: absolute;
@@ -16,11 +18,13 @@
     &__container {
         background-color: $white;
         border-radius: 50% 50% 0 0 / 20% 20% 0 0;
+        display: flex;
         position: relative;
         z-index: 1;
         margin-top: 1.5rem;
         height: 80vh;
         box-shadow: 0 4px 10px 0 rgba(152, 152, 152, 0.76) inset;
+
     }
 
     &__logo {

@@ -15,7 +15,9 @@ onMounted(() => {
 <template>
     <div class="page-container">
         <HeaderBack />
-        <ProgressBar/>
+        <div class="site-container site-container--primary">
+            <ProgressBar/>
+        </div>
         <BottomNav />
     </div>  
 </template>
