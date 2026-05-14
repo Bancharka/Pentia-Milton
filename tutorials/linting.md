@@ -128,7 +128,7 @@ Disse bliver typisk rettet automatisk:
 
 ### Kræver manuel rettelse
 
-Disse skal du selv rette:
+Disse kræver at man manuelt selv retter:
 
 - brug af `console.log`
 - ubrugte variabler
