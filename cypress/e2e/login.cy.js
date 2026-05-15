@@ -17,20 +17,38 @@ describe('login test', () => {
   });
 
 
-  it('should login successfully with email and password, and get redirected to overview', () => {
+  it('should login successfully as a dev with email and password, and get redirected to overview', () => {
 
     // klikker på en knap for at komme til login
     cy.get('.btn--secondary').click();
 
     // Henter login input felt for at indstaste email
-    cy.get('.login__input > .login > :nth-child(1)').type('olipet101@gmail.com')
+    cy.get('.login__input > .login > :nth-child(1)').type(Cypress.env('TEST_DEV_EMAIL'))
     // Henter password input for at indtaste kode
-    cy.get('.login__input > .login > :nth-child(2)').type('kode123')
+    cy.get('.login__input > .login > :nth-child(2)').type(Cypress.env('TEST_PASSWORD'))
 
 
     cy.get('.btn').click()
 
     cy.url().should('eq','http://localhost:5173/overview' )
+
+  });
+
+
+  it('should login successfully as a customer with email and password, and get redirected to overview', () => {
+
+    // klikker på en knap for at komme til login
+    cy.get('.btn--secondary').click();
+
+    // Henter login input felt for at indstaste email
+    cy.get('.login__input > .login > :nth-child(1)').type(Cypress.env('TEST_CUSTOMER_EMAIL'))
+    // Henter password input for at indtaste kode
+    cy.get('.login__input > .login > :nth-child(2)').type(Cypress.env('TEST_PASSWORD'))
+
+
+    cy.get('.btn').click()
+
+    cy.url().should('eq','http://localhost:5173/home-customer' )
 
   });
 
@@ -40,13 +58,14 @@ describe('login test', () => {
     cy.get('.btn--secondary').click();
 
     // Henter login input felt for at indstaste email
-    cy.get('.login__input > .login > :nth-child(1)').type('olipet101@gmail.com')
+    cy.get('.login__input > .login > :nth-child(1)').type(Cypress.env('TEST_DEV_EMAIL'))
     // Henter password input for at indtaste kode
     cy.get('.login__input > .login > :nth-child(2)').type('forkertkode')
 
-
+    //Trykker på login knap
     cy.get('.btn').click()
 
+    //Tjekker om url stadigt er den samme
     cy.url().should('eq','http://localhost:5173/login' )
 
   });

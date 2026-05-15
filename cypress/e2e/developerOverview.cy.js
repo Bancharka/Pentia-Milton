@@ -18,7 +18,7 @@ describe('overview', () => {
   it('should show a list of houses', () => {
 
     // Tjekker at listen er fyldt med rigtige antal
-    cy.get('.housecard__img').should('have.length', 8);
+    cy.get('.housecard__img').should('have.length', 9);
 
   });
 
@@ -46,7 +46,7 @@ describe('overview', () => {
     cy.focused().clear();
 
     // Leder i listen og ser om hele listen vises igen
-    cy.get('.housecard__img').should('have.length', 8);
+    cy.get('.housecard__img').should('have.length', 9);
 
 
 
@@ -77,51 +77,154 @@ describe('overview', () => {
     cy.url().should("eq", "http://localhost:5173/overview")
   });
 
-
-  it('should scroll to the bottom and up again', () => {
-
-    cy.wait(2000)
-    // scroller til bunden af sidebaren
-    cy.scrollTo("bottom", {duration:1000});
-
-
-    // scroller til toppen af sidebaren
-    cy.scrollTo("top", {duration:1000});
-
-  });
   
 
   it('should click on profile in the bottom navbar', () => {
 
-  // klikker på profil knappen
-  cy.get("[href='/dev-profile']").click();
+    // klikker på profil knappen
+    cy.get("[href='/dev-profile']").click();
 
-  //Tjekker om url er skiftet
-  cy.url().should("eq", "http://localhost:5173/dev-profile");
+    //Tjekker om url er skiftet
+    cy.url().should("eq", "http://localhost:5173/dev-profile");
 
-  //Tjekker at profil email matcher den profil der er logget ind
-  cy.contains(Cypress.env('TEST_DEV_EMAIL')).should("exist");
+    //Tjekker at profil email matcher den profil der er logget ind
+    cy.contains(Cypress.env('TEST_DEV_EMAIL')).should("exist");
   
 
   });
 
 
-  it('should navigate away from and back to profile and back', () => {
+  it('should navigate to a house and check todo items off the list succesfully', () => {
 
-  // klikker på profil knappen
-  cy.get("[href='/dev-profile']").click();
+    // Klikker på housecard Clara
+    cy.contains(".housecard__title", "testerdenher").click()
 
-  //Tjekker om url er skiftet
-  cy.url().should("eq", "http://localhost:5173/dev-profile");
+    cy.wait(2000)
 
-  //Tjekker at profil email matcher den profil der er logget ind
-  cy.get(".header__button").click()
+    // Tjekker progressbarfill for at width er mindre end 52
+    cy.get('.progress__bar').then((parent) => {
+        const parentWidth = parent[0].getBoundingClientRect().width
 
-  //Tjekker om url er skiftet tilbage
-  cy.url().should("eq", "http://localhost:5173/overview");
+        cy.get('.progress__bar__fill').then((el) => {
+            const elWidth = el[0].getBoundingClientRect().width
+            const percentage = (elWidth / parentWidth) * 100
+
+            expect(percentage).to.be.lessThan(50)
+        })
+    })
+
+    // Klikker på "gennemgå tjekliste knap"
+    cy.get(".btn").click()
+
+    cy.wait(1000)
+
+    // Klikker på "Lukket hus" todo item
+    cy.get('[href="/houses/2L7ZAepZ2MlvyryiE2v1/todos/4"]').click()
+
+    cy.wait(2000)
+
+    //Klikker på alle to do items
+    cy.get(":nth-child(1) > .todo-card__text").click()
+    cy.get(":nth-child(2) > .todo-card__text").click()
+    cy.get(":nth-child(3) > .todo-card__text").click()
+    cy.get(":nth-child(4) > .todo-card__text").click()
+    cy.get(":nth-child(5) > .todo-card__text").click()
+
+    //Venter 2 sekunder før den klikker tilbage så den når at pushe til server
+    cy.wait(2000)
+
+    //Går tilbage til todo oversigten
+    cy.get(".header__button").click()
+
+    cy.wait(1000)
+
+    //Går tilbage til hus oversigten
+    cy.get(".header__button").click()
+
+
+    // Tjekker progressbarfill for at width er mere end 52
+    cy.get('.progress__bar').then((parent) => {
+        const parentWidth = parent[0].getBoundingClientRect().width
+
+        cy.get('.progress__bar__fill').then((el) => {
+            const elWidth = el[0].getBoundingClientRect().width
+            const percentage = (elWidth / parentWidth) * 100
+
+            expect(percentage).to.be.greaterThan(50)
+        })
+    })
+
+  
   
 
   });
+
+
+  it('should navigate to a house and uncheck todo items off the list succesfully', () => {
+
+    // Klikker på housecard Clara
+    cy.contains(".housecard__title", "testerdenher").click()
+
+    cy.wait(2000)
+
+    // Tjekker progressbarfill for at width er mindre end 52
+    cy.get('.progress__bar').then((parent) => {
+        const parentWidth = parent[0].getBoundingClientRect().width
+
+        cy.get('.progress__bar__fill').then((el) => {
+            const elWidth = el[0].getBoundingClientRect().width
+            const percentage = (elWidth / parentWidth) * 100
+
+            expect(percentage).to.be.greaterThan(50)
+        })
+    })
+
+    // Klikker på "gennemgå tjekliste knap"
+    cy.get(".btn").click()
+
+    cy.wait(2000)
+
+    // Klikker på "Lukket hus" todo item
+    cy.get('[href="/houses/2L7ZAepZ2MlvyryiE2v1/todos/4"]').click()
+
+    cy.wait(2000)
+
+    //Klikker på alle to do items
+    cy.get(":nth-child(1) > .todo-card__text").click()
+    cy.get(":nth-child(2) > .todo-card__text").click()
+    cy.get(":nth-child(3) > .todo-card__text").click()
+    cy.get(":nth-child(4) > .todo-card__text").click()
+    cy.get(":nth-child(5) > .todo-card__text").click()
+
+    //Venter 2 sekunder før den klikker tilbage så den når at pushe til server
+    cy.wait(2000)
+
+    //Går tilbage til todo oversigten
+    cy.get(".header__button").click()
+
+    cy.wait(1000)
+
+    //Går tilbage til hus oversigten
+    cy.get(".header__button").click()
+
+
+    // Tjekker progressbarfill for at width er mere end 52
+    cy.get('.progress__bar').then((parent) => {
+        const parentWidth = parent[0].getBoundingClientRect().width
+
+        cy.get('.progress__bar__fill').then((el) => {
+            const elWidth = el[0].getBoundingClientRect().width
+            const percentage = (elWidth / parentWidth) * 100
+
+            expect(percentage).to.be.lessThan(50)
+        })
+    })
+
+  
+  
+
+  });
+
   
 
 
