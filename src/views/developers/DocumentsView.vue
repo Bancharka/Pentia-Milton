@@ -44,9 +44,9 @@ onMounted(() => documentsStore.loadDocuments())
             </div>
         </div>
         <DocumentModal
-            :is-open="isModalOpen"
-            @close="isModalOpen = false"
-            @uploaded="documentsStore.loadDocuments"
+         :is-open="isModalOpen"
+         @close="isModalOpen = false"
+         @uploaded="documentsStore.loadDocuments()"
         />
         <BottomNav />
     </div>

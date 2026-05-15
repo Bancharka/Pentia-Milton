@@ -3,49 +3,58 @@ import { ref } from 'vue'
 import { collection, addDoc } from 'firebase/firestore'
 import { ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage'
 import { db, storage } from '@/firebase'
+import { useHouseStore } from '@/stores/houseStore'
+
+const houseStore = useHouseStore()
+
 const props = defineProps({
     isOpen: {
         type: Boolean,
         default: false,
     },
-    houseId: {
-        type: String,
-        default: null,
-    },
 })
+
 const emit = defineEmits(['close', 'uploaded'])
+
 const title = ref('')
 const selectedFile = ref(null)
 const visibleToByggherre = ref(false)
 const isUploading = ref(false)
 const fileInput = ref(null)
+
 const onFileChange = (e) => {
     selectedFile.value = e.target.files[0] || null
 }
+
 const triggerFileInput = () => {
     fileInput.value.click()
 }
+
 const formatBytes = (bytes) => {
     if (!bytes) return ''
     if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(0)} KB`
     return `${(bytes / (1024 * 1024)).toFixed(1)} MB`
 }
+
 const handleSubmit = async () => {
-    if (!title.value || !selectedFile.value) return
+    const houseId = houseStore.house?.id
+    console.log('houseId from store:', houseId)
+    if (!title.value || !selectedFile.value || !houseId) return
     isUploading.value = true
+
     try {
-    // Upload PDF to Firebase Storage
         const fileRef = storageRef(storage, `documents/${Date.now()}_${selectedFile.value.name}`)
         await uploadBytes(fileRef, selectedFile.value)
         const downloadURL = await getDownloadURL(fileRef)
-        // Save metadata to Firestore
-        await addDoc(collection(db, 'houses', props.houseId, 'documents'), {
+
+        await addDoc(collection(db, 'houses', houseId, 'documents'), {
             title: title.value,
             url: downloadURL,
             size: formatBytes(selectedFile.value.size),
             visibleToByggherre: visibleToByggherre.value,
             createdAt: new Date(),
         })
+
         emit('uploaded')
         handleClose()
     } catch (err) {
@@ -54,6 +63,7 @@ const handleSubmit = async () => {
         isUploading.value = false
     }
 }
+
 const handleClose = () => {
     title.value = ''
     selectedFile.value = null
