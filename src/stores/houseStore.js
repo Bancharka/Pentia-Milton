@@ -19,5 +19,9 @@ export const useHouseStore = defineStore('house', () => {
         const { fetchAllHouses } = useHouses()
         houses.value = await fetchAllHouses()
     }
-    return { house, houses, todos, loadHouse, loadAllHouses, loadHouseById }
+    async function loadDeveloperHouses() {
+        const { fetchDeveloperHouses } = useHouses()
+        houses.value = await fetchDeveloperHouses()
+    }
+    return { house, houses, todos, loadHouse, loadAllHouses, loadHouseById, loadDeveloperHouses }
 })
