@@ -20,7 +20,7 @@ describe('overview', () => {
     it('should have an illustration of the house', () => {
 
     //Tjekker om billedet på siden er en af de fire billeder der kan være
-    cy.get('.house-card img').invoke('attr', 'src').then((src) => {
+    cy.get('.progress img').invoke('attr', 'src').then((src) => {
         expect(src).to.be.oneOf([
             '/src/img/House-walls.png',
             '/src/img/House-foundation.png',
