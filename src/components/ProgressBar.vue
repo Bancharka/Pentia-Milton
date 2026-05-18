@@ -34,7 +34,9 @@ const dynamicHouse = computed(() => {
         <h3>Her kan du følge med i byggeprocessen af dit hus</h3>
 
         <div>
-            <img :src="dynamicHouse" >
+            <Transition name="house" mode="out-in">
+                <img :src="dynamicHouse" :key="dynamicHouse" >
+            </Transition>
         </div>
 
 
