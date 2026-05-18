@@ -6,8 +6,16 @@
   align-items: center;
   flex-direction: column;
   gap: 16px;
+ 
   
   
+
+  &__error {
+    color: rgb(255, 48, 48);
+    margin-bottom: -15px;
+    
+    
+  }
 
   &__field {
     width: 100%;
@@ -19,6 +27,12 @@
     align-items: center;
     padding: 0 16px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+
+    &--error {
+        border:solid 2px;
+        border-color: red;
+        
+      }
 
     &__icon {
       margin-right: 12px;
@@ -32,6 +46,8 @@
       width: 100%;
       font-size: 16px;
       color: $primary;
+
+      
     }
 
     input::placeholder {
