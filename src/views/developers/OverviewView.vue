@@ -19,7 +19,7 @@ function goToHouse(houseId) {
     router.push(`/houses/${houseId}`)
 }
 onMounted(async () => {
-    await store.loadAllHouses()
+    await store.loadDeveloperHouses()
 })
 </script>
 <template>

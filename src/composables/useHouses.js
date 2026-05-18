@@ -119,11 +119,20 @@ export function useHouses() {
         const houseRef = doc(db, 'houses', houseId)
         await updateDoc(houseRef, { todos })
     }
+    async function fetchDeveloperHouses() {
+        const user = await getCurrentUser()
+        if (!user) return []
+        const snap = await getDocs(
+            query(collection(db, 'houses'), where('uid', '==', user.uid))
+        )
+        return snap.docs.map(doc => ({ id: doc.id, ...doc.data() }))
+    }
     return {
         fetchUserHouse,
         fetchHouseById,
         fetchAllHouses,
         fetchUserHouseTodos,
+        fetchDeveloperHouses,
         createHouseFromTemplate,
         updateSubTodoDone,
         updateSubTodoDoneById

@@ -4,7 +4,6 @@
 .profile-header {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     margin: $spacing-md;
 
     &__imagecontainer {
@@ -34,6 +33,7 @@
 
     &__text {
         color: $primary-font;
+        margin-left: 20px;
     }
 
     &__text p {

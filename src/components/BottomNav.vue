@@ -1,8 +1,11 @@
 <script setup>
 import { useRoute } from 'vue-router'
 import { useUserStore } from '@/stores/userStore'
+import { useHouseStore } from '@/stores/houseStore'
+const houseStore = useHouseStore()
 const userStore = useUserStore()
 const route = useRoute()
+
 </script>
 <template>
     <nav  class="bottom-nav">
@@ -66,7 +69,7 @@ const route = useRoute()
             </svg>
         </router-link>
 
-        <router-link v-else to="/dev-documents" class="nav-item" :class="{ active: route.path === '/dev-documents' }">
+        <router-link v-else-if="houseStore.house" to="/dev-documents" class="nav-item" :class="{ active: route.path === '/dev-documents' }" >
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
