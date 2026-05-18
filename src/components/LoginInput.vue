@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { reactive, ref } from 'vue'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '@/firebase'
 import BaseButton from './BaseButton.vue'
@@ -7,14 +7,42 @@ import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/userStore'
 const email = ref('')
 const password = ref('')
-const error = ref(null)
+const errors = reactive({email:'', password:''})
 const router = useRouter()
 const userStore = useUserStore()
+
+
+
+function validate() {
+    errors.email='';
+    errors.password='';
+    errors.wrongEmailOrPassword='';
+    let valid = true;
+
+
+    if (!email.value) {
+        errors.email = 'Email mangler!'
+        valid=false;
+    }
+
+    if (!password.value) {
+        errors.password = 'Kodeord mangler!'
+        valid=false;
+    }
+
+    return valid
+}
+
 const submitLogin = async () => {
+
+    if (!validate()) return
+
+
     try {
         //Her loader vi userStoren, i stedet for onMounted, for at få informationen kommer ind i storen tilsvarende den user der logger ind, da den ellers aldrig vil få informationen
         await signInWithEmailAndPassword(auth, email.value, password.value)
         await userStore.loadUser()
+
         if(userStore.userData?.customer === true){
             router.push('/home-customer')}
         else if(userStore.userData?.customer === false) {
@@ -24,14 +52,25 @@ const submitLogin = async () => {
             window.alert('Din profil er ikke færdigt oprettet i systemet, venligts kontakt kundeservice')
         }
     }
+
+
+    
     catch (err) {
-        error.value = err.message
+
+        if (err.code === 'auth/user-not-found' || 'auth/wrong-password') {
+            errors.wrongEmailOrPassword ='Forkert brugernavn eller adgangskode'
+        }
     };
+
+
 }
 </script>
 <template>
     <form @submit.prevent="submitLogin" class="login">
-        <div class="login__field">
+
+        <span v-if="errors.wrongEmailOrPassword" class="login__error"> {{ errors.wrongEmailOrPassword }}</span>
+        <span v-if="errors.email" class="login__error"> {{ errors.email }}</span>
+        <div :class="{'login__field--error': errors.email}" class="login__field">
             <span class="login__icon">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -48,9 +87,11 @@ const submitLogin = async () => {
                     />
                 </svg>
             </span>
-            <input type="email" placeholder="Email" v-model="email" >
+            <input  type="email" placeholder="Email" v-model="email" >
         </div>
-        <div class="login__field">
+
+        <span v-if="errors.password" class="login__error"> {{ errors.password }}</span>
+        <div :class="{'login__field--error': errors.password}" class="login__field">
             <span class="login__icon">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -67,8 +108,9 @@ const submitLogin = async () => {
                     />
                 </svg>
             </span>
-            <input type="password" placeholder="Adgangskode" v-model="password" >
+            <input  type="password" placeholder="Adgangskode" v-model="password" >
         </div>
+        
         <BaseButton type="submit" variant="outlinewhite" text="Log ind" />
     </form>
 </template>
