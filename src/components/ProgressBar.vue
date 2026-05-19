@@ -7,6 +7,10 @@ import houseFoundation from '../img/House-foundation.png'
 import houseWalls from '../img/House-walls.png'
 import houseWallsRoof from '../img/House-walls-roof.png'
 import houseDone from '../img/House-done.png'
+import { useUserStore } from '@/stores/userStore'
+
+
+const userStore = useUserStore()
 const houseStore = useHouseStore()
 const route = useRoute()
 const props = defineProps({
@@ -15,6 +19,8 @@ const props = defineProps({
         default: false,
     },
 })
+
+
 // max tager alle subtodos og lægger dem sammen til ét array
 const max = computed(() => houseStore.todos.flatMap((todo) => todo.subTodos))
 const done = computed(() => max.value.filter((todo) => todo.done === true))
@@ -31,8 +37,8 @@ const dynamicHouse = computed(() => {
 
 <template>
     <div class="progress" :class="{ 'progress--with-button': props.withButton }">
-        <h3>Her kan du følge med i byggeprocessen af dit hus</h3>
-
+        <h3 v-if="userStore.userData.customer === true">Her kan du følge med i byggeprocessen af dit hus</h3>
+        <h3 v-else>{{ houseStore.house.address }}, {{ houseStore.house.postalCode }}</h3>
         <div>
             <img :src="dynamicHouse" >
         </div>
