@@ -58,7 +58,7 @@ describe('overview', () => {
     cy.contains(".housecard__title", "clara").click()
 
     // Tjekker om url passer til det housecard
-    cy.url().should("eq", "http://localhost:5173/houses/MGxfuimym3Nb59jRamU3")
+    cy.url().should("eq", "http://localhost:4173/houses/MGxfuimym3Nb59jRamU3")
 
   });
 
@@ -68,13 +68,13 @@ describe('overview', () => {
     cy.contains(".housecard__title", "clara").click()
 
     // Tjekker om url passer til det housecard
-    cy.url().should("eq", "http://localhost:5173/houses/MGxfuimym3Nb59jRamU3")
+    cy.url().should("eq", "http://localhost:4173/houses/MGxfuimym3Nb59jRamU3")
 
     // Klikker på back knappen
     cy.get(".header__button").click()
 
     // Tjekker at vi er tilbage på overview
-    cy.url().should("eq", "http://localhost:5173/overview")
+    cy.url().should("eq", "http://localhost:4173/overview")
   });
 
   
@@ -85,7 +85,7 @@ describe('overview', () => {
     cy.get("[href='/dev-profile']").click();
 
     //Tjekker om url er skiftet
-    cy.url().should("eq", "http://localhost:5173/dev-profile");
+    cy.url().should("eq", "http://localhost:4173/dev-profile");
 
     //Tjekker at profil email matcher den profil der er logget ind
     cy.contains(Cypress.env('TEST_DEV_EMAIL')).should("exist");
