@@ -29,7 +29,7 @@
     "@eslint/js": "^10.0.1",
     "@vitejs/plugin-vue": "^6.0.4",
     "@vitest/eslint-plugin": "^1.6.9",
-    "@vue/test-utils": "^2.4.6",
+    "@vue/test-utils": "^2.4.10",
     "cypress": "^15.11.0",
     "docdash": "^2.0.2",
     "eslint": "^10.0.2",
