@@ -5,6 +5,7 @@ import { db } from '@/firebase'
 import { useHouseStore } from './houseStore'
 export const useDocumentStore = defineStore('documents', () => {
     const documents = ref([])
+    // Henter alle dokumenter fra Firestore tilknyttet det aktuelle hus
     async function loadDocuments() {
         const houseStore = useHouseStore()
         const houseId = houseStore.house?.id
