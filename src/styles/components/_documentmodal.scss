@@ -174,7 +174,32 @@
         transition: transform 0.2s ease;
       }
     }
+        &__delete-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: none;
+      border: 1px solid #e57373;
+      border-radius: 10px;
+      padding: 10px 14px;
+      color: #e57373;
+      font-size: 14px;
+      cursor: pointer;
+      width: 100%;
+      justify-content: center;
+      margin-top: 0.5rem;
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      &:active {
+        background: #fdecea;
+      }
+    }
   }
+  
   
   .modal-fade-enter-active,
   .modal-fade-leave-active {
