@@ -1,3 +1,16 @@
+/**
+ * @component SubTodoListView
+ * @description Displays a searchable list of subTodos for a specific todo,
+ * identified by houseId and todoIndex from the route parameters.
+ * Allows the developer to toggle individual subTodo completion status,
+ * which is persisted to Firestore via useHouses.
+ *
+ * @requires stores/houseStore - loads house and todo data
+ * @requires composables/useHouses - provides updateSubTodoDoneById
+ * @requires utils/todoHelpers - getSubTodos and applyToggle utilities
+ * @requires components/TodoCard - renders individual subTodo items with checkbox
+ * @requires components/SearchInput - filters the subTodo list by title
+ */
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
@@ -15,6 +28,12 @@ const subTodos = ref([])
 const todoIndex = Number(route.params.todoIndex)
 const searchQuery = ref('')
 const todoTitle = ref('')
+/**
+ * @computed filteredList
+ * @description Filters the subTodos array by matching the subTodo title
+ * against the current search query (case-insensitive).
+ * @returns {Array} Filtered array of subTodo objects
+ */
 const filteredList = computed(() =>
     subTodos.value.filter((sub) =>
         sub.title.toLowerCase().includes(searchQuery.value.toLowerCase())
@@ -25,6 +44,13 @@ onMounted(async () => {
     subTodos.value = getSubTodos(store.todos, todoIndex)
     todoTitle.value = store.todos[todoIndex]?.title ?? ''
 })
+/**
+ * @function handleCheck
+ * @description Toggles the done status of a subTodo, updates local state,
+ * and persists the change to Firestore via updateSubTodoDoneById.
+ * @param {number} subTodoIndex - Index of the subTodo to toggle
+ * @returns {Promise<void>}
+ */
 async function handleCheck(subTodoIndex) {
     const { updated, newDone } = applyToggle(subTodos.value, subTodoIndex)
     subTodos.value = updated

@@ -1,4 +1,14 @@
-<script setup>
+/**
+ * @component LoginInput
+ * @description Renders a login form with email and password fields.
+ * Validates inputs, authenticates via Firebase, loads the user store,
+ * and redirects based on whether the logged-in user is a customer or employee.
+ * Displays inline validation errors and a wrong credentials error if login fails.
+ *
+ * @requires firebase/auth - signInWithEmailAndPassword
+ * @requires stores/userStore - loads user data post-login and checks customer status
+ */
+ <script setup>
 import { reactive, ref } from 'vue'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '@/firebase'
@@ -10,6 +20,12 @@ const password = ref('')
 const errors = reactive({email:'', password:''})
 const router = useRouter()
 const userStore = useUserStore()
+/**
+ * @function validate
+ * @description Validates that both email and password fields are non-empty.
+ * Clears previous errors before each validation run.
+ * @returns {boolean} True if both fields are filled, false otherwise
+ */
 function validate() {
     errors.email=''
     errors.password=''
@@ -25,6 +41,18 @@ function validate() {
     }
     return valid
 }
+/**
+ * @function submitLogin
+ * @async
+ * @description Validates the form, then attempts Firebase email/password sign-in.
+ * On success, loads the user store and redirects:
+ * - customers → `/home-customer`
+ * - employees → `/overview`
+ * - incomplete profiles → shows an alert to contact customer service
+ *
+ * On failure, sets a wrong credentials error if the email or password is incorrect.
+ * @returns {Promise<void>}
+ */
 const submitLogin = async () => {
     if (!validate()) return
     try {

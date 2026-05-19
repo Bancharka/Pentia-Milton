@@ -1,3 +1,13 @@
+/**
+ * @component ProfileHeader
+ * @description Displays the authenticated user's profile picture, name and email.
+ * Allows the user to update their profile picture by clicking the image,
+ * which uploads the new image to Firebase Storage and updates Firestore.
+ *
+ * @requires firebase/auth - onAuthStateChanged to listen for the current user
+ * @requires firebase/firestore - fetches and updates user document
+ * @requires firebase/storage - uploads profile image and retrieves download URL
+ */ 
 <script setup>
 import { ref, onMounted } from 'vue'
 import { auth, db, storage } from '@/firebase'
@@ -20,6 +30,14 @@ onMounted(() => {
         }
     })
 })
+/**
+ * @function handleImageChange
+ * @description Handles file input change event. Uploads the selected image to
+ * Firebase Storage under `profileImages/{uid}`, retrieves the download URL,
+ * updates the user's Firestore document, and updates the local profileImage ref.
+ * @param {Event} event - The file input change event
+ * @returns {Promise<void>}
+ */
 async function handleImageChange(event) {
     const file = event.target.files[0]
     if (!file) return

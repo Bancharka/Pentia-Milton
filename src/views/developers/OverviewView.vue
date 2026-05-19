@@ -1,3 +1,13 @@
+/**
+ * @component OverviewView
+ * @description Displays a searchable, sorted list of all houses belonging
+ * to the authenticated developer. Houses are filtered by address and sorted
+ * by postal code. Clicking a house navigates to its detail view.
+ *
+ * @requires stores/houseStore - loads and provides the developer's house list
+ * @requires components/HouseCard - renders individual house entries
+ * @requires components/SearchInput - filters the house list by address
+ */
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
@@ -9,6 +19,12 @@ import SearchInput from '@/components/SearchInput.vue'
 const store = useHouseStore()
 const router = useRouter()
 const searchQuery = ref('')
+/**
+ * @computed filteredList
+ * @description Filters the store's houses array by address (case-insensitive)
+ * and sorts the results by postal code in ascending order.
+ * @returns {Array} Filtered and sorted array of house objects
+ */
 const filteredList = computed(() =>
     store.houses.filter((house) =>
         house.address.toLowerCase().includes(searchQuery.value.toLowerCase())
