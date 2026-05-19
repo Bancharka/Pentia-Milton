@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>Documents:  - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    
+    <h2><a href="index.html">Home</a></h2><h3>Documents</h3><ul><li><a href="tutorial-branchingstrategy.html">branchingstrategy</a></li><li><a href="tutorial-cicd.html">cicd</a></li><li><a href="tutorial-linting.html">linting</a></li><li><a href="tutorial-refactoring.html">refactoring</a></li><li><a href="tutorial-techchoice.html">techchoice</a></li><li><a href="tutorial-teststrategy.html">teststrategy</a></li></ul>
+    
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">Documents: </h1>
+    
+
+    <section>
+
+<header>
+    
+
+    <h2>cicd</h2>
+</header>
+
+<article>
+    <h1>CI/CD Pipeline</h1>
+<p>Projektets CI/CD pipeline er implementeret via Github Actions. Der er 3 separate workflows.
+Pipeline strukturen er konfigureret til at køre automatisk ved push og pull afhængigt af workflowets formål.</p>
+<hr>
+<h2>Lint Workflow — Continuous Integration</h2>
+<p>Linting workflowet eksekveres ved både push til main og pull request.</p>
+<p>Workflowet er defineret i <code>.github/workflows/lint.yml</code></p>
+<pre class="prettyprint source lang-yml"><code>name: Lint
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci
+      - run: npm run lint
+</code></pre>
+<p>Disse steps sørger for at klone repo og eksekvere ESlint regler.</p>
+<p>Dette workflow fungerer som statisk kodeanalyse, og sørger for at syntaksfejl identificeres og rettes før merge til main-branch.</p>
+<p>Workflowet er en del af continuous integration-processen, da det sikrer at koden løbende valideres mod et fælles sæt regler, ved hjælp af automatiseret linting via ESLint. Dette bidrager til en ensartet kodestandard på tværs af teamet.</p>
+<hr>
+<h2>Firebase Workflow — Continuous Integration</h2>
+<p>Dette workflow er konfigureret til pull-requests og anvendes til preview deployment via Firebase Hosting.</p>
+<p>Workflowet er defineret i <code>.github/workflows/firebase-hosting-pull-request.yml</code></p>
+<pre class="prettyprint source lang-yml"><code>name: Deploy to Firebase Hosting on PR
+on: pull_request
+permissions:
+  checks: write
+  contents: read
+  pull-requests: write
+jobs:
+  build_and_preview:
+    if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
+    runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+    steps:
+      - uses: actions/checkout@v4
+      - run: npm ci && npm run build
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_PENTIA_MILTON }}
+          projectId: pentia-milton
+</code></pre>
+<p>Her ses den tekniske pipeline, der sikrer at kun interne pull requests fra samme repository kan trigge deployment, efterfulgt af <code>npm run build</code>, der deployer en preview version til Firebase Hosting, der muliggør test af features i et isoleret miljø, før merge til production branch.</p>
+<hr>
+<h3>Dokumentations Workflow — Continuous Deployment</h3>
+<p>Dokumentations deployment er konfigureret i <code>.github/workflows/docs.yml</code> og eksekveres ved push til main.</p>
+<pre class="prettyprint source lang-yml"><code>name: Publish Docs
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - run: npm ci
+
+      - run: npm run docs
+
+      - uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs
+
+</code></pre>
+<p>Dette workflow deployer den genererede dokumentation til Github Pages, hvilket sikrer automatisk opdatering af dokumentationen ved ændringer i kodebasen.</p>
+<hr>
+<h3>Samlet Pipeline Struktur</h3>
+<table>
+<thead>
+<tr>
+<th>Workflow</th>
+<th>Trigger</th>
+<th>Funktion</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Lint</td>
+<td>Push + pull request</td>
+<td>Statisk kodeanalyse</td>
+</tr>
+<tr>
+<td>Firebase Preview</td>
+<td>Pull request</td>
+<td>Build + preview deployment</td>
+</tr>
+<tr>
+<td>Docs</td>
+<td>Push til main</td>
+<td>Dokumentation deployment</td>
+</tr>
+</tbody>
+</table>
+</article>
+
+</section>
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Tue May 19 2026 12:50:56 GMT+0200 (Centraleuropæisk sommertid) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+
+
+</body>
+</html>
