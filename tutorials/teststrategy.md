@@ -14,11 +14,9 @@ For at teste edge cases er der anvendt Vitest, med henblik på at teste isolered
 
 ## Create House – form validation
 
-I forbindelse med oprettelse af et hus er der implementeret unit tests, som validerer formularens inputfelter.
+Der er udført tests på form validering ved oprettelse af huse.
+I denne test valideres det om inputtet er udfyldt med valid data, og fejler hvis dataen ikke er udfyldt korrekt. 
 
-Testene sikrer, at:
-- gyldige input returnerer `null`
-- manglende eller ugyldige felter returnerer fejlbeskeder
 
 ### Eksempel fra `validateHouseForm.test`
 
@@ -51,4 +49,32 @@ it('returns null when all fields are valid', () => {
         expect(validateHouseForm({ ...validForm, image: null })).toBe('Udfyld alle felter')
     })
 
+```
+
+---
+
+## To do
+Der er udført tests på todo opgaverne, som kontrollere om logikken i todo funktionen opfører sig som forventet. 
+
+### Eksempel fra `applyToggle.test`
+
+```js
+    it('returns null when all fields are valid', () => {
+        expect(validateHouseForm(validForm)).toBeNull()
+    })
+    it('rejects when address is empty', () => {
+        expect(validateHouseForm({ ...validForm, address: '' })).toBe('Udfyld alle felter')
+    })
+    it('rejects an address with only numbers', () => {
+        expect(validateHouseForm({ ...validForm, address: '12345' })).toBe('Adressen må ikke kun indeholde tal')
+    })
+    it('rejects a postal code with letters', () => {
+        expect(validateHouseForm({ ...validForm, postalCode: '22AB' })).toBe('Postnummer må kun indeholde tal')
+    })
+    it('rejects when city is missing', () => {
+        expect(validateHouseForm({ ...validForm, city: '' })).toBe('Udfyld alle felter')
+    })
+    it('rejects when no image is selected', () => {
+        expect(validateHouseForm({ ...validForm, image: null })).toBe('Udfyld alle felter')
+    })
 ```
