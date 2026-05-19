@@ -17,17 +17,21 @@ const selectedFile = ref(null)
 const visibleToByggherre = ref(false)
 const isUploading = ref(false)
 const fileInput = ref(null)
+// Sætter den valgte fil når brugeren vælger en fil
 const onFileChange = (e) => {
     selectedFile.value = e.target.files[0] || null
 }
+// Aktiverer det skjulte fil-input felt
 const triggerFileInput = () => {
     fileInput.value.click()
 }
+// Konverterer bytes til læsbar filstørrelse (KB eller MB)
 const formatBytes = (bytes) => {
     if (!bytes) return ''
     if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(0)} KB`
     return `${(bytes / (1024 * 1024)).toFixed(1)} MB`
 }
+// Uploader PDF til Firebase Storage og gemmer metadata i Firestore under det aktuelle hus
 const handleSubmit = async () => {
     const houseId = houseStore.house?.id
     if (!title.value || !selectedFile.value || !houseId) return
@@ -51,6 +55,7 @@ const handleSubmit = async () => {
         isUploading.value = false
     }
 }
+// Nulstiller formularen og lukker modalen
 const handleClose = () => {
     title.value = ''
     selectedFile.value = null

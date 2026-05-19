@@ -1,3 +1,4 @@
+// Validerer husformularen og returnerer en fejlbesked hvis noget mangler eller er ugyldigt, ellers null
 export function validateHouseForm({ address, city, postalCode, registration, image }) {
     if (!address || !city || !postalCode || !registration || !image) {
         return 'Udfyld alle felter'
