@@ -9,7 +9,7 @@ describe('overview', () => {
     it('should be on /home-customer', () => {
 
         // Tjekker url om den er på home customer
-        cy.url().should('eq', 'http://localhost:5173/home-customer' )
+        cy.url().should('eq', 'http://localhost:4173/home-customer' )
 
         // Tjekker for om der er en header med "hjem"
         cy.get('.header').should('contain', 'Hjem')

@@ -11,7 +11,7 @@ describe('overview', () => {
 
   it('should be on /overview', () => {
 
-    cy.url().should('eq', 'http://localhost:5173/overview' )
+    cy.url().should('eq', 'http://localhost:4173/overview' )
 
   });
 

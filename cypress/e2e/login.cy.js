@@ -12,7 +12,7 @@ describe('login test', () => {
 
     cy.get('.btn--secondary').click();
 
-    cy.url().should('eq', 'http://localhost:5173/login' )
+    cy.url().should('eq', 'http://localhost:4173/login' )
 
   });
 
