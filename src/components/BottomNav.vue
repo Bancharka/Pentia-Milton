@@ -5,7 +5,6 @@ import { useHouseStore } from '@/stores/houseStore'
 const houseStore = useHouseStore()
 const userStore = useUserStore()
 const route = useRoute()
-
 </script>
 <template>
     <nav  class="bottom-nav">

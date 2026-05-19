@@ -13,6 +13,23 @@
       width: 48px;
       height: 48px;
     }
+
+    &__edit-btn {
+    background: #dceff3;
+    border: none;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+
+    &:active {
+        background: #c0dde4;
+    }
+}
   }
 
   &__grid {
