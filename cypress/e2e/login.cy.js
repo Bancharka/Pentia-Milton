@@ -4,7 +4,7 @@ describe('login test', () => {
 
   beforeEach(() => {
 
-    cy.visit('http://localhost:5173/')
+    cy.visit('http://localhost:4173/')
   });
 
 
@@ -12,7 +12,7 @@ describe('login test', () => {
 
     cy.get('.btn--secondary').click();
 
-    cy.url().should('eq', 'http://localhost:5173/login' )
+    cy.url().should('eq', 'http://localhost:4173/login' )
 
   });
 
@@ -30,7 +30,7 @@ describe('login test', () => {
 
     cy.get('.btn').click()
 
-    cy.url().should('eq','http://localhost:5173/overview' )
+    cy.url().should('eq','http://localhost:4173/overview' )
 
   });
 
@@ -48,7 +48,7 @@ describe('login test', () => {
 
     cy.get('.btn').click()
 
-    cy.url().should('eq','http://localhost:5173/home-customer' )
+    cy.url().should('eq','http://localhost:4173/home-customer' )
 
   });
 
@@ -66,7 +66,7 @@ describe('login test', () => {
     cy.get('.btn').click()
 
     //Tjekker om url stadigt er den samme
-    cy.url().should('eq','http://localhost:5173/login' )
+    cy.url().should('eq','http://localhost:4173/login' )
 
   });
 
@@ -84,7 +84,7 @@ describe('login test', () => {
 
     cy.get('.btn').click()
 
-    cy.url().should('eq','http://localhost:5173/login' )
+    cy.url().should('eq','http://localhost:4173/login' )
 
   });
   
