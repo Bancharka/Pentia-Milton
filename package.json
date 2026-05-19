@@ -30,7 +30,7 @@
     "@vitejs/plugin-vue": "^6.0.4",
     "@vitest/eslint-plugin": "^1.6.9",
     "@vue/test-utils": "^2.4.6",
-    "cypress": "^15.11.0",
+    "cypress": "^15.14.2",
     "docdash": "^2.0.2",
     "eslint": "^10.0.2",
     "eslint-plugin-cypress": "^6.1.0",
