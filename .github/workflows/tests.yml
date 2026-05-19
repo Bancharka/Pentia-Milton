@@ -48,6 +48,7 @@ jobs:
       - name: Run Cypress tests
         run: npm run test:e2e
         env:
+          CYPRESS_BASE_URL: http://localhost:4173
           CYPRESS_TEST_CUSTOMER_EMAIL: ${{ secrets.TEST_CUSTOMER_EMAIL }}
           CYPRESS_TEST_DEVELOPER_EMAIL: ${{ secrets.TEST_DEVELOPER_EMAIL }}
           CYPRESS_TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
