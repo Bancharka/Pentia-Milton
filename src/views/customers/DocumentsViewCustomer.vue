@@ -7,6 +7,7 @@ import { collection, getDocs, query, where } from 'firebase/firestore'
 import { auth, db } from '@/firebase'
 const documents = ref([])
 const searchQuery = ref('')
+// Henter dokumenter fra Firestore tilknyttet kundens hus, kun dem markeret som synlige for bygherre
 const loadDocuments = async () => {
     const uid = auth.currentUser.uid
     const houseQuery = query(
@@ -23,15 +24,18 @@ const loadDocuments = async () => {
     const snapshot = await getDocs(q)
     documents.value = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))
 }
+// Filtrerer dokumenter baseret på søgetekst
 const filteredDocuments = computed(() => {
     if (!searchQuery.value) return documents.value
     return documents.value.filter(doc =>
         doc.title.toLowerCase().includes(searchQuery.value.toLowerCase())
     )
 })
+// Åbner et dokument i en ny fane
 const openDocument = (url) => {
     window.open(url, '_blank')
 }
+// Åbner vedligeholdelses manualen i en ny fane
 const manualUrl = 'https://firebasestorage.googleapis.com/v0/b/pentia-milton.firebasestorage.app/o/documents%2FVedligeholdelses%20manual.pdf?alt=media&token=301d275f-c3c6-4e7d-a6a6-0984fc42157b'
 const openManual = () => {
     window.open(manualUrl, '_blank')

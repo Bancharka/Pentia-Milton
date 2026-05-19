@@ -1,7 +1,7 @@
 # Linting
 
 ## Hvad er linting?
-Linting er en automatisk analyse af kode, der finder fejl, dårlige mønstre og inkonsistent stil. Det hjælper med at holde koden ensartet og reducere bugs.
+Linting er brugt som en automatisk analyse af kode, der finder fejl, dårlige mønstre og inkonsistent stil. Det hjælper med at holde koden ensartet og reducere bugs.
 
 I dette projekt bruger vi:
 - **ESLint** til regler og kodestil  
@@ -63,7 +63,7 @@ Disse regler kommer automatisk fra de inkluderede configs:
 
 ### Projektspecifikke regler
 
-Disse er defineret direkte i jeres config:
+Disse er defineret direkte i vores config:
 
 - **Indentation**
   ```js
@@ -128,7 +128,7 @@ Disse bliver typisk rettet automatisk:
 
 ### Kræver manuel rettelse
 
-Disse kræver at man manuelt selv retter:
+Disse kræver at vi manuelt selv retter:
 
 - brug af `console.log`
 - ubrugte variabler

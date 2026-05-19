@@ -7,6 +7,7 @@ import { useUserStore } from '@/stores/userStore'
 import { onMounted } from 'vue'
 const houseStore = useHouseStore()
 const userStore = useUserStore()
+// Henter husdata og brugerdata når komponenten mountes
 onMounted(() => {
     houseStore.loadHouse()
     userStore.loadUser()

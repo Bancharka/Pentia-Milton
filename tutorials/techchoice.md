@@ -1,7 +1,6 @@
 # Teknologivalg og begrundelse
 
-## Formål
-Formålet med teknologivalget er at sikre en hurtig udviklingsproces, en overskuelig kodebase og en stabil løsning til håndtering af data.  
+Teknologivalget er taget for at sikre en hurtig udviklingsproces, en overskuelig kodebase og en stabil løsning til håndtering af data.  
 
 Valgene er delvist baseret på anbefalinger fra undervisere, men også på hvad der er praktisk og passende for projektets omfang.
 

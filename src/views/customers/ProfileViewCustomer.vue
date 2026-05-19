@@ -9,9 +9,9 @@ import ProfileHeader from '@/components/ProfileHeader.vue'
 const isHouseModalOpen = ref(false)
 const owners = ref([])
 const manager = ref({})
+// Henter husdata og tilhørende ejer- og byggelederinfo fra Firestore baseret på kundens uid
 const loadHouseData = async () => {
     const uid = auth.currentUser.uid
-    // Find the house where this customer is cuid
     const houseQuery = query(
         collection(db, 'houses'),
         where('cuid', '==', uid)
@@ -19,23 +19,22 @@ const loadHouseData = async () => {
     const houseSnapshot = await getDocs(houseQuery)
     if (houseSnapshot.empty) return
     const house = houseSnapshot.docs[0].data()
-    // Load customer (owner) from users collection using cuid
     const customerDoc = await getDoc(doc(db, 'users', house.cuid))
     if (customerDoc.exists()) {
         const customer = customerDoc.data()
         owners.value = [{
             name: customer.name,
-            email: auth.currentUser.email, // email comes from Auth not Firestore
+            email: auth.currentUser.email, 
             image: customer.profileImage || ''
         }]
     }
-    // Load developer (manager) from users collection using uid
+
     const developerDoc = await getDoc(doc(db, 'users', house.uid))
     if (developerDoc.exists()) {
         const developer = developerDoc.data()
         manager.value = {
             name: developer.name,
-            email: '', // fetch from Auth not possible for other users
+            email: '', 
             image: developer.profileImage || ''
         }
     }
@@ -48,6 +47,7 @@ const menuItems = [
     { label: 'Privat indstillinger', route: '/privacy', icon: 'key' },
     { label: 'Hjælp', route: '/help', icon: 'help' },
 ]
+// Åbner husmodalen når 'Mit hus' menupunktet klikkes
 const handleItemClick = (item) => {
     if (item.action === 'modal') {
         isHouseModalOpen.value = true
