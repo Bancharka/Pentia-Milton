@@ -6,31 +6,25 @@ import SearchInput from '@/components/SearchInput.vue'
 import DocumentModal from '@/components/modals/DocumentModal.vue'
 import DocumentEditModal from '@/components/modals/DocumentEditModal.vue'
 import { useDocumentStore } from '@/stores/documentsStore'
-
 const documentsStore = useDocumentStore()
 const isModalOpen = ref(false)
 const isEditModalOpen = ref(false)
 const selectedDoc = ref(null)
 const searchQuery = ref('')
-
 const filteredList = computed(() =>
     documentsStore.documents.filter((doc) =>
         doc.title.toLowerCase().includes(searchQuery.value.toLowerCase())
     )
 )
-
 const openDocument = (url) => {
     window.open(url, '_blank')
 }
-
 const openEditModal = (doc) => {
     selectedDoc.value = doc
     isEditModalOpen.value = true
 }
-
 onMounted(() => documentsStore.loadDocuments())
 </script>
-
 <template>
     <div class="page-container">
         <HeaderBack />

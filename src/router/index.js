@@ -115,14 +115,9 @@ function waitForAuth() {
         })
     })
 }
-
 router.beforeEach(async (to) => {
     const userStore = useUserStore()
     const currentUser = await waitForAuth()
-
-     console.log('currentUser:', currentUser)
-    console.log('userData:', userStore.userData)
-    console.log('navigating to:', to.path)
     if (to.meta.requiresAuth && !currentUser) {
         return '/login'
     }

@@ -16,6 +16,6 @@ const input = defineModel()
                 class="searchinput__icon"
             >
         </span>
-        <input class="search" type="text" v-model="input" :placeholder="placeholder" />
+        <input class="search" type="text" v-model="input" :placeholder="placeholder" >
     </div>
 </template>

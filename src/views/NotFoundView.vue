@@ -1,11 +1,7 @@
 <script setup>
 import HeaderBack from '@/components/HeaderBack.vue'
 import BottomNav from '@/components/BottomNav.vue'
-import { useRouter } from 'vue-router'
-
-const router = useRouter()
 </script>
-
 <template>
     <div class="page-container">
         <HeaderBack />

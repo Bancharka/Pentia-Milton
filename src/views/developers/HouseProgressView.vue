@@ -13,7 +13,6 @@ onMounted(async () => {
 </script>
 <template>
     <div class="page-container">
-        
         <HeaderBack />
         <div class="site-container site-container--secondary">
             <ProgressBar :withButton="true" />
