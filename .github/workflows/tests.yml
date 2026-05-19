@@ -59,7 +59,7 @@ jobs:
         env:
           CYPRESS_BASE_URL: http://localhost:4173
           CYPRESS_TEST_CUSTOMER_EMAIL: ${{ secrets.TEST_CUSTOMER_EMAIL }}
-          CYPRESS_TEST_DEVELOPER_EMAIL: ${{ secrets.TEST_DEVELOPER_EMAIL }}
+          CYPRESS_TEST_DEV_EMAIL: ${{ secrets.TEST_DEVELOPER_EMAIL }}
           CYPRESS_TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
           CYPRESS_FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
 
