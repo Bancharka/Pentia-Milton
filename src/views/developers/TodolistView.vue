@@ -1,3 +1,12 @@
+/**
+ * @component TodoListView
+ * @description Displays a searchable list of todos for a specific house,
+ * loaded by the houseId route parameter. Each todo links to its subTodo detail view.
+ *
+ * @requires stores/houseStore - loads house data and provides the todos array
+ * @requires components/TodoCard - renders individual todo items
+ * @requires components/SearchInput - filters the todo list by title
+ */
 <script setup>
 import { useRoute } from 'vue-router'
 import { ref, onMounted } from 'vue'
@@ -9,6 +18,12 @@ import { useHouseStore } from '@/stores/houseStore'
 import { computed } from 'vue'
 const store = useHouseStore()
 const searchQuery = ref('')
+/**
+ * @computed filteredList
+ * @description Filters the store's todos array by matching the todo title
+ * against the current search query (case-insensitive).
+ * @returns {Array} Filtered array of todo objects
+ */
 const filteredList = computed(() =>
     store.todos.filter((todo) =>
         todo.title.toLowerCase().includes(searchQuery.value.toLowerCase())

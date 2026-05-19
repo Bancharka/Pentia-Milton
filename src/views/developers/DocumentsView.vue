@@ -1,3 +1,14 @@
+/**
+ * @component DocumentsView
+ * @description Displays a searchable grid of documents for the current house.
+ * Allows the developer to open documents in a new tab, add new documents via
+ * DocumentModal, and edit or delete existing documents via DocumentEditModal.
+ *
+ * @requires stores/documentsStore - loads and provides the documents array
+ * @requires components/modals/DocumentModal - modal for uploading new documents
+ * @requires components/modals/DocumentEditModal - modal for editing or deleting existing documents
+ * @requires components/SearchInput - filters the document list by title
+ */
 <script setup>
 import { ref, onMounted, computed } from 'vue'
 import HeaderBack from '@/components/HeaderBack.vue'
@@ -11,6 +22,12 @@ const isModalOpen = ref(false)
 const isEditModalOpen = ref(false)
 const selectedDoc = ref(null)
 const searchQuery = ref('')
+/**
+ * @computed filteredList
+ * @description Filters the documents array by matching the document title
+ * against the current search query (case-insensitive).
+ * @returns {Array} Filtered array of document objects
+ */
 const filteredList = computed(() =>
     documentsStore.documents.filter((doc) =>
         doc.title.toLowerCase().includes(searchQuery.value.toLowerCase())
@@ -19,6 +36,15 @@ const filteredList = computed(() =>
 const openDocument = (url) => {
     window.open(url, '_blank')
 }
+/**
+ * @function openEditModal
+ * @description Sets the selected document and opens the edit modal.
+ * @param {Object} doc - The document object to edit
+ * @param {string} doc.id - Firestore document ID
+ * @param {string} doc.title - Display title of the document
+ * @param {string} doc.url - Public download URL
+ * @param {string} doc.size - Human-readable file size
+ */
 const openEditModal = (doc) => {
     selectedDoc.value = doc
     isEditModalOpen.value = true

@@ -1,3 +1,13 @@
+/**
+ * @component CreateHouseView
+ * @description Form view for creating a new house from the default template.
+ * Validates all fields before submission, then calls createHouseFromTemplate
+ * which uploads the image, builds todos from the template, and saves the
+ * house to Firestore. On success, redirects to the overview.
+ *
+ * @requires composables/useHouses - provides createHouseFromTemplate
+ * @requires utils/validateHouseForm - validates form fields before submission
+ */
 <script setup>
 import BaseButton from '@/components/BaseButton.vue'
 import HeaderBack from '@/components/HeaderBack.vue'
@@ -12,9 +22,20 @@ const city = ref('')
 const postalCode = ref('')
 const registration = ref('')
 const image = ref(null)
+/**
+ * @function handleImage
+ * @description Captures the selected file from the image file input.
+ * @param {Event} event - The file input change event
+ */
 function handleImage(event) {
     image.value = event.target.files[0]
 }
+/**
+ * @function submitHouse
+ * @description Validates the form, creates a new house from the default template,
+ * and redirects to the overview on success. Alerts the user if validation fails.
+ * @returns {Promise<void>}
+ */
 async function submitHouse() {
     const error = validateHouseForm({
         address: address.value,
