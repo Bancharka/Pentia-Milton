@@ -135,18 +135,17 @@ export function useHouses() {
         return todos
     }
     /**
-/**
- * @function saveHouseToFirestore
- * @description Saves a new house document to Firestore with the provided data.
- * @param {Object} user - The authenticated Firebase user (uid is used as the developer reference)
- * @param {string} address
- * @param {string} city
- * @param {string} postalCode
- * @param {string} registration
- * @param {string} imageUrl - Public URL of the uploaded house image
- * @param {Array} todos - Pre-built todos array from the template
- * @returns {Promise<string>} The new Firestore document ID
- */
+     * @function saveHouseToFirestore
+     * @description Saves a new house document to Firestore with the provided data.
+     * @param {Object} user - The authenticated Firebase user (uid is used as the developer reference)
+     * @param {string} address
+     * @param {string} city
+     * @param {string} postalCode
+     * @param {string} registration
+     * @param {string} imageUrl - Public URL of the uploaded house image
+     * @param {Array} todos - Pre-built todos array from the template
+     * @returns {Promise<string>} The new Firestore document ID
+     */
     async function saveHouseToFirestore(user, address, city, postalCode, registration, imageUrl, todos) {
         const houseRef = await addDoc(collection(db, 'houses'), {
             uid: user.uid,
