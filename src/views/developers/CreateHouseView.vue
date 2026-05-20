@@ -1,12 +1,12 @@
 /**
- * @component CreateHouseView
- * @description Form view for creating a new house from the default template.
- * Validates all fields before submission, then calls createHouseFromTemplate
- * which uploads the image, builds todos from the template, and saves the
- * house to Firestore. On success, redirects to the overview.
+ * @module CreateHouseView
+ * @description Formularvisning til oprettelse af et nyt hus fra standard-skabelonen.
+ * Validerer alle felter inden indsendelse og kalder createHouseFromTemplate,
+ * som uploader billedet, bygger todos fra skabelonen og gemmer huset i Firestore.
+ * Ved succes omdirigeres til oversigtssiden.
  *
- * @requires composables/useHouses - provides createHouseFromTemplate
- * @requires utils/validateHouseForm - validates form fields before submission
+ * @requires composables/useHouses - leverer createHouseFromTemplate
+ * @requires utils/validateHouseForm - validerer formularfelter inden indsendelse
  */
 <script setup>
 import BaseButton from '@/components/BaseButton.vue'
@@ -24,16 +24,17 @@ const registration = ref('')
 const image = ref(null)
 /**
  * @function handleImage
- * @description Captures the selected file from the image file input.
- * @param {Event} event - The file input change event
+ * @description Henter den valgte fil fra billedfilens input-felt.
+ * @param {Event} event - Change-eventet fra filinputtet
  */
 function handleImage(event) {
     image.value = event.target.files[0]
 }
 /**
  * @function submitHouse
- * @description Validates the form, creates a new house from the default template,
- * and redirects to the overview on success. Alerts the user if validation fails.
+ * @async
+ * @description Validerer formularen, opretter et nyt hus fra standard-skabelonen
+ * og omdirigerer til oversigtssiden ved succes. Viser en alert hvis validering fejler.
  * @returns {Promise<void>}
  */
 async function submitHouse() {

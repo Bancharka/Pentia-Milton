@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>Documents:  - Documentation</title>
+    <title>composables/useUsers.js - Documentation</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -35,22 +35,41 @@
 
 <div id="main">
     
-    <h1 class="page-title">Documents: </h1>
+    <h1 class="page-title">composables/useUsers.js</h1>
     
 
+    
+
+
+
+    
     <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @module useUsers
+ * @description Composable til at hente brugerdata fra Firestore.
+ * @returns {{ fetchUser: Function }}
+ */
+import { db } from '@/firebase'
+import { doc, getDoc } from 'firebase/firestore'
+/**
+ * @function fetchUser
+ * @description Henter et brugerdokument fra Firestore baseret på brugerens UID.
+ * @param {string} uid - Brugerens Firebase Auth UID
+ * @returns {Promise&lt;Object|undefined>} Brugerens Firestore dokumentdata, eller undefined hvis ikke fundet
+ */
+export function useUsers() {
+    async function fetchUser(uid) {
+        const userDoc = await getDoc(doc(db, 'users', uid))
+        return userDoc.data()
+    }
+    return { fetchUser }
+}</code></pre>
+        </article>
+    </section>
 
-<header>
-    
 
-    <h2>refactoring</h2>
-</header>
 
-<article>
-    <h1>Refaktoreringsovervejelser</h1>
-</article>
-
-</section>
 
     
     

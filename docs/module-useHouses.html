@@ -29,7 +29,7 @@
 <nav >
     
     
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-useFirestore.html">useFirestore</a><ul class='methods'><li data-type='method'><a href="module-useFirestore.html#~fetchTodos">fetchTodos</a></li></ul></li><li><a href="module-useHouses.html">useHouses</a><ul class='methods'><li data-type='method'><a href="module-useHouses.html#~buildTodosFromTemplate">buildTodosFromTemplate</a></li><li data-type='method'><a href="module-useHouses.html#~createHouseFromTemplate">createHouseFromTemplate</a></li><li data-type='method'><a href="module-useHouses.html#~fetchAllHouses">fetchAllHouses</a></li><li data-type='method'><a href="module-useHouses.html#~fetchDeveloperHouses">fetchDeveloperHouses</a></li><li data-type='method'><a href="module-useHouses.html#~fetchHouseById">fetchHouseById</a></li><li data-type='method'><a href="module-useHouses.html#~fetchUserHouse">fetchUserHouse</a></li><li data-type='method'><a href="module-useHouses.html#~fetchUserHouseTodos">fetchUserHouseTodos</a></li><li data-type='method'><a href="module-useHouses.html#~getCurrentUser">getCurrentUser</a></li><li data-type='method'><a href="module-useHouses.html#~saveHouseToFirestore">saveHouseToFirestore</a></li><li data-type='method'><a href="module-useHouses.html#~updateSubTodoDone">updateSubTodoDone</a></li><li data-type='method'><a href="module-useHouses.html#~updateSubTodoDoneById">updateSubTodoDoneById</a></li><li data-type='method'><a href="module-useHouses.html#~uploadHouseImage">uploadHouseImage</a></li></ul></li><li><a href="module-useUsers.html">useUsers</a><ul class='methods'><li data-type='method'><a href="module-useUsers.html#~fetchUser">fetchUser</a></li></ul></li></ul><h3>Documents</h3><ul><li><a href="tutorial-branchingstrategy.html">branchingstrategy</a></li><li><a href="tutorial-challenges.html">challenges</a></li><li><a href="tutorial-cicd.html">cicd</a></li><li><a href="tutorial-linting.html">linting</a></li><li><a href="tutorial-refactoring.html">refactoring</a></li><li><a href="tutorial-techchoice.html">techchoice</a></li><li><a href="tutorial-teststrategy.html">teststrategy</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-useFirestore.html">useFirestore</a><ul class='methods'><li data-type='method'><a href="module-useFirestore.html#~fetchTodos">fetchTodos</a></li></ul></li><li><a href="module-useHouses.html">useHouses</a><ul class='methods'><li data-type='method'><a href="module-useHouses.html#~buildTodosFromTemplate">buildTodosFromTemplate</a></li><li data-type='method'><a href="module-useHouses.html#~getCurrentUser">getCurrentUser</a></li><li data-type='method'><a href="module-useHouses.html#~saveHouseToFirestore">saveHouseToFirestore</a></li><li data-type='method'><a href="module-useHouses.html#~updateSubTodoDoneById">updateSubTodoDoneById</a></li><li data-type='method'><a href="module-useHouses.html#~uploadHouseImage">uploadHouseImage</a></li></ul></li><li><a href="module-useUsers.html">useUsers</a><ul class='methods'><li data-type='method'><a href="module-useUsers.html#~fetchUser">fetchUser</a></li></ul></li></ul><h3>Documents</h3><ul><li><a href="tutorial-branchingstrategy.html">branchingstrategy</a></li><li><a href="tutorial-challenges.html">challenges</a></li><li><a href="tutorial-cicd.html">cicd</a></li><li><a href="tutorial-linting.html">linting</a></li><li><a href="tutorial-refactoring.html">refactoring</a></li><li><a href="tutorial-techchoice.html">techchoice</a></li><li><a href="tutorial-teststrategy.html">teststrategy</a></li></ul><h3>Global</h3><ul><li><a href="global.html#applyToggle">applyToggle</a></li><li><a href="global.html#toggleDone">toggleDone</a></li></ul>
     
 </nav>
 
@@ -58,9 +58,9 @@
         <div class="container-overview">
         
             
-                <div class="description usertext">Composable for all house-related Firestore operations.
-Handles fetching, creating, and updating houses and their todos,
-as well as uploading house images to Firebase Storage.</div>
+                <div class="description usertext">Composable til alle husrelaterede Firestore-operationer.
+Håndterer hentning, oprettelse og opdatering af huse og deres todos,
+samt upload af husbilleder til Firebase Storage.</div>
             
 
             
@@ -72,15 +72,15 @@ as well as uploading house images to Firebase Storage.</div>
 <dl class="details">
     
     <dt class="tag-description">Description:</dt>
-    <dd class="tag-description"><ul class="dummy"><li>Composable for all house-related Firestore operations.
-Handles fetching, creating, and updating houses and their todos,
-as well as uploading house images to Firebase Storage.</li></ul></dd>
+    <dd class="tag-description"><ul class="dummy"><li>Composable til alle husrelaterede Firestore-operationer.
+Håndterer hentning, oprettelse og opdatering af huse og deres todos,
+samt upload af husbilleder til Firebase Storage.</li></ul></dd>
     
 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="useHouses.js.html">useHouses.js</a>, <a href="useHouses.js.html#line1">line 1</a>
+        <a href="composables_useHouses.js.html">composables/useHouses.js</a>, <a href="composables_useHouses.js.html#line1">line 1</a>
     </li></ul></dd>
     
 
@@ -200,14 +200,14 @@ as well as uploading house images to Firebase Storage.</li></ul></dd>
 <dl class="details">
     
     <dt class="tag-description">Description:</dt>
-    <dd class="tag-description"><ul class="dummy"><li>Builds a todos array from the default house template in Firestore,
-including nested subTodos. All todos and subTodos are initialized with done: false.</li></ul></dd>
+    <dd class="tag-description"><ul class="dummy"><li>Bygger et todos-array fra standard-husskabelonen i Firestore,
+inklusiv nestede subTodos. Alle todos og subTodos initialiseres med done: false.</li></ul></dd>
     
 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="useHouses.js.html">useHouses.js</a>, <a href="useHouses.js.html#line106">line 106</a>
+        <a href="composables_useHouses.js.html">composables/useHouses.js</a>, <a href="composables_useHouses.js.html#line87">line 87</a>
     </li></ul></dd>
     
 
@@ -295,853 +295,6 @@ including nested subTodos. All todos and subTodos are initialized with done: fal
 
     
 
-    <h4 class="name" id="~createHouseFromTemplate"><span class="type-signature type-signature-inner">(inner) </span>createHouseFromTemplate<span class="signature">(address, city, postalCode, registration, image)</span><span class="type-signature"> &rarr; {Promise.&lt;string>}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-    
-    <dt class="tag-description">Description:</dt>
-    <dd class="tag-description"><ul class="dummy"><li>Orchestrates the full house creation flow: uploads the image,
-builds todos from the default template, and saves the house to Firestore.</li></ul></dd>
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="useHouses.js.html">useHouses.js</a>, <a href="useHouses.js.html#line162">line 162</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <h5 class="h5-parameters">Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>address</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>city</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>postalCode</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>registration</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>image</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">File</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5 class="h5-returns">Returns:</h5>
-
-        
-<div class="param-desc">
-    The new house's Firestore document ID
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;string></span>
-
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="~fetchAllHouses"><span class="type-signature type-signature-inner">(inner) </span>fetchAllHouses<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;{id: string}>>}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-    
-    <dt class="tag-description">Description:</dt>
-    <dd class="tag-description"><ul class="dummy"><li>Fetches all house documents from the Firestore houses collection.</li></ul></dd>
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="useHouses.js.html">useHouses.js</a>, <a href="useHouses.js.html#line75">line 75</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5 class="h5-returns">Returns:</h5>
-
-        
-<div class="param-desc">
-    Array of all house objects
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;Array.&lt;{id: string}>></span>
-
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="~fetchDeveloperHouses"><span class="type-signature type-signature-inner">(inner) </span>fetchDeveloperHouses<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;{id: string}>>}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-    
-    <dt class="tag-description">Description:</dt>
-    <dd class="tag-description"><ul class="dummy"><li>Fetches all houses where the uid matches the current authenticated user.
-Used to list all houses belonging to a developer.</li></ul></dd>
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="useHouses.js.html">useHouses.js</a>, <a href="useHouses.js.html#line220">line 220</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5 class="h5-returns">Returns:</h5>
-
-        
-<div class="param-desc">
-    Array of house objects
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;Array.&lt;{id: string}>></span>
-
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="~fetchHouseById"><span class="type-signature type-signature-inner">(inner) </span>fetchHouseById<span class="signature">(houseId)</span><span class="type-signature"> &rarr; {Promise.&lt;({id: string}|null)>}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-    
-    <dt class="tag-description">Description:</dt>
-    <dd class="tag-description"><ul class="dummy"><li>Fetches a single house document by its Firestore document ID.</li></ul></dd>
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="useHouses.js.html">useHouses.js</a>, <a href="useHouses.js.html#line64">line 64</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <h5 class="h5-parameters">Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>houseId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The Firestore document ID of the house</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5 class="h5-returns">Returns:</h5>
-
-        
-<div class="param-desc">
-    House object or null if not found
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;({id: string}|null)></span>
-
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="~fetchUserHouse"><span class="type-signature type-signature-inner">(inner) </span>fetchUserHouse<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;({id: string}|null)>}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-    
-    <dt class="tag-description">Description:</dt>
-    <dd class="tag-description"><ul class="dummy"><li>Fetches the house associated with the current user.
-Determines whether the user is a customer (matches on cuid) or a developer (matches on uid).</li></ul></dd>
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="useHouses.js.html">useHouses.js</a>, <a href="useHouses.js.html#line43">line 43</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5 class="h5-returns">Returns:</h5>
-
-        
-<div class="param-desc">
-    House object with Firestore id, or null if not found
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;({id: string}|null)></span>
-
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="~fetchUserHouseTodos"><span class="type-signature type-signature-inner">(inner) </span>fetchUserHouseTodos<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;Array>}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-    
-    <dt class="tag-description">Description:</dt>
-    <dd class="tag-description"><ul class="dummy"><li>Fetches the todos array from the current user's associated house.</li></ul></dd>
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="useHouses.js.html">useHouses.js</a>, <a href="useHouses.js.html#line84">line 84</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5 class="h5-returns">Returns:</h5>
-
-        
-<div class="param-desc">
-    Array of todos, or empty array if no house is found
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;Array></span>
-
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
     <h4 class="name" id="~getCurrentUser"><span class="type-signature type-signature-inner">(inner) </span>getCurrentUser<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;(Object|null)>}</span></h4>
 
     
@@ -1152,13 +305,13 @@ Determines whether the user is a customer (matches on cuid) or a developer (matc
 <dl class="details">
     
     <dt class="tag-description">Description:</dt>
-    <dd class="tag-description"><ul class="dummy"><li>Resolves the currently authenticated Firebase user via a Promise wrapper around onAuthStateChanged.</li></ul></dd>
+    <dd class="tag-description"><ul class="dummy"><li>Returnerer den aktuelt indloggede Firebase-bruger via et Promise der wrapper onAuthStateChanged.</li></ul></dd>
     
 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="useHouses.js.html">useHouses.js</a>, <a href="useHouses.js.html#line33">line 33</a>
+        <a href="composables_useHouses.js.html">composables/useHouses.js</a>, <a href="composables_useHouses.js.html#line38">line 38</a>
     </li></ul></dd>
     
 
@@ -1223,7 +376,7 @@ Determines whether the user is a customer (matches on cuid) or a developer (matc
 
         
 <div class="param-desc">
-    The authenticated Firebase user, or null if not signed in
+    Den indloggede Firebase-bruger, eller null hvis ikke logget ind
 </div>
 
 
@@ -1260,13 +413,13 @@ Determines whether the user is a customer (matches on cuid) or a developer (matc
 <dl class="details">
     
     <dt class="tag-description">Description:</dt>
-    <dd class="tag-description"><ul class="dummy"><li>Saves a new house document to Firestore with the provided data.</li></ul></dd>
+    <dd class="tag-description"><ul class="dummy"><li>Gemmer et nyt hus-dokument i Firestore med de angivne data.</li></ul></dd>
     
 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="useHouses.js.html">useHouses.js</a>, <a href="useHouses.js.html#line137">line 137</a>
+        <a href="composables_useHouses.js.html">composables/useHouses.js</a>, <a href="composables_useHouses.js.html#line118">line 118</a>
     </li></ul></dd>
     
 
@@ -1355,7 +508,7 @@ Determines whether the user is a customer (matches on cuid) or a developer (matc
 
             
 
-            <td class="description last">The authenticated Firebase user (uid is used as the developer reference)</td>
+            <td class="description last">Den indloggede Firebase-bruger (uid bruges som byggelederreference)</td>
         </tr>
 
     
@@ -1475,7 +628,7 @@ Determines whether the user is a customer (matches on cuid) or a developer (matc
 
             
 
-            <td class="description last">Public URL of the uploaded house image</td>
+            <td class="description last">Offentlig URL for det uploadede husbillede</td>
         </tr>
 
     
@@ -1499,7 +652,7 @@ Determines whether the user is a customer (matches on cuid) or a developer (matc
 
             
 
-            <td class="description last">Pre-built todos array from the template</td>
+            <td class="description last">Færdigbygget todos-array fra skabelonen</td>
         </tr>
 
     
@@ -1525,7 +678,7 @@ Determines whether the user is a customer (matches on cuid) or a developer (matc
 
         
 <div class="param-desc">
-    The new Firestore document ID
+    Det nye Firestore dokument-id
 </div>
 
 
@@ -1552,210 +705,6 @@ Determines whether the user is a customer (matches on cuid) or a developer (matc
 
     
 
-    <h4 class="name" id="~updateSubTodoDone"><span class="type-signature type-signature-inner">(inner) </span>updateSubTodoDone<span class="signature">(todoIndex, subTodoIndex, done)</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-    
-    <dt class="tag-description">Description:</dt>
-    <dd class="tag-description"><ul class="dummy"><li>Updates a subTodo's done status for the current user's house.
-Also updates the parent todo's done status if all subTodos are completed.
-Intended for use in the customer view.</li></ul></dd>
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="useHouses.js.html">useHouses.js</a>, <a href="useHouses.js.html#line179">line 179</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <h5 class="h5-parameters">Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>todoIndex</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Index of the parent todo</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>subTodoIndex</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Index of the subTodo to update</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>done</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The new done status</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5 class="h5-returns">Returns:</h5>
-
-        
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;void></span>
-
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
     <h4 class="name" id="~updateSubTodoDoneById"><span class="type-signature type-signature-inner">(inner) </span>updateSubTodoDoneById<span class="signature">(houseId, todoIndex, subTodoIndex, done)</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span></h4>
 
     
@@ -1766,15 +715,15 @@ Intended for use in the customer view.</li></ul></dd>
 <dl class="details">
     
     <dt class="tag-description">Description:</dt>
-    <dd class="tag-description"><ul class="dummy"><li>Updates a subTodo's done status for a specific house by ID.
-Also updates the parent todo's done status if all subTodos are completed.
-Intended for use in the developer view.</li></ul></dd>
+    <dd class="tag-description"><ul class="dummy"><li>Opdaterer en subTodos done-status for et specifikt hus via id.
+Opdaterer også forældreobjektets done-status hvis alle subTodos er fuldført.
+Beregnet til brug i byggeledervisningen.</li></ul></dd>
     
 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="useHouses.js.html">useHouses.js</a>, <a href="useHouses.js.html#line199">line 199</a>
+        <a href="composables_useHouses.js.html">composables/useHouses.js</a>, <a href="composables_useHouses.js.html#line161">line 161</a>
     </li></ul></dd>
     
 
@@ -1863,7 +812,7 @@ Intended for use in the developer view.</li></ul></dd>
 
             
 
-            <td class="description last">Firestore document ID of the house</td>
+            <td class="description last">Firestore dokument-id for huset</td>
         </tr>
 
     
@@ -1887,7 +836,7 @@ Intended for use in the developer view.</li></ul></dd>
 
             
 
-            <td class="description last">Index of the parent todo</td>
+            <td class="description last">Indeks for den overordnede todo</td>
         </tr>
 
     
@@ -1911,7 +860,7 @@ Intended for use in the developer view.</li></ul></dd>
 
             
 
-            <td class="description last">Index of the subTodo to update</td>
+            <td class="description last">Indeks for den subTodo der skal opdateres</td>
         </tr>
 
     
@@ -1935,7 +884,7 @@ Intended for use in the developer view.</li></ul></dd>
 
             
 
-            <td class="description last">The new done status</td>
+            <td class="description last">Den nye done-status</td>
         </tr>
 
     
@@ -1994,13 +943,13 @@ Intended for use in the developer view.</li></ul></dd>
 <dl class="details">
     
     <dt class="tag-description">Description:</dt>
-    <dd class="tag-description"><ul class="dummy"><li>Uploads a house image to Firebase Storage under `houses/{registration}_{filename}`.</li></ul></dd>
+    <dd class="tag-description"><ul class="dummy"><li>Uploader et husbillede til Firebase Storage under `houses/{registrering}_{filnavn}`.</li></ul></dd>
     
 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="useHouses.js.html">useHouses.js</a>, <a href="useHouses.js.html#line94">line 94</a>
+        <a href="composables_useHouses.js.html">composables/useHouses.js</a>, <a href="composables_useHouses.js.html#line75">line 75</a>
     </li></ul></dd>
     
 
@@ -2089,7 +1038,7 @@ Intended for use in the developer view.</li></ul></dd>
 
             
 
-            <td class="description last">The house registration number used as part of the storage path</td>
+            <td class="description last">Husets registreringsnummer, bruges som del af storage-stien</td>
         </tr>
 
     
@@ -2113,7 +1062,7 @@ Intended for use in the developer view.</li></ul></dd>
 
             
 
-            <td class="description last">The image file to upload</td>
+            <td class="description last">Billedfilen der skal uploades</td>
         </tr>
 
     
@@ -2139,7 +1088,7 @@ Intended for use in the developer view.</li></ul></dd>
 
         
 <div class="param-desc">
-    The public download URL of the uploaded image
+    Den offentlige download-URL for det uploadede billede
 </div>
 
 
@@ -2181,7 +1130,7 @@ Intended for use in the developer view.</li></ul></dd>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Wed May 20 2026 10:06:05 GMT+0200 (Centraleuropæisk sommertid) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Wed May 20 2026 13:37:51 GMT+0200 (Centraleuropæisk sommertid) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>

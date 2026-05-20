@@ -1,12 +1,12 @@
 /**
- * @component OverviewView
- * @description Displays a searchable, sorted list of all houses belonging
- * to the authenticated developer. Houses are filtered by address and sorted
- * by postal code. Clicking a house navigates to its detail view.
+ * @module OverviewView
+ * @description Viser en søgbar, sorteret liste over alle huse tilhørende
+ * den indloggede byggeleder. Huse filtreres efter adresse og sorteres
+ * efter postnummer. Klik på et hus navigerer til dets detaljevisning.
  *
- * @requires stores/houseStore - loads and provides the developer's house list
- * @requires components/HouseCard - renders individual house entries
- * @requires components/SearchInput - filters the house list by address
+ * @requires stores/houseStore - henter og leverer byggelederens husliste
+ * @requires components/HouseCard - renderer individuelle husindgange
+ * @requires components/SearchInput - filtrerer huslisten efter adresse
  */
 <script setup>
 import { ref, computed, onMounted } from 'vue'
@@ -21,9 +21,9 @@ const router = useRouter()
 const searchQuery = ref('')
 /**
  * @computed filteredList
- * @description Filters the store's houses array by address (case-insensitive)
- * and sorts the results by postal code in ascending order.
- * @returns {Array} Filtered and sorted array of house objects
+ * @description Filtrerer huslistens array efter adresse (ufølsom over for store/små bogstaver)
+ * og sorterer resultaterne efter postnummer i stigende orden.
+ * @returns {Array} Filtreret og sorteret array af husobjekter
  */
 const filteredList = computed(() =>
     store.houses.filter((house) =>

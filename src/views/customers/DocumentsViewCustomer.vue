@@ -1,3 +1,14 @@
+/**
+ * @module DocumentsViewCustomer
+ * @description Viser en søgbar liste af dokumenter der er synlige for kunden.
+ * Henter kun dokumenter markeret med visibleToByggherre: true fra det hus
+ * der er tilknyttet den indloggede kunde. Viser desuden en fast
+ * vedligeholdelsesmanual øverst på siden.
+ *
+ * @requires components/SearchInput - filtrerer dokumentlisten efter titel
+ * @requires components/HeaderBack - tilbage-navigationsheader
+ * @requires components/BottomNav - bundnavigationsbar
+ */
 <script setup>
 import { ref, onMounted, computed } from 'vue'
 import HeaderBack from '@/components/HeaderBack.vue'
@@ -7,6 +18,14 @@ import { collection, getDocs, query, where } from 'firebase/firestore'
 import { auth, db } from '@/firebase'
 const documents = ref([])
 const searchQuery = ref('')
+/**
+ * @function loadDocuments
+ * @async
+ * @description Finder kundens tilknyttede hus via cuid og henter
+ * alle dokumenter fra husets documents-subcollection der er markeret
+ * som synlige for kunden.
+ * @returns {Promise<void>}
+ */
 const loadDocuments = async () => {
     const uid = auth.currentUser.uid
     const houseQuery = query(
@@ -23,6 +42,13 @@ const loadDocuments = async () => {
     const snapshot = await getDocs(q)
     documents.value = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))
 }
+/**
+ * @computed filteredDocuments
+ * @description Filtrerer dokumentlisten ved at matche dokumenttitlen
+ * mod den aktuelle søgeforespørgsel (ufølsom over for store/små bogstaver).
+ * Returnerer hele listen hvis søgefeltet er tomt.
+ * @returns {Array} Filtreret array af dokumentobjekter
+ */
 const filteredDocuments = computed(() => {
     if (!searchQuery.value) return documents.value
     return documents.value.filter(doc =>
