@@ -1,12 +1,12 @@
 /**
  * @component ProgressBar
- * @description Displays the overall build progress of a house based on completed sub-todos.
- * Shows a dynamically changing house illustration and a progress bar that fills
- * proportionally to how many sub-todos have been marked as done.
- * Optionally renders a button linking to the todo checklist.
+ * @description Viser den samlede byggefremdrift for et hus baseret på fuldførte subTodos.
+ * Viser en dynamisk skiftende husillustration og en fremskridtslinje der fyldes
+ * proportionalt med hvor mange subTodos der er markeret som færdige.
+ * Viser valgfrit en knap der linker til opgavetjeklisten.
  *
- * @requires stores/houseStore - provides todos and house data
- * @requires stores/userStore - determines whether the user is a customer or employee
+ * @requires stores/houseStore - leverer todos og husdata
+ * @requires stores/userStore - afgør om brugeren er kunde eller byggeleder
  */
 <script setup>
 import { computed } from 'vue'
@@ -24,8 +24,8 @@ const userStore = useUserStore()
 const houseStore = useHouseStore()
 const route = useRoute()
 const props = defineProps({
-    /**
- * @prop {Boolean} [withButton=false] - When true, renders a button linking to the house todo list
+/**
+ * @prop {Boolean} [withButton=false] - Når true, vises en knap der linker til hussets todo-liste
  */
     withButton: {
         type: Boolean,
@@ -36,31 +36,32 @@ const props = defineProps({
 
 /**
  * @computed max
- * @description Flattens all subTodos from every todo into a single array,
- * representing the total number of tasks.
- * @returns {Array} All subTodos across all todos
+ * @description Flader alle subTodos fra samtlige todos ud til ét samlet array,
+ * der repræsenterer det samlede antal opgaver.
+ * @returns {Array} Alle subTodos på tværs af alle todos
  */
 const max = computed(() => houseStore.todos.flatMap((todo) => todo.subTodos))
+
 /**
  * @computed done
- * @description Filters the flattened subTodos array for items marked as done.
- * @returns {Array} Completed subTodos
- */
-const done = computed(() => max.value.filter((todo) => todo.done === true))
+ * @description Filtrerer det fladede subTodos-array for elementer markeret som færdige.
+ * @returns {Array} Fuldførte subTodos
+ */const done = computed(() => max.value.filter((todo) => todo.done === true))
+const fillPercent = computed(() => (done.value.length / max.value.length) * 100)
+
 /**
  * @computed fillPercent
- * @description Calculates the progress percentage as (done / total) * 100.
- * @returns {number} A percentage value between 0 and 100
+ * @description Beregner fremskridtsprocenten som (færdige / total) * 100.
+ * @returns {number} En procentværdi mellem 0 og 100
  */
-const fillPercent = computed(() => (done.value.length / max.value.length) * 100)
 /**
  * @computed dynamicHouse
- * @description Returns a house illustration based on the current fill percentage.
- * - 0–25%: foundation
- * - 26–50%: walls
- * - 51–75%: walls with roof
- * - 76–100%: completed house
- * @returns {string} Path to the relevant house image asset
+ * @description Returnerer en husillustration baseret på den aktuelle fremskridtsprocent.
+ * - 0–25%: fundament
+ * - 26–50%: vægge
+ * - 51–75%: vægge med tag
+ * - 76–100%: færdigt hus
+ * @returns {string} Sti til det relevante husillustrationsbillede
  */
 const dynamicHouse = computed(() => {
     if (fillPercent.value <= 25) return houseFoundation

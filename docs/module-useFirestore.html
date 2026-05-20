@@ -29,7 +29,7 @@
 <nav >
     
     
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-useFirestore.html">useFirestore</a><ul class='methods'><li data-type='method'><a href="module-useFirestore.html#~fetchTodos">fetchTodos</a></li></ul></li><li><a href="module-useHouses.html">useHouses</a><ul class='methods'><li data-type='method'><a href="module-useHouses.html#~buildTodosFromTemplate">buildTodosFromTemplate</a></li><li data-type='method'><a href="module-useHouses.html#~createHouseFromTemplate">createHouseFromTemplate</a></li><li data-type='method'><a href="module-useHouses.html#~fetchAllHouses">fetchAllHouses</a></li><li data-type='method'><a href="module-useHouses.html#~fetchDeveloperHouses">fetchDeveloperHouses</a></li><li data-type='method'><a href="module-useHouses.html#~fetchHouseById">fetchHouseById</a></li><li data-type='method'><a href="module-useHouses.html#~fetchUserHouse">fetchUserHouse</a></li><li data-type='method'><a href="module-useHouses.html#~fetchUserHouseTodos">fetchUserHouseTodos</a></li><li data-type='method'><a href="module-useHouses.html#~getCurrentUser">getCurrentUser</a></li><li data-type='method'><a href="module-useHouses.html#~saveHouseToFirestore">saveHouseToFirestore</a></li><li data-type='method'><a href="module-useHouses.html#~updateSubTodoDone">updateSubTodoDone</a></li><li data-type='method'><a href="module-useHouses.html#~updateSubTodoDoneById">updateSubTodoDoneById</a></li><li data-type='method'><a href="module-useHouses.html#~uploadHouseImage">uploadHouseImage</a></li></ul></li><li><a href="module-useUsers.html">useUsers</a><ul class='methods'><li data-type='method'><a href="module-useUsers.html#~fetchUser">fetchUser</a></li></ul></li></ul><h3>Documents</h3><ul><li><a href="tutorial-branchingstrategy.html">branchingstrategy</a></li><li><a href="tutorial-challenges.html">challenges</a></li><li><a href="tutorial-cicd.html">cicd</a></li><li><a href="tutorial-linting.html">linting</a></li><li><a href="tutorial-refactoring.html">refactoring</a></li><li><a href="tutorial-techchoice.html">techchoice</a></li><li><a href="tutorial-teststrategy.html">teststrategy</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-useFirestore.html">useFirestore</a><ul class='methods'><li data-type='method'><a href="module-useFirestore.html#~fetchTodos">fetchTodos</a></li></ul></li><li><a href="module-useHouses.html">useHouses</a><ul class='methods'><li data-type='method'><a href="module-useHouses.html#~buildTodosFromTemplate">buildTodosFromTemplate</a></li><li data-type='method'><a href="module-useHouses.html#~getCurrentUser">getCurrentUser</a></li><li data-type='method'><a href="module-useHouses.html#~saveHouseToFirestore">saveHouseToFirestore</a></li><li data-type='method'><a href="module-useHouses.html#~updateSubTodoDoneById">updateSubTodoDoneById</a></li><li data-type='method'><a href="module-useHouses.html#~uploadHouseImage">uploadHouseImage</a></li></ul></li><li><a href="module-useUsers.html">useUsers</a><ul class='methods'><li data-type='method'><a href="module-useUsers.html#~fetchUser">fetchUser</a></li></ul></li></ul><h3>Documents</h3><ul><li><a href="tutorial-branchingstrategy.html">branchingstrategy</a></li><li><a href="tutorial-challenges.html">challenges</a></li><li><a href="tutorial-cicd.html">cicd</a></li><li><a href="tutorial-linting.html">linting</a></li><li><a href="tutorial-refactoring.html">refactoring</a></li><li><a href="tutorial-techchoice.html">techchoice</a></li><li><a href="tutorial-teststrategy.html">teststrategy</a></li></ul><h3>Global</h3><ul><li><a href="global.html#applyToggle">applyToggle</a></li><li><a href="global.html#toggleDone">toggleDone</a></li></ul>
     
 </nav>
 
@@ -58,9 +58,9 @@
         <div class="container-overview">
         
             
-                <div class="description usertext">Composable for fetching todo templates from Firestore.
-Retrieves the default house template including all todos and their nested subTodos,
-ordered by their defined order field.</div>
+                <div class="description usertext">Composable til at hente todo-skabeloner fra Firestore.
+Henter standard-husskabelonen inklusiv alle todos og deres nestede subTodos,
+sorteret efter det definerede order-felt.</div>
             
 
             
@@ -72,15 +72,15 @@ ordered by their defined order field.</div>
 <dl class="details">
     
     <dt class="tag-description">Description:</dt>
-    <dd class="tag-description"><ul class="dummy"><li>Composable for fetching todo templates from Firestore.
-Retrieves the default house template including all todos and their nested subTodos,
-ordered by their defined order field.</li></ul></dd>
+    <dd class="tag-description"><ul class="dummy"><li>Composable til at hente todo-skabeloner fra Firestore.
+Henter standard-husskabelonen inklusiv alle todos og deres nestede subTodos,
+sorteret efter det definerede order-felt.</li></ul></dd>
     
 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="useFirestore.js.html">useFirestore.js</a>, <a href="useFirestore.js.html#line1">line 1</a>
+        <a href="composables_useFirestore.js.html">composables/useFirestore.js</a>, <a href="composables_useFirestore.js.html#line1">line 1</a>
     </li></ul></dd>
     
 
@@ -200,15 +200,15 @@ ordered by their defined order field.</li></ul></dd>
 <dl class="details">
     
     <dt class="tag-description">Description:</dt>
-    <dd class="tag-description"><ul class="dummy"><li>Fetches all todos from the default house template in Firestore,
-including each todo's nested subTodos collection. Both todos and subTodos
-are ordered by their order field.</li></ul></dd>
+    <dd class="tag-description"><ul class="dummy"><li>Henter alle todos fra standard-husskabelonen i Firestore,
+inklusiv hver todos nestede subTodos-collection. Både todos og subTodos
+sorteres efter deres order-felt.</li></ul></dd>
     
 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="useFirestore.js.html">useFirestore.js</a>, <a href="useFirestore.js.html#line11">line 11</a>
+        <a href="composables_useFirestore.js.html">composables/useFirestore.js</a>, <a href="composables_useFirestore.js.html#line11">line 11</a>
     </li></ul></dd>
     
 
@@ -273,7 +273,7 @@ are ordered by their order field.</li></ul></dd>
 
         
 <div class="param-desc">
-    Array of todo objects with nested subTodos
+    Array af todo-objekter med nestede subTodos
 </div>
 
 
@@ -315,7 +315,7 @@ are ordered by their order field.</li></ul></dd>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Wed May 20 2026 10:06:05 GMT+0200 (Centraleuropæisk sommertid) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Wed May 20 2026 13:37:51 GMT+0200 (Centraleuropæisk sommertid) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>

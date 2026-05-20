@@ -1,4 +1,51 @@
-/**
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>composables/useHouses.js - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-useFirestore.html">useFirestore</a><ul class='methods'><li data-type='method'><a href="module-useFirestore.html#~fetchTodos">fetchTodos</a></li></ul></li><li><a href="module-useHouses.html">useHouses</a><ul class='methods'><li data-type='method'><a href="module-useHouses.html#~buildTodosFromTemplate">buildTodosFromTemplate</a></li><li data-type='method'><a href="module-useHouses.html#~getCurrentUser">getCurrentUser</a></li><li data-type='method'><a href="module-useHouses.html#~saveHouseToFirestore">saveHouseToFirestore</a></li><li data-type='method'><a href="module-useHouses.html#~updateSubTodoDoneById">updateSubTodoDoneById</a></li><li data-type='method'><a href="module-useHouses.html#~uploadHouseImage">uploadHouseImage</a></li></ul></li><li><a href="module-useUsers.html">useUsers</a><ul class='methods'><li data-type='method'><a href="module-useUsers.html#~fetchUser">fetchUser</a></li></ul></li></ul><h3>Documents</h3><ul><li><a href="tutorial-branchingstrategy.html">branchingstrategy</a></li><li><a href="tutorial-challenges.html">challenges</a></li><li><a href="tutorial-cicd.html">cicd</a></li><li><a href="tutorial-linting.html">linting</a></li><li><a href="tutorial-refactoring.html">refactoring</a></li><li><a href="tutorial-techchoice.html">techchoice</a></li><li><a href="tutorial-teststrategy.html">teststrategy</a></li></ul><h3>Global</h3><ul><li><a href="global.html#applyToggle">applyToggle</a></li><li><a href="global.html#toggleDone">toggleDone</a></li></ul>
+    
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">composables/useHouses.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
  * @module useHouses
  * @description Composable til alle husrelaterede Firestore-operationer.
  * Håndterer hentning, oprettelse og opdatering af huse og deres todos,
@@ -38,7 +85,7 @@ export function useHouses() {
     /**
  * @function getCurrentUser
  * @description Returnerer den aktuelt indloggede Firebase-bruger via et Promise der wrapper onAuthStateChanged.
- * @returns {Promise<Object|null>} Den indloggede Firebase-bruger, eller null hvis ikke logget ind
+ * @returns {Promise&lt;Object|null>} Den indloggede Firebase-bruger, eller null hvis ikke logget ind
  */
 
     async function fetchUserHouse() {
@@ -77,7 +124,7 @@ export function useHouses() {
      * @description Uploader et husbillede til Firebase Storage under `houses/{registrering}_{filnavn}`.
      * @param {string} registration - Husets registreringsnummer, bruges som del af storage-stien
      * @param {File} image - Billedfilen der skal uploades
-     * @returns {Promise<string>} Den offentlige download-URL for det uploadede billede
+     * @returns {Promise&lt;string>} Den offentlige download-URL for det uploadede billede
      */
     async function uploadHouseImage(registration, image) {
         const imageRef = storageRef(storage, `houses/${registration}_${image.name}`)
@@ -88,7 +135,7 @@ export function useHouses() {
      * @function buildTodosFromTemplate
      * @description Bygger et todos-array fra standard-husskabelonen i Firestore,
      * inklusiv nestede subTodos. Alle todos og subTodos initialiseres med done: false.
-     * @returns {Promise<Array<{title: string, order: number, done: boolean, subTodos: Array}>>}
+     * @returns {Promise&lt;Array&lt;{title: string, order: number, done: boolean, subTodos: Array}>>}
      */
     async function buildTodosFromTemplate() {
         const templateTodos = await getDocs(
@@ -125,7 +172,7 @@ export function useHouses() {
      * @param {string} registration
      * @param {string} imageUrl - Offentlig URL for det uploadede husbillede
      * @param {Array} todos - Færdigbygget todos-array fra skabelonen
-     * @returns {Promise<string>} Det nye Firestore dokument-id
+     * @returns {Promise&lt;string>} Det nye Firestore dokument-id
      */
     async function saveHouseToFirestore(user, address, city, postalCode, registration, imageUrl, todos) {
         const houseRef = await addDoc(collection(db, 'houses'), {
@@ -167,7 +214,7 @@ export function useHouses() {
      * @param {number} todoIndex - Indeks for den overordnede todo
      * @param {number} subTodoIndex - Indeks for den subTodo der skal opdateres
      * @param {boolean} done - Den nye done-status
-     * @returns {Promise<void>}
+     * @returns {Promise&lt;void>}
      */
     async function updateSubTodoDoneById(houseId, todoIndex, subTodoIndex, done) {
         const house = await fetchHouseById(houseId)
@@ -199,3 +246,28 @@ export function useHouses() {
         updateSubTodoDoneById
     }
 }
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Wed May 20 2026 13:37:51 GMT+0200 (Centraleuropæisk sommertid) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+
+
+</body>
+</html>

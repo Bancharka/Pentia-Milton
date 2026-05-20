@@ -1,15 +1,15 @@
 /**
  * @module useUsers
- * @description Composable for fetching user data from Firestore.
+ * @description Composable til at hente brugerdata fra Firestore.
  * @returns {{ fetchUser: Function }}
  */
 import { db } from '@/firebase'
 import { doc, getDoc } from 'firebase/firestore'
 /**
  * @function fetchUser
- * @description Fetches a user document from Firestore by their UID.
- * @param {string} uid - The Firebase Auth UID of the user
- * @returns {Promise<Object|undefined>} The user's Firestore document data, or undefined if not found
+ * @description Henter et brugerdokument fra Firestore baseret på brugerens UID.
+ * @param {string} uid - Brugerens Firebase Auth UID
+ * @returns {Promise<Object|undefined>} Brugerens Firestore dokumentdata, eller undefined hvis ikke fundet
  */
 export function useUsers() {
     async function fetchUser(uid) {

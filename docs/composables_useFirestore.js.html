@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>Documents:  - Documentation</title>
+    <title>composables/useFirestore.js - Documentation</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -35,22 +35,68 @@
 
 <div id="main">
     
-    <h1 class="page-title">Documents: </h1>
+    <h1 class="page-title">composables/useFirestore.js</h1>
     
 
+    
+
+
+
+    
     <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @module useFirestore
+ * @description Composable til at hente todo-skabeloner fra Firestore.
+ * Henter standard-husskabelonen inklusiv alle todos og deres nestede subTodos,
+ * sorteret efter det definerede order-felt.
+ * @returns {{ fetchTodos: Function }}
+ */
+import { db } from '@/firebase'
+import { collection, getDocs, query, orderBy } from 'firebase/firestore'
+export function useFirestore() {
+    /**
+     * @function fetchTodos
+     * @description Henter alle todos fra standard-husskabelonen i Firestore,
+     * inklusiv hver todos nestede subTodos-collection. Både todos og subTodos
+     * sorteres efter deres order-felt.
+     * @returns {Promise&lt;Array&lt;{id: string, subTodos: Array&lt;{id: string}>}>>}
+     * Array af todo-objekter med nestede subTodos
+     */
+    async function fetchTodos() {
+        const todoSnap = await getDocs(
+            query(
+                collection(db, 'houseTemplates', 'default-house', 'todos'),
+                orderBy('order')
+            )
+        )
+        const todos = todoSnap.docs.map(todoDoc => ({
+            id: todoDoc.id,
+            ...todoDoc.data(),
+            subTodos: []
+        }))
+        for (const todo of todos) {
+            const subTodosSnap = await getDocs(
+                query(
+                    collection(db, 'houseTemplates', 'default-house', 'todos', todo.id, 'subTodos'),
+                    orderBy('order')
+                )
+            )
+            todo.subTodos = subTodosSnap.docs.map(subDoc => ({
+                id: subDoc.id,
+                ...subDoc.data()
+            }))
+        }
+        return todos
+    }
+    return { fetchTodos }
+}
+</code></pre>
+        </article>
+    </section>
 
-<header>
-    
 
-    <h2>refactoring</h2>
-</header>
 
-<article>
-    <h1>Refaktoreringsovervejelser</h1>
-</article>
-
-</section>
 
     
     

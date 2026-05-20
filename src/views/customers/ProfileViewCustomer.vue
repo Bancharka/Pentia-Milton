@@ -1,3 +1,14 @@
+/**
+ * @module ProfileViewCustomer
+ * @description Viser kundens profilside med profilhoved og en navigationsmenu.
+ * Henter husdata ved mount for at vise husejere og byggeleder i HouseModal.
+ * Menupunkter kan enten navigere til en underside eller åbne en modal.
+ *
+ * @requires components/ProfileHeader - viser brugerens avatar, navn og email
+ * @requires components/modals/HouseModal - viser husejere og byggeleder
+ * @requires components/HeaderBack - tilbage-navigationsheader
+ * @requires components/BottomNav - bundnavigationsbar
+ */
 <script setup>
 import { ref, onMounted } from 'vue'
 import { collection, getDocs, query, where, doc, getDoc } from 'firebase/firestore'
@@ -9,7 +20,14 @@ import ProfileHeader from '@/components/ProfileHeader.vue'
 const isHouseModalOpen = ref(false)
 const owners = ref([])
 const manager = ref({})
-// Henter husdata og tilhørende ejer- og byggelederinfo fra Firestore baseret på kundens uid
+/**
+ * @function loadHouseData
+ * @async
+ * @description Henter husdata for den indloggede kunde baseret på cuid.
+ * Henter kundens navn og profilbillede fra Firestore og email fra Firebase Auth.
+ * Henter også byggelederens navn og profilbillede fra Firestore.
+ * @returns {Promise<void>}
+ */
 const loadHouseData = async () => {
     const uid = auth.currentUser.uid
     const houseQuery = query(
@@ -47,7 +65,16 @@ const menuItems = [
     { label: 'Privat indstillinger', route: '/privacy', icon: 'key' },
     { label: 'Hjælp', route: '/help', icon: 'help' },
 ]
-// Åbner husmodalen når 'Mit hus' menupunktet klikkes
+/**
+ * @function handleItemClick
+ * @description Håndterer klik på menupunkter. Åbner HouseModal hvis
+ * menupunktet har action sat til 'modal', ellers håndteres navigation af router-link.
+ * @param {Object} item - Det klikkede menupunkt
+ * @param {string} item.label - Menupunktets visningstekst
+ * @param {string} item.icon - Ikonidentifikator
+ * @param {string} [item.route] - Rutesti til navigation
+ * @param {string} [item.action] - Handling der skal udføres ved klik
+ */
 const handleItemClick = (item) => {
     if (item.action === 'modal') {
         isHouseModalOpen.value = true

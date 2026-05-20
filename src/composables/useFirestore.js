@@ -1,21 +1,21 @@
 /**
  * @module useFirestore
- * @description Composable for fetching todo templates from Firestore.
- * Retrieves the default house template including all todos and their nested subTodos,
- * ordered by their defined order field.
+ * @description Composable til at hente todo-skabeloner fra Firestore.
+ * Henter standard-husskabelonen inklusiv alle todos og deres nestede subTodos,
+ * sorteret efter det definerede order-felt.
  * @returns {{ fetchTodos: Function }}
  */
 import { db } from '@/firebase'
 import { collection, getDocs, query, orderBy } from 'firebase/firestore'
 export function useFirestore() {
     /**
- * @function fetchTodos
- * @description Fetches all todos from the default house template in Firestore,
- * including each todo's nested subTodos collection. Both todos and subTodos
- * are ordered by their order field.
- * @returns {Promise<Array<{id: string, subTodos: Array<{id: string}>}>>} 
- * Array of todo objects with nested subTodos
- */
+     * @function fetchTodos
+     * @description Henter alle todos fra standard-husskabelonen i Firestore,
+     * inklusiv hver todos nestede subTodos-collection. Både todos og subTodos
+     * sorteres efter deres order-felt.
+     * @returns {Promise<Array<{id: string, subTodos: Array<{id: string}>}>>}
+     * Array af todo-objekter med nestede subTodos
+     */
     async function fetchTodos() {
         const todoSnap = await getDocs(
             query(

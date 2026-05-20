@@ -1,15 +1,15 @@
 /**
- * @component SubTodoListView
- * @description Displays a searchable list of subTodos for a specific todo,
- * identified by houseId and todoIndex from the route parameters.
- * Allows the developer to toggle individual subTodo completion status,
- * which is persisted to Firestore via useHouses.
+ * @module SubTodoListView
+ * @description Viser en søgbar liste af subTodos for et specifikt todo,
+ * identificeret via houseId og todoIndex fra ruteparametrene.
+ * Giver byggeleder mulighed for at toggle individuelle subTodos' fuldførelsesstatus,
+ * som gemmes i Firestore via useHouses.
  *
- * @requires stores/houseStore - loads house and todo data
- * @requires composables/useHouses - provides updateSubTodoDoneById
- * @requires utils/todoHelpers - getSubTodos and applyToggle utilities
- * @requires components/TodoCard - renders individual subTodo items with checkbox
- * @requires components/SearchInput - filters the subTodo list by title
+ * @requires stores/houseStore - henter hus- og tododata
+ * @requires composables/useHouses - leverer updateSubTodoDoneById
+ * @requires utils/todoHelpers - getSubTodos og applyToggle hjælpefunktioner
+ * @requires components/TodoCard - renderer individuelle subTodo-elementer med afkrydsningsboks
+ * @requires components/SearchInput - filtrerer subTodo-listen efter titel
  */
 <script setup>
 import { ref, onMounted } from 'vue'
@@ -30,9 +30,9 @@ const searchQuery = ref('')
 const todoTitle = ref('')
 /**
  * @computed filteredList
- * @description Filters the subTodos array by matching the subTodo title
- * against the current search query (case-insensitive).
- * @returns {Array} Filtered array of subTodo objects
+ * @description Filtrerer subTodos-arrayet ved at matche subTodo-titlen
+ * mod den aktuelle søgeforespørgsel (ufølsom over for store/små bogstaver).
+ * @returns {Array} Filtreret array af subTodo-objekter
  */
 const filteredList = computed(() =>
     subTodos.value.filter((sub) =>
@@ -46,9 +46,10 @@ onMounted(async () => {
 })
 /**
  * @function handleCheck
- * @description Toggles the done status of a subTodo, updates local state,
- * and persists the change to Firestore via updateSubTodoDoneById.
- * @param {number} subTodoIndex - Index of the subTodo to toggle
+ * @async
+ * @description Toggler done-status på en subTodo, opdaterer lokal tilstand
+ * og gemmer ændringen i Firestore via updateSubTodoDoneById.
+ * @param {number} subTodoIndex - Indeks for den subTodo der skal togles
  * @returns {Promise<void>}
  */
 async function handleCheck(subTodoIndex) {
