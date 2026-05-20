@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>useHouses.js - Documentation</title>
+    <title>composables/useHouses.js - Documentation</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -29,13 +29,13 @@
 <nav >
     
     
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-useFirestore.html">useFirestore</a><ul class='methods'><li data-type='method'><a href="module-useFirestore.html#~fetchTodos">fetchTodos</a></li></ul></li><li><a href="module-useHouses.html">useHouses</a><ul class='methods'><li data-type='method'><a href="module-useHouses.html#~buildTodosFromTemplate">buildTodosFromTemplate</a></li><li data-type='method'><a href="module-useHouses.html#~createHouseFromTemplate">createHouseFromTemplate</a></li><li data-type='method'><a href="module-useHouses.html#~fetchAllHouses">fetchAllHouses</a></li><li data-type='method'><a href="module-useHouses.html#~fetchDeveloperHouses">fetchDeveloperHouses</a></li><li data-type='method'><a href="module-useHouses.html#~fetchHouseById">fetchHouseById</a></li><li data-type='method'><a href="module-useHouses.html#~fetchUserHouse">fetchUserHouse</a></li><li data-type='method'><a href="module-useHouses.html#~fetchUserHouseTodos">fetchUserHouseTodos</a></li><li data-type='method'><a href="module-useHouses.html#~getCurrentUser">getCurrentUser</a></li><li data-type='method'><a href="module-useHouses.html#~saveHouseToFirestore">saveHouseToFirestore</a></li><li data-type='method'><a href="module-useHouses.html#~updateSubTodoDone">updateSubTodoDone</a></li><li data-type='method'><a href="module-useHouses.html#~updateSubTodoDoneById">updateSubTodoDoneById</a></li><li data-type='method'><a href="module-useHouses.html#~uploadHouseImage">uploadHouseImage</a></li></ul></li><li><a href="module-useUsers.html">useUsers</a><ul class='methods'><li data-type='method'><a href="module-useUsers.html#~fetchUser">fetchUser</a></li></ul></li></ul><h3>Documents</h3><ul><li><a href="tutorial-branchingstrategy.html">branchingstrategy</a></li><li><a href="tutorial-challenges.html">challenges</a></li><li><a href="tutorial-cicd.html">cicd</a></li><li><a href="tutorial-linting.html">linting</a></li><li><a href="tutorial-refactoring.html">refactoring</a></li><li><a href="tutorial-techchoice.html">techchoice</a></li><li><a href="tutorial-teststrategy.html">teststrategy</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-useFirestore.html">useFirestore</a><ul class='methods'><li data-type='method'><a href="module-useFirestore.html#~fetchTodos">fetchTodos</a></li></ul></li><li><a href="module-useHouses.html">useHouses</a><ul class='methods'><li data-type='method'><a href="module-useHouses.html#~buildTodosFromTemplate">buildTodosFromTemplate</a></li><li data-type='method'><a href="module-useHouses.html#~getCurrentUser">getCurrentUser</a></li><li data-type='method'><a href="module-useHouses.html#~saveHouseToFirestore">saveHouseToFirestore</a></li><li data-type='method'><a href="module-useHouses.html#~updateSubTodoDoneById">updateSubTodoDoneById</a></li><li data-type='method'><a href="module-useHouses.html#~uploadHouseImage">uploadHouseImage</a></li></ul></li><li><a href="module-useUsers.html">useUsers</a><ul class='methods'><li data-type='method'><a href="module-useUsers.html#~fetchUser">fetchUser</a></li></ul></li></ul><h3>Documents</h3><ul><li><a href="tutorial-branchingstrategy.html">branchingstrategy</a></li><li><a href="tutorial-challenges.html">challenges</a></li><li><a href="tutorial-cicd.html">cicd</a></li><li><a href="tutorial-linting.html">linting</a></li><li><a href="tutorial-refactoring.html">refactoring</a></li><li><a href="tutorial-techchoice.html">techchoice</a></li><li><a href="tutorial-teststrategy.html">teststrategy</a></li></ul><h3>Global</h3><ul><li><a href="global.html#applyToggle">applyToggle</a></li><li><a href="global.html#toggleDone">toggleDone</a></li></ul>
     
 </nav>
 
 <div id="main">
     
-    <h1 class="page-title">useHouses.js</h1>
+    <h1 class="page-title">composables/useHouses.js</h1>
     
 
     
@@ -47,9 +47,9 @@
         <article>
             <pre class="prettyprint source linenums"><code>/**
  * @module useHouses
- * @description Composable for all house-related Firestore operations.
- * Handles fetching, creating, and updating houses and their todos,
- * as well as uploading house images to Firebase Storage.
+ * @description Composable til alle husrelaterede Firestore-operationer.
+ * Håndterer hentning, oprettelse og opdatering af huse og deres todos,
+ * samt upload af husbilleder til Firebase Storage.
  * @returns {{
  *   fetchUserHouse: Function,
  *   fetchHouseById: Function,
@@ -77,22 +77,17 @@ import {
 import { ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage'
 import { onAuthStateChanged } from 'firebase/auth'
 export function useHouses() {
-    /**
-     * @function getCurrentUser
-     * @description Resolves the currently authenticated Firebase user via a Promise wrapper around onAuthStateChanged.
-     * @returns {Promise&lt;Object|null>} The authenticated Firebase user, or null if not signed in
-     */
     function getCurrentUser() {
         return new Promise((resolve) => {
             onAuthStateChanged(auth, (user) => resolve(user))
         })
     }
     /**
- * @function fetchUserHouse
- * @description Fetches the house associated with the current user.
- * Determines whether the user is a customer (matches on cuid) or a developer (matches on uid).
- * @returns {Promise&lt;{id: string}|null>} House object with Firestore id, or null if not found
+ * @function getCurrentUser
+ * @description Returnerer den aktuelt indloggede Firebase-bruger via et Promise der wrapper onAuthStateChanged.
+ * @returns {Promise&lt;Object|null>} Den indloggede Firebase-bruger, eller null hvis ikke logget ind
  */
+
     async function fetchUserHouse() {
         const user = await getCurrentUser()
         if (!user) return null
@@ -108,54 +103,40 @@ export function useHouses() {
         if (snap.empty) return null
         return { id: snap.docs[0].id, ...snap.docs[0].data() }
     }
-    /**
- * @function fetchHouseById
- * @description Fetches a single house document by its Firestore document ID.
- * @param {string} houseId - The Firestore document ID of the house
- * @returns {Promise&lt;{id: string}|null>} House object or null if not found
- */
     async function fetchHouseById(houseId) {
         const snap = await getDoc(doc(db, 'houses', houseId))
         if (!snap.exists()) return null
         return { id: snap.id, ...snap.data() }
     }
-    /**
- * @function fetchAllHouses
- * @description Fetches all house documents from the Firestore houses collection.
- * @returns {Promise&lt;Array&lt;{id: string}>>} Array of all house objects
- */
+
     async function fetchAllHouses() {
         const snap = await getDocs(collection(db, 'houses'))
         return snap.docs.map(d => ({ id: d.id, ...d.data() }))
     }
-    /**
- * @function fetchUserHouseTodos
- * @description Fetches the todos array from the current user's associated house.
- * @returns {Promise&lt;Array>} Array of todos, or empty array if no house is found
- */
+
     async function fetchUserHouseTodos() {
         const house = await fetchUserHouse()
         if (!house) return []
         return house.todos ?? []
     }
     /**
- * @function uploadHouseImage
- * @description Uploads a house image to Firebase Storage under `houses/{registration}_{filename}`.
- * @param {string} registration - The house registration number used as part of the storage path
- * @param {File} image - The image file to upload
- * @returns {Promise&lt;string>} The public download URL of the uploaded image
- */
+     * @function uploadHouseImage
+     * @description Uploader et husbillede til Firebase Storage under `houses/{registrering}_{filnavn}`.
+     * @param {string} registration - Husets registreringsnummer, bruges som del af storage-stien
+     * @param {File} image - Billedfilen der skal uploades
+     * @returns {Promise&lt;string>} Den offentlige download-URL for det uploadede billede
+     */
     async function uploadHouseImage(registration, image) {
         const imageRef = storageRef(storage, `houses/${registration}_${image.name}`)
         await uploadBytes(imageRef, image)
         return await getDownloadURL(imageRef)
     }
     /**
- * @function buildTodosFromTemplate
- * @description Builds a todos array from the default house template in Firestore,
- * including nested subTodos. All todos and subTodos are initialized with done: false.
- * @returns {Promise&lt;Array&lt;{title: string, order: number, done: boolean, subTodos: Array}>>}
- */
+     * @function buildTodosFromTemplate
+     * @description Bygger et todos-array fra standard-husskabelonen i Firestore,
+     * inklusiv nestede subTodos. Alle todos og subTodos initialiseres med done: false.
+     * @returns {Promise&lt;Array&lt;{title: string, order: number, done: boolean, subTodos: Array}>>}
+     */
     async function buildTodosFromTemplate() {
         const templateTodos = await getDocs(
             query(
@@ -183,15 +164,15 @@ export function useHouses() {
     }
     /**
      * @function saveHouseToFirestore
-     * @description Saves a new house document to Firestore with the provided data.
-     * @param {Object} user - The authenticated Firebase user (uid is used as the developer reference)
+     * @description Gemmer et nyt hus-dokument i Firestore med de angivne data.
+     * @param {Object} user - Den indloggede Firebase-bruger (uid bruges som byggelederreference)
      * @param {string} address
      * @param {string} city
      * @param {string} postalCode
      * @param {string} registration
-     * @param {string} imageUrl - Public URL of the uploaded house image
-     * @param {Array} todos - Pre-built todos array from the template
-     * @returns {Promise&lt;string>} The new Firestore document ID
+     * @param {string} imageUrl - Offentlig URL for det uploadede husbillede
+     * @param {Array} todos - Færdigbygget todos-array fra skabelonen
+     * @returns {Promise&lt;string>} Det nye Firestore dokument-id
      */
     async function saveHouseToFirestore(user, address, city, postalCode, registration, imageUrl, todos) {
         const houseRef = await addDoc(collection(db, 'houses'), {
@@ -206,33 +187,14 @@ export function useHouses() {
         })
         return houseRef.id
     }
-    /**
- * @function createHouseFromTemplate
- * @description Orchestrates the full house creation flow: uploads the image,
- * builds todos from the default template, and saves the house to Firestore.
- * @param {string} address
- * @param {string} city
- * @param {string} postalCode
- * @param {string} registration
- * @param {File} image
- * @returns {Promise&lt;string>} The new house's Firestore document ID
- */
+
     async function createHouseFromTemplate(address, city, postalCode, registration, image) {
         const user = await getCurrentUser()
         const imageUrl = await uploadHouseImage(registration, image)
         const todos = await buildTodosFromTemplate()
         return await saveHouseToFirestore(user, address, city, postalCode, registration, imageUrl, todos)
     }
-    /**
- * @function updateSubTodoDone
- * @description Updates a subTodo's done status for the current user's house.
- * Also updates the parent todo's done status if all subTodos are completed.
- * Intended for use in the customer view.
- * @param {number} todoIndex - Index of the parent todo
- * @param {number} subTodoIndex - Index of the subTodo to update
- * @param {boolean} done - The new done status
- * @returns {Promise&lt;void>}
- */
+
     async function updateSubTodoDone(todoIndex, subTodoIndex, done) {
         const house = await fetchUserHouse()
         if (!house) return
@@ -244,16 +206,16 @@ export function useHouses() {
         await updateDoc(houseRef, { todos })
     }
     /**
- * @function updateSubTodoDoneById
- * @description Updates a subTodo's done status for a specific house by ID.
- * Also updates the parent todo's done status if all subTodos are completed.
- * Intended for use in the developer view.
- * @param {string} houseId - Firestore document ID of the house
- * @param {number} todoIndex - Index of the parent todo
- * @param {number} subTodoIndex - Index of the subTodo to update
- * @param {boolean} done - The new done status
- * @returns {Promise&lt;void>}
- */
+     * @function updateSubTodoDoneById
+     * @description Opdaterer en subTodos done-status for et specifikt hus via id.
+     * Opdaterer også forældreobjektets done-status hvis alle subTodos er fuldført.
+     * Beregnet til brug i byggeledervisningen.
+     * @param {string} houseId - Firestore dokument-id for huset
+     * @param {number} todoIndex - Indeks for den overordnede todo
+     * @param {number} subTodoIndex - Indeks for den subTodo der skal opdateres
+     * @param {boolean} done - Den nye done-status
+     * @returns {Promise&lt;void>}
+     */
     async function updateSubTodoDoneById(houseId, todoIndex, subTodoIndex, done) {
         const house = await fetchHouseById(houseId)
         if (!house) return
@@ -264,12 +226,7 @@ export function useHouses() {
         const houseRef = doc(db, 'houses', houseId)
         await updateDoc(houseRef, { todos })
     }
-    /**
- * @function fetchDeveloperHouses
- * @description Fetches all houses where the uid matches the current authenticated user.
- * Used to list all houses belonging to a developer.
- * @returns {Promise&lt;Array&lt;{id: string}>>} Array of house objects
- */
+
     async function fetchDeveloperHouses() {
         const user = await getCurrentUser()
         if (!user) return []
@@ -303,7 +260,7 @@ export function useHouses() {
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Wed May 20 2026 10:06:05 GMT+0200 (Centraleuropæisk sommertid) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Wed May 20 2026 11:40:32 GMT+0000 (Coordinated Universal Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>
