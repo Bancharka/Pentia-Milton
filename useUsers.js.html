@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>Documents:  - Documentation</title>
+    <title>useUsers.js - Documentation</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -35,34 +35,41 @@
 
 <div id="main">
     
-    <h1 class="page-title">Documents: </h1>
+    <h1 class="page-title">useUsers.js</h1>
     
 
+    
+
+
+
+    
     <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @module useUsers
+ * @description Composable for fetching user data from Firestore.
+ * @returns {{ fetchUser: Function }}
+ */
+import { db } from '@/firebase'
+import { doc, getDoc } from 'firebase/firestore'
+/**
+ * @function fetchUser
+ * @description Fetches a user document from Firestore by their UID.
+ * @param {string} uid - The Firebase Auth UID of the user
+ * @returns {Promise&lt;Object|undefined>} The user's Firestore document data, or undefined if not found
+ */
+export function useUsers() {
+    async function fetchUser(uid) {
+        const userDoc = await getDoc(doc(db, 'users', uid))
+        return userDoc.data()
+    }
+    return { fetchUser }
+}</code></pre>
+        </article>
+    </section>
 
-<header>
-    
 
-    <h2>branchingstrategy</h2>
-</header>
 
-<article>
-    <h1>Branching strategi</h1>
-<h2>Trunk based development</h2>
-<p>I projektet er der anvendt en branching strategi der tager udgangspunkt i principperne fra trunk-based development.</p>
-<p>Hver udvikler har haft sin egen branch at arbejde ud fra, hvor features og komponenter er blevet uddelt internt i gruppen. Der er blevet merget til main ofte, for at undgå konflikter og for at sikre at kodebasen altid er stabil.
-Når en udvikler har merget til main, merger de main tilbage i deres egen branch, for at sikre at alle udviklere arbejder på den nyeste version af kodebasen.</p>
-<p>Denne strategi adskiller sig fra andre branching modeller, såsom GitHub Flow, ved at features ikke nødvendigvis først færdiggøres fuldt i en isoleret branch, før de merges. I stedet prioriteres hyppige merges til main, hvilket understøtter en mere kontinuerlig integration og reducerer risikoen for merge-konflikter.</p>
-<hr>
-<h2>Ideel trunk based development</h2>
-<p>Hvis projektet skulle have fulgt en helt korrekt implementering af trunk-based branching strategi, ville main branching være den eneste langt levende branch i udviklingen.
-Al udvikling ville ske i kortlivede branches, typisk kaldet feature branches, og ikke vores navne som i det nuværende projekt.
-Disse kortlevende branches ville indeholde små inkrementelle ændringer, frem for flere features og større funktioner.
-Ændringer ville merges til main gennem meget hyppige merges, og derefter ville branching blive slettet og erstattet af en ny til den næste mindre feature eller ændring.
-Så helt overordnet ville vi have haft mange flere branches, navngivet efter features og slette dem løbende, og oftere merge ind i main.</p>
-</article>
-
-</section>
 
     
     
