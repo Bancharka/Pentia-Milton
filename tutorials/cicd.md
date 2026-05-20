@@ -1,6 +1,6 @@
 # CI/CD Pipeline
 
-Projektets CI/CD pipeline er implementeret via Github Actions. Der er 3 separate workflows.
+Projektets CI/CD pipeline er implementeret via Github Actions. Der er 4 separate workflows.
 Pipeline strukturen er konfigureret til at køre automatisk ved push og pull afhængigt af workflowets formål.
 
 ---
@@ -74,7 +74,7 @@ Her ses den tekniske pipeline, der sikrer at kun interne pull requests fra samme
 
 ---
 
-### Dokumentations Workflow — Continuous Deployment
+## Dokumentations Workflow — Continuous Deployment
 
 Dokumentations deployment er konfigureret i `.github/workflows/docs.yml` og eksekveres ved push til main.
 
@@ -112,6 +112,89 @@ jobs:
 Dette workflow deployer den genererede dokumentation til Github Pages, hvilket sikrer automatisk opdatering af dokumentationen ved ændringer i kodebasen.
 
 ---
+## Testing workflow - Continuos Integration
+
+Testing workflowet eksekveres ved både push til main og pull requests mod main.
+
+Workflowet er defineret i `.github/workflows/tests.yml`
+
+```yml 
+name: Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run unit tests
+        run: npm run test:run
+
+  e2e-tests:
+    runs-on: ubuntu-latest
+    needs: unit-tests
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Cypress
+        run: npx cypress install
+
+      - name: Build app
+        run: npm run build
+        env:
+          VITE_FIREBASE_API_KEY: ${{ secrets.VITE_FIREBASE_API_KEY }}
+          VITE_FIREBASE_AUTH_DOMAIN: ${{ secrets.VITE_FIREBASE_AUTH_DOMAIN }}
+          VITE_FIREBASE_PROJECT_ID: ${{ secrets.VITE_FIREBASE_PROJECT_ID }}
+          VITE_FIREBASE_STORAGE_BUCKET: ${{ secrets.VITE_FIREBASE_STORAGE_BUCKET }}
+          VITE_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.VITE_FIREBASE_MESSAGING_SENDER_ID }}
+          VITE_FIREBASE_APP_ID: ${{ secrets.VITE_FIREBASE_APP_ID }}
+          VITE_CYPRESS_LOGIN_EMAIL: ${{ secrets.VITE_CYPRESS_LOGIN_EMAIL }}
+          VITE_CYPRESS_LOGIN_PASSWORD: ${{ secrets.VITE_CYPRESS_LOGIN_PASSWORD }}
+
+      - name: Run Cypress tests
+        run: npm run test:e2e
+        env:
+          CYPRESS_BASE_URL: http://localhost:4173
+          CYPRESS_TEST_CUSTOMER_EMAIL: ${{ secrets.TEST_CUSTOMER_EMAIL }}
+          CYPRESS_TEST_DEV_EMAIL: ${{ secrets.TEST_DEV_EMAIL }}
+          CYPRESS_TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
+          CYPRESS_FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
+
+      - name: Upload screenshots on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+```
+Workflowet består af 2 jobs, unit testing og end to end testing
+      
+
+---
 
 ### Samlet Pipeline Struktur
 
@@ -120,3 +203,4 @@ Dette workflow deployer den genererede dokumentation til Github Pages, hvilket s
 | Lint             | Push + pull request | Statisk kodeanalyse         |
 | Firebase Preview | Pull request       | Build + preview deployment  |
 | Docs             | Push til main      | Dokumentation deployment    |
+| Test             | Push + pull request | Unit og E2E testing         |
