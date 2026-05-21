@@ -29,7 +29,7 @@
 <nav >
     
     
-    <h2><a href="index.html">Home</a></h2><h3>Documents</h3><ul><li><a href="tutorial-branchingstrategy.html">branchingstrategy</a></li><li><a href="tutorial-cicd.html">cicd</a></li><li><a href="tutorial-linting.html">linting</a></li><li><a href="tutorial-refactoring.html">refactoring</a></li><li><a href="tutorial-techchoice.html">techchoice</a></li><li><a href="tutorial-teststrategy.html">teststrategy</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-useFirestore.html">useFirestore</a><ul class='methods'><li data-type='method'><a href="module-useFirestore.html#~fetchTodos">fetchTodos</a></li></ul></li><li><a href="module-useHouses.html">useHouses</a><ul class='methods'><li data-type='method'><a href="module-useHouses.html#~buildTodosFromTemplate">buildTodosFromTemplate</a></li><li data-type='method'><a href="module-useHouses.html#~getCurrentUser">getCurrentUser</a></li><li data-type='method'><a href="module-useHouses.html#~saveHouseToFirestore">saveHouseToFirestore</a></li><li data-type='method'><a href="module-useHouses.html#~updateSubTodoDoneById">updateSubTodoDoneById</a></li><li data-type='method'><a href="module-useHouses.html#~uploadHouseImage">uploadHouseImage</a></li></ul></li><li><a href="module-useUsers.html">useUsers</a><ul class='methods'><li data-type='method'><a href="module-useUsers.html#~fetchUser">fetchUser</a></li></ul></li></ul><h3>Documents</h3><ul><li><a href="tutorial-branchingstrategy.html">branchingstrategy</a></li><li><a href="tutorial-challenges.html">challenges</a></li><li><a href="tutorial-cicd.html">cicd</a></li><li><a href="tutorial-linting.html">linting</a></li><li><a href="tutorial-refactoring.html">refactoring</a></li><li><a href="tutorial-techchoice.html">techchoice</a></li><li><a href="tutorial-teststrategy.html">teststrategy</a></li></ul><h3>Global</h3><ul><li><a href="global.html#applyToggle">applyToggle</a></li><li><a href="global.html#toggleDone">toggleDone</a></li></ul>
     
 </nav>
 
@@ -48,7 +48,7 @@
 
 <article>
     <h1>CI/CD Pipeline</h1>
-<p>Projektets CI/CD pipeline er implementeret via Github Actions. Der er 3 separate workflows.
+<p>Projektets CI/CD pipeline er implementeret via Github Actions. Der er 4 separate workflows.
 Pipeline strukturen er konfigureret til at køre automatisk ved push og pull afhængigt af workflowets formål.</p>
 <hr>
 <h2>Lint Workflow — Continuous Integration</h2>
@@ -104,7 +104,7 @@ jobs:
 </code></pre>
 <p>Her ses den tekniske pipeline, der sikrer at kun interne pull requests fra samme repository kan trigge deployment, efterfulgt af <code>npm run build</code>, der deployer en preview version til Firebase Hosting, der muliggør test af features i et isoleret miljø, før merge til production branch.</p>
 <hr>
-<h3>Dokumentations Workflow — Continuous Deployment</h3>
+<h2>Dokumentations Workflow — Continuous Deployment</h2>
 <p>Dokumentations deployment er konfigureret i <code>.github/workflows/docs.yml</code> og eksekveres ved push til main.</p>
 <pre class="prettyprint source lang-yml"><code>name: Publish Docs
 
@@ -137,6 +137,83 @@ jobs:
 </code></pre>
 <p>Dette workflow deployer den genererede dokumentation til Github Pages, hvilket sikrer automatisk opdatering af dokumentationen ved ændringer i kodebasen.</p>
 <hr>
+<h2>Testing workflow - Continuos Integration</h2>
+<p>Testing workflowet eksekveres ved både push til main og pull requests mod main.</p>
+<p>Workflowet er defineret i <code>.github/workflows/tests.yml</code></p>
+<pre class="prettyprint source lang-yml"><code>name: Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run unit tests
+        run: npm run test:run
+
+  e2e-tests:
+    runs-on: ubuntu-latest
+    needs: unit-tests
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Cypress
+        run: npx cypress install
+
+      - name: Build app
+        run: npm run build
+        env:
+          VITE_FIREBASE_API_KEY: ${{ secrets.VITE_FIREBASE_API_KEY }}
+          VITE_FIREBASE_AUTH_DOMAIN: ${{ secrets.VITE_FIREBASE_AUTH_DOMAIN }}
+          VITE_FIREBASE_PROJECT_ID: ${{ secrets.VITE_FIREBASE_PROJECT_ID }}
+          VITE_FIREBASE_STORAGE_BUCKET: ${{ secrets.VITE_FIREBASE_STORAGE_BUCKET }}
+          VITE_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.VITE_FIREBASE_MESSAGING_SENDER_ID }}
+          VITE_FIREBASE_APP_ID: ${{ secrets.VITE_FIREBASE_APP_ID }}
+          VITE_CYPRESS_LOGIN_EMAIL: ${{ secrets.VITE_CYPRESS_LOGIN_EMAIL }}
+          VITE_CYPRESS_LOGIN_PASSWORD: ${{ secrets.VITE_CYPRESS_LOGIN_PASSWORD }}
+
+      - name: Run Cypress tests
+        run: npm run test:e2e
+        env:
+          CYPRESS_BASE_URL: http://localhost:4173
+          CYPRESS_TEST_CUSTOMER_EMAIL: ${{ secrets.TEST_CUSTOMER_EMAIL }}
+          CYPRESS_TEST_DEV_EMAIL: ${{ secrets.TEST_DEV_EMAIL }}
+          CYPRESS_TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
+          CYPRESS_FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
+
+      - name: Upload screenshots on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+</code></pre>
+<p>Workflowet består af 2 jobs, unit testing og end to end testing</p>
+<hr>
 <h3>Samlet Pipeline Struktur</h3>
 <table>
 <thead>
@@ -162,6 +239,11 @@ jobs:
 <td>Push til main</td>
 <td>Dokumentation deployment</td>
 </tr>
+<tr>
+<td>Test</td>
+<td>Push + pull request</td>
+<td>Unit og E2E testing</td>
+</tr>
 </tbody>
 </table>
 </article>
@@ -175,7 +257,7 @@ jobs:
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Tue May 19 2026 12:53:53 GMT+0200 (Centraleuropæisk sommertid) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Wed May 20 2026 13:37:51 GMT+0200 (Centraleuropæisk sommertid) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>

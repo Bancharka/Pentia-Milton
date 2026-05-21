@@ -11,10 +11,11 @@ const props = defineProps({
 const emit = defineEmits(['close', 'updated', 'deleted'])
 const visibleToByggherre = ref(false)
 const isLoading = ref(false)
-// Sync toggle when document changes
+// Synkroniserer toggle-værdien når det valgte dokument ændrer sig
 watch(() => props.document, (doc) => {
     if (doc) visibleToByggherre.value = doc.visibleToByggherre
 })
+// Opdaterer dokumentets synlighed i Firestore
 const handleUpdate = async () => {
     const houseId = houseStore.house?.id
     if (!houseId || !props.document) return
@@ -30,6 +31,7 @@ const handleUpdate = async () => {
         isLoading.value = false
     }
 }
+// Sletter dokumentet fra Firestore
 const handleDelete = async () => {
     const houseId = houseStore.house?.id
     if (!houseId || !props.document) return
@@ -45,6 +47,7 @@ const handleDelete = async () => {
         isLoading.value = false
     }
 }
+// Lukker modalen uden at gemme ændringer
 const handleClose = () => emit('close')
 </script>
 <template>

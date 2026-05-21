@@ -1,3 +1,14 @@
+/**
+ * @module DocumentsView
+ * @description Viser et søgbart gitter af dokumenter for det aktuelle hus.
+ * Giver byggeleder mulighed for at åbne dokumenter i en ny fane, tilføje nye dokumenter
+ * via DocumentModal, samt redigere eller slette eksisterende via DocumentEditModal.
+ *
+ * @requires stores/documentsStore - henter og leverer dokumentlisten
+ * @requires components/modals/DocumentModal - modal til upload af nye dokumenter
+ * @requires components/modals/DocumentEditModal - modal til redigering eller sletning af dokumenter
+ * @requires components/SearchInput - filtrerer dokumentlisten efter titel
+ */
 <script setup>
 import { ref, onMounted, computed } from 'vue'
 import HeaderBack from '@/components/HeaderBack.vue'
@@ -11,6 +22,12 @@ const isModalOpen = ref(false)
 const isEditModalOpen = ref(false)
 const selectedDoc = ref(null)
 const searchQuery = ref('')
+/**
+ * @computed filteredList
+ * @description Filtrerer dokumentlisten ved at matche dokumenttitlen
+ * mod den aktuelle søgeforespørgsel (ufølsom over for store/små bogstaver).
+ * @returns {Array} Filtreret array af dokumentobjekter
+ */
 const filteredList = computed(() =>
     documentsStore.documents.filter((doc) =>
         doc.title.toLowerCase().includes(searchQuery.value.toLowerCase())
@@ -19,6 +36,15 @@ const filteredList = computed(() =>
 const openDocument = (url) => {
     window.open(url, '_blank')
 }
+/**
+ * @function openEditModal
+ * @description Sætter det valgte dokument og åbner redigeringsmodalen.
+ * @param {Object} doc - Det dokumentobjekt der skal redigeres
+ * @param {string} doc.id - Firestore dokument-id
+ * @param {string} doc.title - Dokumentets visningstitel
+ * @param {string} doc.url - Offentlig download-URL
+ * @param {string} doc.size - Menneskelig-læsbar filstørrelse
+ */
 const openEditModal = (doc) => {
     selectedDoc.value = doc
     isEditModalOpen.value = true

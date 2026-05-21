@@ -20,6 +20,13 @@ onMounted(() => {
         }
     })
 })
+/**
+ * @function handleImageChange
+ * @description 
+ * håndterer skift af billede og opdaterer burgeren i firestore
+ * @param {Event} event - fil input event
+ * @returns {Promise<void>}
+ */
 async function handleImageChange(event) {
     const file = event.target.files[0]
     if (!file) return

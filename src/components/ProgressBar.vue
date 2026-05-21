@@ -1,3 +1,13 @@
+/**
+ * @component ProgressBar
+ * @description Viser den samlede byggefremdrift for et hus baseret på fuldførte subTodos.
+ * Viser en dynamisk skiftende husillustration og en fremskridtslinje der fyldes
+ * proportionalt med hvor mange subTodos der er markeret som færdige.
+ * Viser valgfrit en knap der linker til opgavetjeklisten.
+ *
+ * @requires stores/houseStore - leverer todos og husdata
+ * @requires stores/userStore - afgør om brugeren er kunde eller byggeleder
+ */
 <script setup>
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
@@ -14,6 +24,9 @@ const userStore = useUserStore()
 const houseStore = useHouseStore()
 const route = useRoute()
 const props = defineProps({
+/**
+ * @prop {Boolean} [withButton=false] - Når true, vises en knap der linker til hussets todo-liste
+ */
     withButton: {
         type: Boolean,
         default: false,
@@ -21,11 +34,35 @@ const props = defineProps({
 })
 
 
-// max tager alle subtodos og lægger dem sammen til ét array
+/**
+ * @computed max
+ * @description Flader alle subTodos fra samtlige todos ud til ét samlet array,
+ * der repræsenterer det samlede antal opgaver.
+ * @returns {Array} Alle subTodos på tværs af alle todos
+ */
 const max = computed(() => houseStore.todos.flatMap((todo) => todo.subTodos))
-const done = computed(() => max.value.filter((todo) => todo.done === true))
-// Regner procentværdien for todos - done/total*100
+
+/**
+ * @computed done
+ * @description Filtrerer det fladede subTodos-array for elementer markeret som færdige.
+ * @returns {Array} Fuldførte subTodos
+ */const done = computed(() => max.value.filter((todo) => todo.done === true))
 const fillPercent = computed(() => (done.value.length / max.value.length) * 100)
+
+/**
+ * @computed fillPercent
+ * @description Beregner fremskridtsprocenten som (færdige / total) * 100.
+ * @returns {number} En procentværdi mellem 0 og 100
+ */
+/**
+ * @computed dynamicHouse
+ * @description Returnerer en husillustration baseret på den aktuelle fremskridtsprocent.
+ * - 0–25%: fundament
+ * - 26–50%: vægge
+ * - 51–75%: vægge med tag
+ * - 76–100%: færdigt hus
+ * @returns {string} Sti til det relevante husillustrationsbillede
+ */
 const dynamicHouse = computed(() => {
     if (fillPercent.value <= 25) return houseFoundation
     if (fillPercent.value <= 50) return houseWalls

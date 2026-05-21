@@ -1,3 +1,13 @@
+/**
+ * @component LoginInput
+ * @description Viser en loginformular med email- og adgangskodefelter.
+ * Validerer input, autentificerer via Firebase og omdirigerer baseret på
+ * om den indloggede bruger er en kunde eller byggeleder.
+ * Viser inline valideringsfejl samt fejlbesked ved forkerte loginoplysninger.
+ *
+ * @requires firebase/auth - signInWithEmailAndPassword
+ * @requires stores/userStore - henter brugerdata efter login og tjekker kundestatus
+ */
 <script setup>
 import { reactive, ref } from 'vue'
 import { signInWithEmailAndPassword } from 'firebase/auth'
@@ -25,6 +35,18 @@ function validate() {
     }
     return valid
 }
+/**
+ * @function submitLogin
+ * @async
+ * @description Validerer formularen og forsøger Firebase email/adgangskode-login.
+ * Ved succes hentes brugerstore og brugeren omdirigeres:
+ * - kunder → `/home-customer`
+ * - byggeledere → `/overview`
+ * - ufuldstændige profiler → viser en alert om at kontakte kundeservice
+ *
+ * Ved fejl sættes en fejlbesked hvis email eller adgangskode er forkert.
+ * @returns {Promise<void>}
+ */
 const submitLogin = async () => {
     if (!validate()) return
     try {

@@ -1,3 +1,14 @@
+/**
+ * @module ProfileViewCustomer
+ * @description Viser kundens profilside med profilhoved og en navigationsmenu.
+ * Henter husdata ved mount for at vise husejere og byggeleder i HouseModal.
+ * Menupunkter kan enten navigere til en underside eller åbne en modal.
+ *
+ * @requires components/ProfileHeader - viser brugerens avatar, navn og email
+ * @requires components/modals/HouseModal - viser husejere og byggeleder
+ * @requires components/HeaderBack - tilbage-navigationsheader
+ * @requires components/BottomNav - bundnavigationsbar
+ */
 <script setup>
 import { ref, onMounted } from 'vue'
 import { collection, getDocs, query, where, doc, getDoc } from 'firebase/firestore'
@@ -9,9 +20,16 @@ import ProfileHeader from '@/components/ProfileHeader.vue'
 const isHouseModalOpen = ref(false)
 const owners = ref([])
 const manager = ref({})
+/**
+ * @function loadHouseData
+ * @async
+ * @description Henter husdata for den indloggede kunde baseret på cuid.
+ * Henter kundens navn og profilbillede fra Firestore og email fra Firebase Auth.
+ * Henter også byggelederens navn og profilbillede fra Firestore.
+ * @returns {Promise<void>}
+ */
 const loadHouseData = async () => {
     const uid = auth.currentUser.uid
-    // Find the house where this customer is cuid
     const houseQuery = query(
         collection(db, 'houses'),
         where('cuid', '==', uid)
@@ -19,23 +37,22 @@ const loadHouseData = async () => {
     const houseSnapshot = await getDocs(houseQuery)
     if (houseSnapshot.empty) return
     const house = houseSnapshot.docs[0].data()
-    // Load customer (owner) from users collection using cuid
     const customerDoc = await getDoc(doc(db, 'users', house.cuid))
     if (customerDoc.exists()) {
         const customer = customerDoc.data()
         owners.value = [{
             name: customer.name,
-            email: auth.currentUser.email, // email comes from Auth not Firestore
+            email: auth.currentUser.email, 
             image: customer.profileImage || ''
         }]
     }
-    // Load developer (manager) from users collection using uid
+
     const developerDoc = await getDoc(doc(db, 'users', house.uid))
     if (developerDoc.exists()) {
         const developer = developerDoc.data()
         manager.value = {
             name: developer.name,
-            email: '', // fetch from Auth not possible for other users
+            email: '', 
             image: developer.profileImage || ''
         }
     }
@@ -48,6 +65,16 @@ const menuItems = [
     { label: 'Privat indstillinger', route: '/privacy', icon: 'key' },
     { label: 'Hjælp', route: '/help', icon: 'help' },
 ]
+/**
+ * @function handleItemClick
+ * @description Håndterer klik på menupunkter. Åbner HouseModal hvis
+ * menupunktet har action sat til 'modal', ellers håndteres navigation af router-link.
+ * @param {Object} item - Det klikkede menupunkt
+ * @param {string} item.label - Menupunktets visningstekst
+ * @param {string} item.icon - Ikonidentifikator
+ * @param {string} [item.route] - Rutesti til navigation
+ * @param {string} [item.action] - Handling der skal udføres ved klik
+ */
 const handleItemClick = (item) => {
     if (item.action === 'modal') {
         isHouseModalOpen.value = true

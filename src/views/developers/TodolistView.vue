@@ -1,3 +1,12 @@
+/**
+ * @module TodoListView
+ * @description Viser en søgbar liste af todos for et specifikt hus,
+ * hentet via houseId-ruteparametret. Hvert todo linker til sin subTodo-detaljevisning.
+ *
+ * @requires stores/houseStore - henter husdata og leverer todos-arrayet
+ * @requires components/TodoCard - renderer individuelle todo-elementer
+ * @requires components/SearchInput - filtrerer todolisten efter titel
+ */
 <script setup>
 import { useRoute } from 'vue-router'
 import { ref, onMounted } from 'vue'
@@ -9,6 +18,12 @@ import { useHouseStore } from '@/stores/houseStore'
 import { computed } from 'vue'
 const store = useHouseStore()
 const searchQuery = ref('')
+/**
+ * @computed filteredList
+ * @description Filtrerer storens todos-array ved at matche todo-titlen
+ * mod den aktuelle søgeforespørgsel (ufølsom over for store/små bogstaver).
+ * @returns {Array} Filtreret array af todo-objekter
+ */
 const filteredList = computed(() =>
     store.todos.filter((todo) =>
         todo.title.toLowerCase().includes(searchQuery.value.toLowerCase())
