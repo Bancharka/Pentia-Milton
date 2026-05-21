@@ -61,7 +61,6 @@ SCSS er en udvidelse af CSS med ekstra funktioner.
 | Teknologi | Formål |
 |----------|--------|
 | Firestore | Database til strukturerede data |
-| Realtime Database | Database til realtidsdata |
 
 ---
 
@@ -87,18 +86,6 @@ Firestore er en NoSQL database fra Firebase.
 - Velegnet til strukturerede data  
 - Understøtter forespørgsler  
 - Fleksibel datamodel  
-
----
-
-### Realtime Database
-
-**Hvad er det?**  
-Realtime Database er en database, der opdaterer data live.
-
-**Begrundelse:**
-- Data opdateres i realtid  
-- God til simple og dynamiske data  
-- Let at implementere  
 
 ---
 
